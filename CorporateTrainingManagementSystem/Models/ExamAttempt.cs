@@ -1,0 +1,21 @@
+﻿namespace CorporateTrainingManagementSystem.Models
+{
+    public class ExamAttempt
+    {
+        public int AttemptId { get; set; }
+
+        public string UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
+
+        public int ExamId { get; set; }
+
+        public Exam Exam { get; set; }
+
+        public decimal Score { get; set; }
+
+        public bool IsPassed { get; set; }
+
+        public DateTime AttemptDate { get; set; } = DateTime.Now;
+    }
+}
