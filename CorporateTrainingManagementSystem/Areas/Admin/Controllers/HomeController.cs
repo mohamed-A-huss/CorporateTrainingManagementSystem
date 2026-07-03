@@ -3,7 +3,7 @@
 namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class DepartmentController : Controller
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {
