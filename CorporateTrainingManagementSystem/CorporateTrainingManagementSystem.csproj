@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Identity\Views\" />
     <Folder Include="Areas\Instructor\Controllers\" />
     <Folder Include="Areas\Instructor\Views\" />
