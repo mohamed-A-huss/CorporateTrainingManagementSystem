@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="10.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.9" />
@@ -23,9 +24,8 @@
     <Folder Include="Areas\Trainee\Controllers\" />
     <Folder Include="Areas\Trainee\Views\" />
     <Folder Include="Helpers\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\Implementations\" />
+    <Folder Include="ViewModels\Lesson\" />
+    <Folder Include="ViewModels\Exam\" />
     <Folder Include="wwwroot\certificates\" />
     <Folder Include="wwwroot\uploads\images\" />
     <Folder Include="wwwroot\uploads\pdf\" />

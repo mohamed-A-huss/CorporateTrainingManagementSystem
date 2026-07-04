@@ -2,6 +2,8 @@ using CorporateTrainingManagementSystem.DataAccess;
 using CorporateTrainingManagementSystem.Models;
 using CorporateTrainingManagementSystem.Repositories.Implementations;
 using CorporateTrainingManagementSystem.Repositories.Interfaces;
+using CorporateTrainingManagementSystem.Services.Implementations;
+using CorporateTrainingManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,11 +24,13 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            builder.Services.AddScoped(typeof(IRepository<>),
-                           typeof(Repository<>));
 
-            builder.Services.AddScoped<IUnitOfWork,
-                                       UnitOfWork>();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+
 
 
             var app = builder.Build();
@@ -48,7 +52,7 @@ namespace CorporateTrainingManagementSystem
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Identity}/{controller=Home}/{action=Index}/{id?}")
+                pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();
