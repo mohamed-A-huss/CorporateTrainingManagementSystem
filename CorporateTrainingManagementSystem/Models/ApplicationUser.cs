@@ -23,5 +23,8 @@ namespace CorporateTrainingManagementSystem.Models
         public ICollection<UserBadge> UserBadges { get; set; }
 
         public ICollection<Certificate> Certificates { get; set; }
+        public string? Address { get; internal set; }
+        public string FirstName { get; internal set; }
+        public string LastName { get; internal set; }
     }
 }

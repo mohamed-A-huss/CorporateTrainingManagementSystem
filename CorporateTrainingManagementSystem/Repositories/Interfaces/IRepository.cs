@@ -22,5 +22,6 @@ namespace CorporateTrainingManagementSystem.Repositories.Interfaces
             Expression<Func<T, object>>?[]? includes = null,
             bool tracked = true,
             CancellationToken cancellationToken = default);
+        Task CommitAsync();
     }
 }

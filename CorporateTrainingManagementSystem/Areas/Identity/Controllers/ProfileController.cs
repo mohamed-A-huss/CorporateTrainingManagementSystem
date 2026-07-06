@@ -1,4 +1,5 @@
 ﻿using CorporateTrainingManagementSystem.Models;
+using CorporateTrainingManagementSystem.ViewModels;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

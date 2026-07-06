@@ -1,5 +1,6 @@
 ﻿using CorporateTrainingManagementSystem.Models;
 using CorporateTrainingManagementSystem.Repositories.Interfaces;
+using CorporateTrainingManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -87,7 +88,7 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
 
             //await _signInManger.SignInAsync(user, false); // Automatic login
 
-            await _userManager.AddToRoleAsync(user,"Identity");
+            await _userManager.AddToRoleAsync(user, );
 
             return RedirectToAction(nameof(Login));
         }
