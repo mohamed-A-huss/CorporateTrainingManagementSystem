@@ -1,9 +1,6 @@
 using CorporateTrainingManagementSystem.DataAccess;
-using CorporateTrainingManagementSystem.Models;
 using CorporateTrainingManagementSystem.Repositories.Implementations;
-using CorporateTrainingManagementSystem.Repositories.Interfaces;
 using CorporateTrainingManagementSystem.Services.Implementations;
-using CorporateTrainingManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +27,8 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<IBadgeService, BadgeService>();
+
 
 
 

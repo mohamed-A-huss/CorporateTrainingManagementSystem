@@ -1,0 +1,13 @@
+﻿namespace CorporateTrainingManagementSystem.ViewModels.Badge
+{
+    public class BadgeDetailsVM
+    {
+        public int BadgeId { get; set; }
+
+        public string Name { get; set; } = null!;
+
+        public string? Description { get; set; }
+
+        public int RequiredPoints { get; set; }
+    }
+}

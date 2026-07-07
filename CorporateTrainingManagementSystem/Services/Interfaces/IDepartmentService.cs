@@ -1,12 +1,9 @@
-﻿using CorporateTrainingManagementSystem.Common;
-using CorporateTrainingManagementSystem.Models;
-using CorporateTrainingManagementSystem.ViewModels.Department;
-
+﻿
 namespace CorporateTrainingManagementSystem.Services.Interfaces
 {
     public interface IDepartmentService
     {
-        Task<IEnumerable<DepartmentVM>> GetAllAsync();
+        Task<PaginatedDepartment> GetAllAsync(int page , int pageSize, string? query , CancellationToken cancellationToken );
 
         Task<DepartmentVM?> GetByIdAsync(int id);
 

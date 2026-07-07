@@ -1,0 +1,9 @@
+﻿global using CorporateTrainingManagementSystem.ViewModels.Department;
+global using CorporateTrainingManagementSystem.Common;
+
+global using CorporateTrainingManagementSystem.Models;
+global using CorporateTrainingManagementSystem.Repositories.Interfaces;
+global using CorporateTrainingManagementSystem.Services.Interfaces;
+global using Mapster;
+global using Microsoft.AspNetCore.Mvc;
+global using CorporateTrainingManagementSystem.ViewModels.Badge;

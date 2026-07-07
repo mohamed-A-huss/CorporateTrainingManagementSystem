@@ -1,9 +1,4 @@
-﻿using CorporateTrainingManagementSystem.Services.Interfaces;
-using CorporateTrainingManagementSystem.ViewModels.Department;
-using Mapster;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
+﻿namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class DepartmentController : Controller
@@ -13,26 +8,20 @@ namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
         {
             _departmentService = departmentService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1, int pageSize=5, string? query=null, CancellationToken cancellationToken=default)
         {
-            var departments = await _departmentService.GetAllAsync();
+            var departments = await _departmentService.GetAllAsync(page, pageSize, query, cancellationToken);
 
             return View(departments);
         }
-        public async Task<IActionResult> Details(int id)
-        {
-            var department = await _departmentService.GetByIdAsync(id);
-
-            if (department == null)
-                return NotFound();
-
-            return View(department);
-        }
+        
         public IActionResult Create()
         {
-            return View(new CreateDepartmentVM());
+            return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create(CreateDepartmentVM vm)
         {
             if (!ModelState.IsValid)
@@ -52,6 +41,8 @@ namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Edit(int id)
         {
+            if (id <= 0)
+                return BadRequest();
             var department = await _departmentService.GetByIdAsync(id);
 
             if (department == null)
@@ -62,6 +53,8 @@ namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
             return View(vm);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Edit(EditDepartmentVM vm)
         {
             if (!ModelState.IsValid)
@@ -79,18 +72,13 @@ namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Delete(int id)
         {
-            var department = await _departmentService.GetByIdAsync(id);
-
-            if (department == null)
-                return NotFound();
-
-            return View(department);
-        }
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+            if (id <= 0)
+                return BadRequest();
             var result = await _departmentService.DeleteAsync(id);
 
             if (!result.Success)
@@ -103,6 +91,7 @@ namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
 
     }
 }

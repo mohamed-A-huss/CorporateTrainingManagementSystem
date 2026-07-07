@@ -1,0 +1,45 @@
+﻿@model CreateBadgeVM
+
+<div class="container">
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2 class="display-6">Create new Badge</h2>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-12">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Name</label>
+                    <input class="form-control" placeholder="Name" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="Description" class="form-label">Description</label>
+                    <input class="form-control" placeholder="Description" asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+				<div class="mb-3">
+					<label for="RequiredPoints" class="form-label">Required Points</label>
+					<input type="number" class="form-control" placeholder="Required Points" asp-for="RequiredPoints">
+					<span asp-validation-for="RequiredPoints" class="text-danger"></span>
+                
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a asp-area="Admin"
+                   asp-controller="Badge"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial">
+    }

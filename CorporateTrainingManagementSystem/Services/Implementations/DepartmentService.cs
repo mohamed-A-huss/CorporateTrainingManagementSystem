@@ -1,10 +1,4 @@
-﻿using CorporateTrainingManagementSystem.Common;
-using CorporateTrainingManagementSystem.Models;
-using CorporateTrainingManagementSystem.Repositories.Interfaces;
-using CorporateTrainingManagementSystem.Services.Interfaces;
-using CorporateTrainingManagementSystem.ViewModels.Department;
-using Mapster;
-
+﻿
 namespace CorporateTrainingManagementSystem.Services.Implementations
 {
     public class DepartmentService : IDepartmentService
@@ -16,10 +10,39 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<DepartmentVM>> GetAllAsync()
+        public async Task<PaginatedDepartment> GetAllAsync(int page = 1, int pageSize = 10, string? query = null, CancellationToken cancellationToken = default)
         {
-            var departments = await _unitOfWork.Departments.GetAsync();
-            return departments.Adapt<IEnumerable<DepartmentVM>>();
+            var departments = await _unitOfWork.Departments.GetAsync(cancellationToken: cancellationToken);
+            if (departments.Count() == 0)
+            {
+                return new PaginatedDepartment
+                {
+                    Departments = Enumerable.Empty<DepartmentVM>(),
+                    CurrentPage = page,
+                    TotalPages = 0,
+                    TotalCount = 0
+                };
+            }
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                departments = departments.Where(
+                    e => e.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
+            }
+
+            var totalCount =  departments.Count();
+
+            double totalPages = Math.Ceiling(totalCount / (double)pageSize);
+
+            departments = departments.Skip((page - 1) * pageSize).Take(pageSize);
+            var result =  departments.ToList();
+            return new PaginatedDepartment
+            {
+                Departments = result.Adapt<IEnumerable<DepartmentVM>>(),
+                CurrentPage = page,
+                TotalPages = (int)totalPages,
+                TotalCount = totalCount,
+                Query = query
+            };
         }
 
         public async Task<DepartmentVM?> GetByIdAsync(int id)
@@ -33,10 +56,9 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             if (string.IsNullOrWhiteSpace(vm.Name))
                 return ServiceResult.Failure("Department name is required.");
 
-            var department = new Department
-            {
-                Name = vm.Name.Trim()
-            };
+            var department = vm.Adapt<Department>();
+
+            department.Name = department.Name.Trim();
 
             await _unitOfWork.Departments.CreateAsync(department);
 
@@ -58,7 +80,9 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             if (string.IsNullOrWhiteSpace(vm.Name))
                 return ServiceResult.Failure("Department name is required.");
 
-            department.Name = vm.Name.Trim();
+            vm.Adapt(department);
+
+            department.Name = department.Name.Trim();
 
             _unitOfWork.Departments.Update(department);
 

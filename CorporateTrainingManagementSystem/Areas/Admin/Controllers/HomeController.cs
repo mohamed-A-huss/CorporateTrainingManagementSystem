@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]

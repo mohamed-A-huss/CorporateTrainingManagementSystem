@@ -27,6 +27,7 @@
     <Folder Include="ViewModels\Lesson\" />
     <Folder Include="ViewModels\Exam\" />
     <Folder Include="wwwroot\certificates\" />
+    <Folder Include="wwwroot\lib\Admin\" />
     <Folder Include="wwwroot\uploads\images\" />
     <Folder Include="wwwroot\uploads\pdf\" />
   </ItemGroup>
