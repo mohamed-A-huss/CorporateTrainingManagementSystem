@@ -27,7 +27,10 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
             builder.Services.AddScoped<IBadgeService, BadgeService>();
+            builder.Services.AddScoped<IFileService, FileService>();
+            builder.Services.AddScoped<ILessonService, LessonService>();
 
 
 

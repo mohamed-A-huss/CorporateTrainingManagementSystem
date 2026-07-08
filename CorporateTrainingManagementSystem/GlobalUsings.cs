@@ -7,3 +7,5 @@ global using CorporateTrainingManagementSystem.Services.Interfaces;
 global using Mapster;
 global using Microsoft.AspNetCore.Mvc;
 global using CorporateTrainingManagementSystem.ViewModels.Badge;
+global using CorporateTrainingManagementSystem.ViewModels.Course;
+global using CorporateTrainingManagementSystem.ViewModels.Lesson;
