@@ -6,6 +6,11 @@ global using CorporateTrainingManagementSystem.Repositories.Interfaces;
 global using CorporateTrainingManagementSystem.Services.Interfaces;
 global using Mapster;
 global using Microsoft.AspNetCore.Mvc;
+
 global using CorporateTrainingManagementSystem.ViewModels.Badge;
 global using CorporateTrainingManagementSystem.ViewModels.Course;
 global using CorporateTrainingManagementSystem.ViewModels.Lesson;
+global using CorporateTrainingManagementSystem.ViewModels.Exam;
+global using Microsoft.AspNetCore.Mvc.Rendering;
+global using CorporateTrainingManagementSystem.ViewModels.Question_Choice;
+global using CorporateTrainingManagementSystem.ViewModels.Question;

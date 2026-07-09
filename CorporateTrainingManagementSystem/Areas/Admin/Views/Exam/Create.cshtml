@@ -1,0 +1,119 @@
+﻿@model CreateExamVM
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2 class="display-6">Create New Exam</h2>
+        </div>
+    </div>
+
+    <div class="row my-3">
+
+        <div class="col-12">
+
+            <form method="post">
+
+                <div class="mb-3">
+
+                    <label asp-for="Title" class="form-label"></label>
+
+                    <input asp-for="Title"
+                           class="form-control"
+                           placeholder="Exam Title" />
+
+                    <span asp-validation-for="Title"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="CourseId"
+                           class="form-label"></label>
+
+                    <select asp-for="CourseId"
+                            asp-items="Model.Courses"
+                            class="form-select">
+
+                        <option value="">Select Course</option>
+
+                    </select>
+
+                    <span asp-validation-for="CourseId"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="DurationMinutes"
+                           class="form-label"></label>
+
+                    <input asp-for="DurationMinutes"
+                           class="form-control"
+                           placeholder="Duration in minutes" />
+
+                    <span asp-validation-for="DurationMinutes"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="TotalMarks"
+                           class="form-label"></label>
+
+                    <input asp-for="TotalMarks"
+                           class="form-control"
+                           placeholder="Total Marks" />
+
+                    <span asp-validation-for="TotalMarks"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="PassMark"
+                           class="form-label"></label>
+
+                    <input asp-for="PassMark"
+                           class="form-control"
+                           placeholder="Pass Mark" />
+
+                    <span asp-validation-for="PassMark"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Submit
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

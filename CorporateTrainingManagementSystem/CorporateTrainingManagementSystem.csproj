@@ -24,7 +24,6 @@
     <Folder Include="Areas\Trainee\Controllers\" />
     <Folder Include="Areas\Trainee\Views\" />
     <Folder Include="Helpers\" />
-    <Folder Include="ViewModels\Exam\" />
     <Folder Include="wwwroot\lib\Admin\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

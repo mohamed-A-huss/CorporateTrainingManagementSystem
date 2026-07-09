@@ -1,0 +1,110 @@
+﻿@model ExamVM
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+
+        <div class="col-md-6">
+            <h2 class="display-6">Exam Details</h2>
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    ID
+                </div>
+
+                <div class="col-md-9">
+                    @Model.ExamId
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Title
+                </div>
+
+                <div class="col-md-9">
+                    @Model.Title
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Course
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CourseTitle
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Duration
+                </div>
+
+                <div class="col-md-9">
+                    @Model.DurationMinutes Minutes
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Total Marks
+                </div>
+
+                <div class="col-md-9">
+                    @Model.TotalMarks
+                </div>
+
+            </div>
+
+            <div class="row mb-4">
+
+                <div class="col-md-3 fw-bold">
+                    Pass Mark
+                </div>
+
+                <div class="col-md-9">
+                    @Model.PassMark
+                </div>
+
+            </div>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.ExamId"
+               class="btn btn-warning">
+
+                <i class="bi bi-pencil-square"></i>
+
+                Edit
+
+            </a>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

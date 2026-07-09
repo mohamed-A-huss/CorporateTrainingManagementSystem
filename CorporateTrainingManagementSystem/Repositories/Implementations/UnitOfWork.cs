@@ -1,6 +1,5 @@
 ﻿using CorporateTrainingManagementSystem.DataAccess;
-using CorporateTrainingManagementSystem.Models;
-using CorporateTrainingManagementSystem.Repositories.Interfaces;
+
 
 namespace CorporateTrainingManagementSystem.Repositories.Implementations
 {
