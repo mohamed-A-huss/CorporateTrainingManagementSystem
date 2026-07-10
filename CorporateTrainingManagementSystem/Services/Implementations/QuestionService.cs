@@ -1,8 +1,7 @@
-﻿using CorporateTrainingManagementSystem.ViewModels.Question;
-using CorporateTrainingManagementSystem.ViewModels.Question_Choice;
-
+﻿
 namespace CorporateTrainingManagementSystem.Services.Implementations
 {
+    
     public class QuestionService : IQuestionService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -12,37 +11,37 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
         }
         public async Task<PaginatedQuestion> GetAllAsync(int page = 1,int pageSize = 10,QuestionFilter? filter = null,CancellationToken cancellationToken = default)
         {
+            filter ??= new QuestionFilter();
+
             var questions = await _unitOfWork.Questions.GetAsync(
                 includes: [q => q.Exam, q => q.Exam.Course, q => q.Choices],
                 tracked: false,
                 cancellationToken: cancellationToken);
 
-            if (filter is not null)
+            if (filter.CourseId.HasValue)
             {
-                if (filter.CourseId.HasValue)
-                {
-                    questions = questions.Where(q =>
-                        q.Exam.CourseId == filter.CourseId.Value);
-                }
+                questions = questions.Where(q =>
+                    q.Exam.CourseId == filter.CourseId.Value);
+            }
 
-                if (filter.ExamId.HasValue)
-                {
-                    questions = questions.Where(q =>
-                        q.ExamId == filter.ExamId.Value);
-                }
+            if (filter.ExamId.HasValue)
+            {
+                questions = questions.Where(q =>
+                    q.ExamId == filter.ExamId.Value);
+            }
 
-                if (filter.QuestionType.HasValue)
-                {
-                    questions = questions.Where(q =>
-                        q.QuestionType == filter.QuestionType.Value);
-                }
+            if (filter.QuestionType.HasValue)
+            {
+                questions = questions.Where(q =>
+                    q.QuestionType == filter.QuestionType.Value);
+            }
 
-                if (!string.IsNullOrWhiteSpace(filter.QuestionText))
-                {
-                    questions = questions.Where(q =>
-                        q.QuestionText.Contains(filter.QuestionText.Trim(),
-                            StringComparison.OrdinalIgnoreCase));
-                }
+            if (!string.IsNullOrWhiteSpace(filter.QuestionText))
+            {
+                questions = questions.Where(q =>
+                    q.QuestionText.Contains(
+                        filter.QuestionText.Trim(),
+                        StringComparison.OrdinalIgnoreCase));
             }
 
             var totalCount = questions.Count();
@@ -61,6 +60,36 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                     ChoicesCount = q.Choices.Count
                 });
 
+            // Load Courses
+            filter.Courses = (await _unitOfWork.Courses.GetAsync(
+                tracked: false,
+                cancellationToken: cancellationToken))
+                .OrderBy(c => c.Title)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.CourseId.ToString(),
+                    Text = c.Title
+                });
+
+            // Load Exams
+            if (filter.CourseId.HasValue)
+            {
+                filter.Exams = (await _unitOfWork.Exams.GetAsync(
+                    e => e.CourseId == filter.CourseId.Value,
+                    tracked: false,
+                    cancellationToken: cancellationToken))
+                    .OrderBy(e => e.Title)
+                    .Select(e => new SelectListItem
+                    {
+                        Value = e.ExamId.ToString(),
+                        Text = e.Title
+                    });
+            }
+            else
+            {
+                filter.Exams = Enumerable.Empty<SelectListItem>();
+            }
+
             return new PaginatedQuestion
             {
                 Questions = items,
@@ -70,7 +99,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Filter = filter
             };
         }
-        public async Task<QuestionVM?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<QuestionVM?> GetByIdAsync(int id,CancellationToken cancellationToken = default)
         {
             var question = await _unitOfWork.Questions.GetOneAsync(
                 q => q.QuestionId == id,
@@ -88,7 +117,16 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 QuestionType = question.QuestionType,
                 CourseTitle = question.Exam.Course.Title,
                 ExamTitle = question.Exam.Title,
-                ChoicesCount = question.Choices.Count
+                ChoicesCount = question.Choices.Count,
+
+                Choices = question.Choices
+                    .OrderBy(c => c.ChoiceId)
+                    .Select(c => new ChoiceVM
+                    {
+                        ChoiceText = c.ChoiceText,
+                        IsCorrect = c.IsCorrect
+                    })
+                    .ToList()
             };
         }
         public async Task<CreateQuestionVM> GetCreateVMAsync()

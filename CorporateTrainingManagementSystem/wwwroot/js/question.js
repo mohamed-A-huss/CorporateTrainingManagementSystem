@@ -4,26 +4,43 @@
     const examSelect = document.getElementById("ExamId");
     const typeSelect = document.getElementById("QuestionType");
 
-    const mcqSection = document.getElementById("mcq-section");
-    const tfSection = document.getElementById("truefalse-section");
+    // ==========================
+    // Question Type Toggle
+    // ==========================
 
-    function toggleQuestionType() {
+    if (typeSelect) {
 
-        if (typeSelect.value === "0") {
+        const mcqSection = document.getElementById("mcq-section");
+        const tfSection = document.getElementById("truefalse-section");
 
-            mcqSection.style.display = "block";
-            tfSection.style.display = "none";
+        function toggleQuestionType() {
+
+            if (!mcqSection || !tfSection)
+                return;
+
+            if (typeSelect.value === "0") {
+
+                mcqSection.style.display = "block";
+                tfSection.style.display = "none";
+            }
+            else {
+
+                mcqSection.style.display = "none";
+                tfSection.style.display = "block";
+            }
         }
-        else {
 
-            mcqSection.style.display = "none";
-            tfSection.style.display = "block";
-        }
+        typeSelect.addEventListener("change", toggleQuestionType);
+
+        toggleQuestionType();
     }
 
-    typeSelect.addEventListener("change", toggleQuestionType);
+    // ==========================
+    // Course -> Exams Cascade
+    // ==========================
 
-    toggleQuestionType();
+    if (!courseSelect || !examSelect)
+        return;
 
     courseSelect.addEventListener("change", async function () {
 
@@ -43,14 +60,12 @@
 
         exams.forEach(exam => {
 
-            const option =
-                document.createElement("option");
+            const option = document.createElement("option");
 
             option.value = exam.value;
             option.text = exam.text;
 
             examSelect.appendChild(option);
-
         });
 
     });

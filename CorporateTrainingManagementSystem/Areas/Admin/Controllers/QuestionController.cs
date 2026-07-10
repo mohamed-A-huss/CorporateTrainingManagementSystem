@@ -1,9 +1,8 @@
 ﻿
-
-using CorporateTrainingManagementSystem.ViewModels.Question;
-
 namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+
     public class QuestionController : Controller
     { private readonly IQuestionService _questionService;
         public QuestionController(IQuestionService questionService)

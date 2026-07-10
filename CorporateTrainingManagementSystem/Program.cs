@@ -1,3 +1,4 @@
+using CorporateTrainingManagementSystem.Data.Seed;
 using CorporateTrainingManagementSystem.DataAccess;
 using CorporateTrainingManagementSystem.Repositories.Implementations;
 using CorporateTrainingManagementSystem.Services.Implementations;
@@ -8,7 +9,7 @@ namespace CorporateTrainingManagementSystem
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +39,15 @@ namespace CorporateTrainingManagementSystem
 
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
 
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                await IdentitySeeder.SeedAsync(userManager, roleManager);
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
