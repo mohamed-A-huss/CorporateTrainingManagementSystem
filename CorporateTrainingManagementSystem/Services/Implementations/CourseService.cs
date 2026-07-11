@@ -88,13 +88,24 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             };
         }
 
-        public async Task<CourseVM?> GetByIdAsync(int id)
+        public async Task<CourseVM?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             var course = await _unitOfWork.Courses.GetOneAsync(
                 c => c.CourseId == id,
-                includes: [c => c.Instructor]);
+                includes: [c => c.Instructor],
+                cancellationToken: cancellationToken);
 
-            return course?.Adapt<CourseVM>();
+            if (course is null)
+                return null;
+
+            return new CourseVM
+            {
+                CourseId = course.CourseId,
+                Title = course.Title,
+                Description = course.Description,
+                CreatedAt = course.CreatedAt,
+                InstructorName = course.Instructor?.FullName ?? string.Empty
+            };
         }
 
         public async Task<ServiceResult> CreateAsync(CreateCourseVM vm,CancellationToken cancellationToken = default)

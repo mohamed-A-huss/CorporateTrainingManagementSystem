@@ -14,3 +14,4 @@ global using CorporateTrainingManagementSystem.ViewModels.Exam;
 global using Microsoft.AspNetCore.Mvc.Rendering;
 global using CorporateTrainingManagementSystem.ViewModels.Question_Choice;
 global using CorporateTrainingManagementSystem.ViewModels.Question;
+global using CorporateTrainingManagementSystem.ViewModels.UserManagement;

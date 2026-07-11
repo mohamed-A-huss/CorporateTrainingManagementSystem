@@ -37,6 +37,13 @@ namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateQuestionVM vm,CancellationToken cancellationToken)
         {
+            if (vm.QuestionType == QuestionType.TrueFalse)
+            {
+                for (int i = 0; i < vm.Choices.Count; i++)
+                {
+                    ModelState.Remove($"Choices[{i}].ChoiceText");
+                }
+            }
             if (!ModelState.IsValid)
             {
                 await _questionService.LoadDropdownsAsync(vm);

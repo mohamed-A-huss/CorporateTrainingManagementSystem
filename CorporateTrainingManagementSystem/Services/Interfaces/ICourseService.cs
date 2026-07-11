@@ -10,7 +10,7 @@ namespace CorporateTrainingManagementSystem.Services.Interfaces
             CourseFilter? filter = null,
             CancellationToken cancellationToken = default);
 
-        Task<CourseVM?> GetByIdAsync(int id);
+        Task<CourseVM?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
         Task<CreateCourseVM> GetCreateVMAsync();
 

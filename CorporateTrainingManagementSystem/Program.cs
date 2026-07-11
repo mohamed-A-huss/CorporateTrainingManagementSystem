@@ -34,6 +34,7 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddScoped<ILessonService, LessonService>();
             builder.Services.AddScoped<IExamService, ExamService>();
             builder.Services.AddScoped<IQuestionService, QuestionService>();
+            builder.Services.AddScoped<IUserManagementService, UserManagementService>();
 
 
 

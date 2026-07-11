@@ -1,5 +1,4 @@
 ﻿@model PaginatedCourse
-@using Microsoft.AspNetCore.Mvc.Rendering
 
 @{
     var instructors = ViewBag.Instructors as IEnumerable<SelectListItem>;
@@ -30,13 +29,14 @@
                 <div class="row g-2">
 
                     <div class="col-md-3">
+						<label class="form-label">Course Title</label>
                         <input asp-for="Filter.Title"
                                class="form-control"
                                placeholder="Course Title" />
                     </div>
 
-                    <div class="col-md-3">
-
+                    <div class="col-md-2">
+						<label class="form-label">Select Instructor</label>
                         <select asp-for="Filter.InstructorId"
                                 asp-items="instructors"
                                 class="form-select">
@@ -48,12 +48,14 @@
                     </div>
 
                     <div class="col-md-2">
+						<label class="form-label">Created From</label>
                         <input asp-for="Filter.CreatedFrom"
                                type="date"
                                class="form-control" />
                     </div>
 
                     <div class="col-md-2">
+						<label class="form-label">Created To</label>
                         <input asp-for="Filter.CreatedTo"
                                type="date"
                                class="form-control" />
@@ -159,7 +161,7 @@
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
             <nav aria-label="Page navigation example">
-				@if (Model.TotalPages > 1)
+                @if (Model.TotalCount > 0)
                 {
                     <ul class="pagination justify-content-center">
                         @if (Model.CurrentPage > 1)

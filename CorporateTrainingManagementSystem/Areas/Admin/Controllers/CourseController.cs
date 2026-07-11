@@ -13,7 +13,7 @@ namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index(
             int page = 1,
-            int pageSize = 10,
+            int pageSize = 6,
             CourseFilter? filter = null,
             CancellationToken cancellationToken = default)
         {
