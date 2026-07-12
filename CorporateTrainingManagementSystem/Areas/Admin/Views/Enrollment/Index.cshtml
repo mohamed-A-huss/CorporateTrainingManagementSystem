@@ -1,0 +1,307 @@
+﻿@model PaginatedEnrollment
+
+<div class="container">
+
+    <div class="row my-4">
+
+        <div class="col-md-6">
+
+            <h2 class="display-6">
+
+                Enrollments
+
+            </h2>
+
+        </div>
+
+        <div class="col-md-6 text-end">
+
+            <a asp-action="Create"
+               class="btn btn-primary">
+
+                Enroll Trainee
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <form asp-action="Index"
+          method="get"
+          class="row g-3 mb-4">
+
+        <div class="col-md-3">
+
+            <select asp-for="Filter.TraineeId"
+                    asp-items="Model.Filter!.Trainees"
+                    class="form-select">
+
+                <option value="">
+
+                    All Trainees
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <select asp-for="Filter.CourseId"
+                    asp-items="Model.Filter.Courses"
+                    class="form-select">
+
+                <option value="">
+
+                    All Courses
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <select asp-for="Filter.Status"
+                    asp-items="Html.GetEnumSelectList<EnrollmentStatus>()"
+                    class="form-select">
+
+                <option value="">
+
+                    All Status
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2 d-grid">
+
+            <button class="btn btn-success"
+                    type="submit">
+
+                Search
+
+            </button>
+
+        </div>
+
+        <div class="col-md-2 d-grid">
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+
+                Reset
+
+            </a>
+
+        </div>
+
+    </form>
+
+    <table class="table table-bordered table-hover align-middle">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Trainee</th>
+
+                <th>Course</th>
+
+                <th>Date</th>
+
+                <th>Status</th>
+
+                <th width="180">
+
+                    Actions
+
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @if (Model.Enrollments.Any())
+            {
+                foreach (var item in Model.Enrollments)
+                {
+                    <tr>
+
+                        <td>
+
+                            @item.TraineeName
+
+                        </td>
+
+                        <td>
+
+                            @item.CourseTitle
+
+                        </td>
+
+                        <td>
+
+                            @item.EnrollmentDate.ToString("dd MMM yyyy")
+
+                        </td>
+
+                        <td>
+
+                            @switch (item.Status)
+                            {
+                                case EnrollmentStatus.Active:
+                                    <span class="badge bg-success">
+                                        Active
+                                    </span>
+                                    break;
+
+                                case EnrollmentStatus.Completed:
+                                    <span class="badge bg-primary">
+                                        Completed
+                                    </span>
+                                    break;
+
+                                case EnrollmentStatus.Cancelled:
+                                    <span class="badge bg-danger">
+                                        Cancelled
+                                    </span>
+                                    break;
+                            }
+
+                        </td>
+
+                        <td>
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.EnrollmentId"
+                               class="btn btn-info btn-sm">
+
+                                Details
+
+                            </a>
+
+                            <form asp-action="Delete"
+                                  asp-route-id="@item.EnrollmentId"
+                                  method="post"
+                                  class="d-inline">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="button"
+                                        class="btn btn-danger btn-sm btn-delete">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+
+                    <td colspan="5"
+                        class="text-center">
+
+                        No Enrollments Found.
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    @if (Model.TotalCount > 0)
+    {
+        <nav>
+
+            <ul class="pagination justify-content-center">
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-TraineeId="@Model.Filter.TraineeId"
+                           asp-route-CourseId="@Model.Filter.CourseId"
+                           asp-route-Status="@Model.Filter.Status">
+
+                            @i
+
+                        </a>
+
+                    </li>
+                }
+
+            </ul>
+
+        </nav>
+    }
+
+</div>
+
+@section Scripts
+{
+    <partial name="_NotificationPartial" />
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelectorAll(".btn-delete").forEach(button => {
+
+                button.addEventListener("click", function () {
+
+                    const form = this.closest("form");
+
+                    Swal.fire({
+
+                        title: "Are you sure?",
+
+                        text: "This action cannot be undone!",
+
+                        icon: "warning",
+
+                        showCancelButton: true,
+
+                        confirmButtonColor: "#d33",
+
+                        cancelButtonColor: "#3085d6",
+
+                        confirmButtonText: "Yes, delete it!"
+
+                    }).then((result) => {
+
+                        if (result.isConfirmed)
+                            form.submit();
+
+                    });
+
+                });
+
+            });
+
+        });
+
+    </script>
+}

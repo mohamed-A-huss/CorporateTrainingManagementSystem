@@ -15,3 +15,5 @@ global using Microsoft.AspNetCore.Mvc.Rendering;
 global using CorporateTrainingManagementSystem.ViewModels.Question_Choice;
 global using CorporateTrainingManagementSystem.ViewModels.Question;
 global using CorporateTrainingManagementSystem.ViewModels.UserManagement;
+global using CorporateTrainingManagementSystem.ViewModels.Dashboard;
+global using CorporateTrainingManagementSystem.ViewModels.Enrollment;

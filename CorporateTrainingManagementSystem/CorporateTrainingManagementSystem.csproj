@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Views\" />
     <Folder Include="Areas\Instructor\Controllers\" />
-    <Folder Include="Areas\Instructor\Views\" />
     <Folder Include="Areas\Trainee\Controllers\" />
     <Folder Include="Areas\Trainee\Views\" />
     <Folder Include="Helpers\" />
