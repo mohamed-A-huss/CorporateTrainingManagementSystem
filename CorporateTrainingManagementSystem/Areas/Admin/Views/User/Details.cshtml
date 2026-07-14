@@ -1,0 +1,187 @@
+﻿@model UserDetailsVM
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+
+        <div class="col-md-6">
+
+            <h2 class="display-6">
+
+                User Details
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        Full Name
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@Model.FullName"
+                           readonly />
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        User Name
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@Model.UserName"
+                           readonly />
+
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        Email
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@Model.Email"
+                           readonly />
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        Phone Number
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@Model.PhoneNumber"
+                           readonly />
+
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        Department
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@Model.Department"
+                           readonly />
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        Role
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@Model.Role"
+                           readonly />
+
+                </div>
+
+            </div>
+
+            <div class="row mb-4">
+
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold">
+
+                        Points
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@Model.Points"
+                           readonly />
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold">
+
+                        Email Confirmed
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@(Model.EmailConfirmed ? "Yes" : "No")"
+                           readonly />
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold">
+
+                        Status
+
+                    </label>
+
+                    <input class="form-control"
+                           value="@(Model.IsLocked ? "Locked" : "Active")"
+                           readonly />
+
+                </div>
+
+            </div>
+            @if (Model.Role != SD.ADMIN_ROLE && Model.Role != SD.SUPER_ADMIN_ROLE)
+{
+            <a asp-action="ChangeRole"
+               asp-route-id="@Model.Id"
+               class="btn btn-warning">
+
+                <i class="bi bi-arrow-repeat"></i>
+
+                Change Role
+
+            </a>
+}
+            <a asp-action="Index"
+               class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

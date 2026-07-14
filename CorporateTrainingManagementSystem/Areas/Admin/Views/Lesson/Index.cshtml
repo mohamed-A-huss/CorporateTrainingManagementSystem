@@ -1,0 +1,303 @@
+﻿@model PaginatedLesson
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+
+        <div class="col-md-6">
+            <h2 class="display-6">All Lessons</h2>
+        </div>
+
+        <div class="col-md-6 text-md-end text-start mt-2 mt-md-0">
+            <a asp-area="Admin"
+               asp-controller="Lesson"
+               asp-action="Create"
+               class="btn btn-success">
+
+                <i class="bi bi-plus-circle"></i>
+                Create
+
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Filter -->
+
+    <section class="py-3 filter-bar">
+
+        <div class="container">
+
+            <form method="get">
+
+                <div class="row g-2">
+
+                    <div class="col-md-3">
+                        <input asp-for="Filter.Title"
+                               class="form-control"
+                               placeholder="Lesson Title" />
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <select asp-for="Filter.CourseId"
+                                asp-items="ViewBag.Courses"
+                                class="form-select">
+
+                            <option value="">All Courses</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <button class="btn btn-dark w-100">
+                            Filter
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <div class="row">
+
+        <div class="col-12">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Title</th>
+
+                        <th>Course</th>
+
+                        <th>Video</th>
+
+                        <th>PDF</th>
+
+                        <th width="240">Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.Lessons)
+                    {
+                        <tr>
+
+                            <td>@item.LessonId</td>
+
+                            <td>@item.Title</td>
+
+                            <td>@item.CourseTitle</td>
+
+                            <td>
+
+                                @if (!string.IsNullOrWhiteSpace(item.VideoUrl))
+                                {
+                                    <a href="@item.VideoUrl"
+                                       target="_blank"
+                                       class="btn btn-info btn-sm">
+
+                                        Video
+
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+
+                            </td>
+
+                            <td>
+
+                                @if (!string.IsNullOrWhiteSpace(item.PdfPath))
+                                {
+                                    <a href="@item.PdfPath"
+                                       target="_blank"
+                                       class="btn btn-secondary btn-sm">
+
+                                        PDF
+
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+
+                            </td>
+
+                            <td>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.LessonId"
+                                   class="btn btn-info">
+
+                                    <i class="bi bi-eye"></i>
+
+                                    Details
+
+                                </a>
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.LessonId"
+                                   class="btn btn-warning">
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                    Edit
+
+                                </a>
+
+                                <form asp-action="Delete"
+                                      asp-route-id="@item.LessonId"
+                                      method="post"
+                                      class="d-inline">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="button"
+                                            class="btn btn-danger btn-delete">
+
+                                        <i class="bi bi-trash"></i>
+
+                                        Delete
+
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+
+    <div class="row">
+
+        <div class="col-12 d-flex justify-content-center">
+
+            <nav>
+                @if (Model.TotalCount > 0)
+                {
+
+
+                <ul class="pagination">
+
+                    @if (Model.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+
+                            <a class="page-link"
+                               asp-action="Index"
+                               asp-route-page="@(Model.CurrentPage - 1)">
+
+                                Previous
+
+                            </a>
+
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+
+                            <a class="page-link"
+                               asp-action="Index"
+                               asp-route-page="@i">
+
+                                @i
+
+                            </a>
+
+                        </li>
+                    }
+
+                    @if (Model.CurrentPage < Model.TotalPages)
+                    {
+                        <li class="page-item">
+
+                            <a class="page-link"
+                               asp-action="Index"
+                               asp-route-page="@(Model.CurrentPage + 1)">
+
+                                Next
+
+                            </a>
+
+                        </li>
+                    }
+
+                </ul>
+                }
+                else
+                {
+                    <h2 class="text-center">No lessons found.</h2>
+                }
+
+            </nav>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll(".btn-delete").forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                const form = this.closest("form");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+
+                });
+
+            });
+
+        });
+
+    });
+</script>
+
+@section Scripts {
+    <partial name="_NotificationPartial" />
+}

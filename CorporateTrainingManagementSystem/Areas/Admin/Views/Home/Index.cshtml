@@ -1,1 +1,371 @@
-﻿<h1>Admin Dashboard</h1>
+﻿@model DashboardVM
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>@Model.TotalCourses</h3>
+
+                        <p>Total Courses</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <a asp-area="Admin"
+                       asp-controller="Course"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>@Model.TotalUsers</h3>
+
+                        <p>Total Users</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <a asp-area="Admin"
+                       asp-controller="User"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>@Model.TotalExams</h3>
+
+                        <p>Total Exams</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <a asp-area="Admin"
+                       asp-controller="Exam"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>@Model.TotalQuestions</h3>
+
+                        <p>Total Questions</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+
+                    <a asp-area="Admin"
+                       asp-controller="Question"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>@Model.TotalLessons</h3>
+
+                        <p>Total Lessons</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-chalkboard"></i>
+                    </div>
+                    <a asp-area="Admin"
+                       asp-controller="Lesson"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>@Model.TotalDepartments</h3>
+
+                        <p>Total Departments</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <a asp-area="Admin"
+                       asp-controller="Department"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>@Model.TotalBadges</h3>
+
+                        <p>Total Badges</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <a asp-area="Admin"
+                       asp-controller="Badge"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>@Model.TotalCertificates</h3>
+
+                        <p>Total Certificates</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+
+                    <a asp-area="Admin"
+                       asp-controller="Certificate"
+                       asp-action="Index"
+                       class="small-box-footer">
+
+                        More info <i class="fas fa-arrow-circle-right"></i>
+
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <div class="row">
+
+            <div class="col-lg-6">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+
+                            Latest Users
+
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body p-0">
+
+                        <table class="table table-hover">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Name</th>
+
+                                    <th>Role</th>
+
+                                    <th>Status</th>
+
+                                    <th></th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var user in Model.LatestUsers)
+                                {
+                                    <tr>
+
+                                        <td>
+
+                                            @user.FullName
+
+                                        </td>
+
+                                        <td>
+
+                                            @user.Role
+
+                                        </td>
+
+                                        <td>
+
+                                            @if (user.IsLocked)
+                                            {
+                                                <span class="badge badge-danger">
+
+                                                    Locked
+
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-success">
+
+                                                    Active
+
+                                                </span>
+                                            }
+
+                                        </td>
+
+                                        <td>
+
+                                            <a asp-area="Admin"
+                                               asp-controller="User"
+                                               asp-action="Details"
+                                               asp-route-id="@user.Id"
+                                               class="btn btn-sm btn-outline-primary">
+
+                                                <i class="fas fa-eye"></i>
+
+                                            </a>
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+
+                            Latest Courses
+
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body p-0">
+
+                        <table class="table table-hover">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Title</th>
+
+                                    <th>Instructor</th>
+
+                                    <th></th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var course in Model.LatestCourses)
+                                {
+                                    <tr>
+
+                                        <td>
+
+                                            @course.Title
+
+                                        </td>
+
+                                        <td>
+
+                                            @course.InstructorName
+
+                                        </td>
+
+                                        <td>
+
+                                            <a asp-area="Admin"
+                                               asp-controller="Course"
+                                               asp-action="Details"
+                                               asp-route-id="@course.CourseId"
+                                               class="btn btn-sm btn-outline-primary">
+
+                                                <i class="fas fa-eye"></i>
+
+                                            </a>
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>

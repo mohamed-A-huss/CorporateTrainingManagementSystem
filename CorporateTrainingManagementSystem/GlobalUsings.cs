@@ -1,0 +1,21 @@
+﻿global using CorporateTrainingManagementSystem.ViewModels.Department;
+global using CorporateTrainingManagementSystem.Common;
+
+global using CorporateTrainingManagementSystem.Models;
+global using CorporateTrainingManagementSystem.Repositories.Interfaces;
+global using CorporateTrainingManagementSystem.Services.Interfaces;
+global using Mapster;
+global using Microsoft.AspNetCore.Mvc;
+
+global using CorporateTrainingManagementSystem.ViewModels.Badge;
+global using CorporateTrainingManagementSystem.ViewModels.Course;
+global using CorporateTrainingManagementSystem.ViewModels.Lesson;
+global using CorporateTrainingManagementSystem.ViewModels.Exam;
+global using Microsoft.AspNetCore.Mvc.Rendering;
+global using CorporateTrainingManagementSystem.ViewModels.Question_Choice;
+global using CorporateTrainingManagementSystem.ViewModels.Question;
+global using CorporateTrainingManagementSystem.ViewModels.UserManagement;
+global using CorporateTrainingManagementSystem.ViewModels.Dashboard;
+global using CorporateTrainingManagementSystem.ViewModels.Enrollment;
+global using CorporateTrainingManagementSystem.ViewModels.Identity;
+global using CorporateTrainingManagementSystem.ViewModels;

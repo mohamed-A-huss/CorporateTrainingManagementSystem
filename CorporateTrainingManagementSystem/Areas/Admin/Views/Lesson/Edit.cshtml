@@ -1,0 +1,147 @@
+﻿@model EditLessonVM
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2 class="display-6">Edit Lesson</h2>
+        </div>
+    </div>
+
+    <div class="row my-3">
+
+        <div class="col-12">
+
+            <form method="post" enctype="multipart/form-data">
+
+                <input asp-for="LessonId" type="hidden" />
+
+                <div class="mb-3">
+
+                    <label asp-for="Title" class="form-label"></label>
+
+                    <input asp-for="Title"
+                           class="form-control"
+                           placeholder="Lesson Title" />
+
+                    <span asp-validation-for="Title"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="CourseId"
+                           class="form-label"></label>
+
+                    <select asp-for="CourseId"
+                            asp-items="Model.Courses"
+                            class="form-select">
+
+                        <option value="">Select Course</option>
+
+                    </select>
+
+                    <span asp-validation-for="CourseId"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Content"
+                           class="form-label"></label>
+
+                    <textarea asp-for="Content"
+                              class="form-control"
+                              rows="5"
+                              placeholder="Lesson Content"></textarea>
+
+                    <span asp-validation-for="Content"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="VideoUrl"
+                           class="form-label"></label>
+
+                    <input asp-for="VideoUrl"
+                           class="form-control"
+                           placeholder="https://youtube.com/..." />
+
+                    <span asp-validation-for="VideoUrl"
+                          class="text-danger"></span>
+
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.PdfPath))
+                {
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Current PDF
+                        </label>
+
+                        <br />
+
+                        <a href="@Model.PdfPath"
+                           target="_blank"
+                           class="btn btn-info">
+
+                            View Current PDF
+
+                        </a>
+
+                    </div>
+                }
+
+                <div class="mb-3">
+
+                    <label asp-for="PdfFile"
+                           class="form-label">
+
+                        Upload New PDF (Optional)
+
+                    </label>
+
+                    <input asp-for="PdfFile"
+                           class="form-control"
+                           accept=".pdf" />
+
+                    <span asp-validation-for="PdfFile"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Save Changes
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

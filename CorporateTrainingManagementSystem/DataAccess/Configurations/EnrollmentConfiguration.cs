@@ -10,13 +10,13 @@ namespace CorporateTrainingManagementSystem.DataAccess.Configurations
         {
             builder.HasOne(e => e.User)
                    .WithMany(u => u.Enrollments)
-                   .HasForeignKey(e => e.UserId)
+                   .HasForeignKey(e => e.TraineeId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(e => e.Course)
                    .WithMany(c => c.Enrollments)
                    .HasForeignKey(e => e.CourseId);
-            builder.HasIndex(e => new { e.UserId, e.CourseId })
+            builder.HasIndex(e => new { e.TraineeId, e.CourseId })
                 .IsUnique();
         }
     }

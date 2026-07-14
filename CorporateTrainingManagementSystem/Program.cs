@@ -1,7 +1,8 @@
+using CorporateTrainingManagementSystem.Data.Seed;
 using CorporateTrainingManagementSystem.DataAccess;
-using CorporateTrainingManagementSystem.Models;
 using CorporateTrainingManagementSystem.Repositories.Implementations;
-using CorporateTrainingManagementSystem.Repositories.Interfaces;
+using CorporateTrainingManagementSystem.Services.Implementations;
+using CorporateTrainingManagementSystem.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,7 @@ namespace CorporateTrainingManagementSystem
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -22,15 +23,54 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            builder.Services.AddScoped(typeof(IRepository<>),
-                           typeof(Repository<>));
+            builder.Services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
 
-            builder.Services.AddScoped<IUnitOfWork,
-                                       UnitOfWork>();
+                options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+            });
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+                options.Lockout.AllowedForNewUsers = true;
+            });
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IBadgeService, BadgeService>();
+            builder.Services.AddScoped<IFileService, FileService>();
+            builder.Services.AddScoped<ILessonService, LessonService>();
+            builder.Services.AddScoped<IExamService, ExamService>();
+            builder.Services.AddScoped<IQuestionService, QuestionService>();
+            builder.Services.AddScoped<IUserManagementService, UserManagementService>();
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
+            builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+            builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTP"));
+
 
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
 
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                await IdentitySeeder.SeedAsync(userManager, roleManager);
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -48,7 +88,7 @@ namespace CorporateTrainingManagementSystem
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Identity}/{controller=Home}/{action=Index}/{id?}")
+                pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

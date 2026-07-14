@@ -1,0 +1,280 @@
+﻿@model CorporateTrainingManagementSystem.ViewModels.Identity.RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
+    ViewData["BodyClass"] = "register-page";
+}
+
+<div class="register-box">
+
+    <div class="register-logo">
+
+        <a asp-area=""
+           asp-controller="Home"
+           asp-action="Index">
+
+            <b>Corporate</b>Training
+
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-body register-card-body">
+
+            <p class="login-box-msg">
+
+                Create a new account
+
+            </p>
+
+            <form asp-action="Register"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <!-- Full Name -->
+
+                <div class="input-group mb-3">
+
+                    <input asp-for="FullName"
+                           class="form-control"
+                           placeholder="Full Name" />
+
+                    <div class="input-group-append">
+
+                        <div class="input-group-text">
+
+                            <span class="fas fa-user"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span asp-validation-for="FullName"
+                      class="text-danger"></span>
+
+                <!-- Email -->
+
+                <div class="input-group mb-3">
+
+                    <input asp-for="Email"
+                           class="form-control"
+                           placeholder="Email" />
+
+                    <div class="input-group-append">
+
+                        <div class="input-group-text">
+
+                            <span class="fas fa-envelope"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+
+                <!-- Phone -->
+
+                <div class="input-group mb-3">
+
+                    <input asp-for="PhoneNumber"
+                           class="form-control"
+                           placeholder="Phone Number" />
+
+                    <div class="input-group-append">
+
+                        <div class="input-group-text">
+
+                            <span class="fas fa-phone"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span asp-validation-for="PhoneNumber"
+                      class="text-danger"></span>
+                <div class="input-group mb-3">
+
+                    <select asp-for="DepartmentId"
+                            asp-items="Model.Departments"
+                            class="form-control">
+
+                        <option value="">Select Department</option>
+
+                    </select>
+
+                    <div class="input-group-append">
+
+                        <div class="input-group-text">
+
+                            <span class="fas fa-building"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span asp-validation-for="DepartmentId"
+                      class="text-danger">
+                </span>
+                <!-- Password -->
+
+                <div class="input-group mb-3">
+
+                    <input asp-for="Password"
+                           class="form-control"
+                           id="Password"
+                           placeholder="Password" />
+
+                    <div class="input-group-append">
+
+                        <button type="button"
+                                class="btn btn-outline-secondary border-left-0"
+                                id="togglePassword">
+
+                            <i class="fas fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <span asp-validation-for="Password"
+                      class="text-danger"></span>
+
+                <!-- Confirm Password -->
+
+                <div class="input-group mb-3">
+
+                    <input asp-for="ConfirmPassword"
+                           class="form-control"
+                           id="ConfirmPassword"
+                           placeholder="Confirm Password" />
+
+                    <div class="input-group-append">
+
+                        <button type="button"
+                                class="btn btn-outline-secondary border-left-0"
+                                id="toggleConfirmPassword">
+
+                            <i class="fas fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <span asp-validation-for="ConfirmPassword"
+                      class="text-danger"></span>
+
+                <button type="submit"
+                        class="btn btn-success btn-block">
+
+                    Register
+
+                </button>
+
+            </form>
+
+            <hr />
+
+            <!-- External Login -->
+
+            <div class="social-auth-links text-center mb-3">
+
+                <p>- OR -</p>
+
+                <form asp-action="ExternalLogin"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            name="provider"
+                            value="Google"
+                            class="btn btn-block btn-danger mb-2">
+
+                        <i class="fab fa-google mr-2"></i>
+
+                        Continue with Google
+
+                    </button>
+
+                    <button type="submit"
+                            name="provider"
+                            value="Microsoft"
+                            class="btn btn-block btn-primary">
+
+                        <i class="fab fa-microsoft mr-2"></i>
+
+                        Continue with Microsoft
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <p class="mb-0 text-center">
+
+                Already have an account?
+
+                <a asp-action="Login">
+
+                    Login
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function togglePassword(inputId, buttonId)
+        {
+            const input = document.getElementById(inputId);
+            const button = document.getElementById(buttonId);
+
+            button.addEventListener("click", function ()
+            {
+                if (input.type === "password")
+                {
+                    input.type = "text";
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                }
+                else
+                {
+                    input.type = "password";
+                    this.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            });
+        }
+
+        togglePassword("Password", "togglePassword");
+        togglePassword("ConfirmPassword", "toggleConfirmPassword");
+
+    </script>
+}

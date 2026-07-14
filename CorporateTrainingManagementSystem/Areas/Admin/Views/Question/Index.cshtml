@@ -1,0 +1,278 @@
+﻿@model PaginatedQuestion
+
+<div class="container">
+
+    <div class="row my-4">
+
+        <div class="col-md-6">
+            <h2 class="display-6">
+                Questions
+            </h2>
+        </div>
+
+        <div class="col-md-6 text-end">
+
+            <a asp-action="Create"
+               class="btn btn-primary">
+                Create Question
+            </a>
+
+        </div>
+
+    </div>
+
+    <form method="get"
+          asp-action="Index"
+          class="row g-3 mb-4">
+
+        <!-- Course -->
+
+        <div class="col-md-3">
+
+            <select asp-for="Filter.CourseId"
+                    asp-items="Model.Filter!.Courses"
+                    class="form-select"
+                    id="CourseId">
+
+                <option value="">
+                    All Courses
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Exam -->
+
+        <div class="col-md-3">
+
+            <select asp-for="Filter.ExamId"
+                    asp-items="Model.Filter.Exams"
+                    class="form-select"
+                    id="ExamId">
+
+                <option value="">
+                    All Exams
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Question Type -->
+
+        <div class="col-md-2">
+
+            <select asp-for="Filter.QuestionType"
+                    asp-items="Html.GetEnumSelectList<QuestionType>()"
+                    class="form-select">
+
+                <option value="">
+                    All Types
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Search -->
+
+        <div class="col-md-3">
+
+            <input asp-for="Filter.QuestionText"
+                   class="form-control"
+                   placeholder="Search..." />
+
+        </div>
+
+        <div class="col-md-1 d-grid">
+
+            <button class="btn btn-success"
+                    type="submit">
+
+                Search
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <table class="table table-bordered table-hover align-middle">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Question</th>
+
+                <th>Course</th>
+
+                <th>Exam</th>
+
+                <th>Type</th>
+
+                <th>Choices</th>
+
+                <th width="220">Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @if (Model.Questions.Any())
+            {
+                foreach (var item in Model.Questions)
+                {
+                    <tr>
+
+                        <td>
+                            @item.QuestionText
+                        </td>
+
+                        <td>
+                            @item.CourseTitle
+                        </td>
+
+                        <td>
+                            @item.ExamTitle
+                        </td>
+
+                        <td>
+                            @item.QuestionType
+                        </td>
+
+                        <td>
+                            @item.ChoicesCount
+                        </td>
+
+                        <td>
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.QuestionId"
+                               class="btn btn-info btn-sm">
+
+                                Details
+
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.QuestionId"
+                               class="btn btn-warning btn-sm">
+
+                                Edit
+
+                            </a>
+
+                            <form asp-action="Delete"
+                                  asp-route-id="@item.QuestionId"
+                                  method="post"
+                                  class="d-inline">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="button"
+                                        class="btn btn-danger btn-delete">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+
+                    <td colspan="6"
+                        class="text-center">
+
+                        No Questions Found.
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    @if (Model.TotalCount > 0)
+    {
+        <nav>
+
+            <ul class="pagination justify-content-center">
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-CourseId="@Model.Filter.CourseId"
+                           asp-route-ExamId="@Model.Filter.ExamId"
+                           asp-route-QuestionType="@Model.Filter.QuestionType"
+                           asp-route-QuestionText="@Model.Filter.QuestionText">
+
+                            @i
+
+                        </a>
+
+                    </li>
+                }
+
+            </ul>
+
+        </nav>
+    }
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll(".btn-delete").forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                const form = this.closest("form");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+
+                });
+
+            });
+
+        });
+
+    });
+</script>
+@section Scripts
+{
+    <partial name="_NotificationPartial" />
+    <script src="~/js/question.js"></script>
+
+}

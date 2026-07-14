@@ -1,13 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IDashboardService _dashboardService;
+
+        public HomeController(IDashboardService dashboardService)
         {
-            return View();
+            _dashboardService = dashboardService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Index(CancellationToken cancellationToken = default)
+        {
+            var dashboardData = await _dashboardService.GetDashboardAsync(cancellationToken);
+            return View(dashboardData);
         }
     }
 }

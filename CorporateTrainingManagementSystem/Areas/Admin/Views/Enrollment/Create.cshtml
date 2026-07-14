@@ -1,0 +1,104 @@
+﻿@model CreateEnrollmentVM
+
+<div class="container">
+
+    <div class="row my-4">
+
+        <div class="col-md-6">
+
+            <h2 class="display-6">
+
+                Enroll Trainee
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <form asp-action="Create"
+                  method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <!-- Trainee -->
+
+                <div class="mb-3">
+
+                    <label asp-for="TraineeId"
+                           class="form-label"></label>
+
+                    <select asp-for="TraineeId"
+                            asp-items="Model.Trainees"
+                            class="form-select">
+
+                        <option value="">
+
+                            Select Trainee
+
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="TraineeId"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Course -->
+
+                <div class="mb-4">
+
+                    <label asp-for="CourseId"
+                           class="form-label"></label>
+
+                    <select asp-for="CourseId"
+                            asp-items="Model.Courses"
+                            class="form-select">
+
+                        <option value="">
+
+                            Select Course
+
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="CourseId"
+                          class="text-danger"></span>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Enroll
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

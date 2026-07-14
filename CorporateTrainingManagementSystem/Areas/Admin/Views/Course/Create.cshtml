@@ -1,0 +1,85 @@
+﻿@model CreateCourseVM
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+        <div class="col-md-6">
+            <h2 class="display-6">Create New Course</h2>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-12">
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title"
+                           class="form-control"
+                           placeholder="Course Title" />
+
+                    <span asp-validation-for="Title"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+
+                    <textarea asp-for="Description"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Course Description"></textarea>
+
+                    <span asp-validation-for="Description"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="InstructorId"
+                           class="form-label">
+                    </label>
+
+                    <select asp-for="InstructorId"
+                            asp-items="Model.Instructors"
+                            class="form-select">
+
+                        <option value="">-- Select Instructor --</option>
+
+                    </select>
+
+                    <span asp-validation-for="InstructorId"
+                          class="text-danger"></span>
+
+                </div>
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Submit
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

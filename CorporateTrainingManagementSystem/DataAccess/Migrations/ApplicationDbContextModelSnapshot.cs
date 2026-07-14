@@ -74,6 +74,9 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -166,7 +169,8 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
 
                     b.Property<string>("ChoiceText")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
@@ -241,7 +245,10 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TraineeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -249,7 +256,7 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("UserId", "CourseId")
+                    b.HasIndex("TraineeId", "CourseId")
                         .IsUnique();
 
                     b.ToTable("Enrollments");
@@ -303,8 +310,8 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Property<bool>("IsPassed")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("Score")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -396,9 +403,8 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("QuestionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("QuestionType")
+                        .HasColumnType("int");
 
                     b.HasKey("QuestionId");
 
@@ -630,7 +636,7 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
 
                     b.HasOne("CorporateTrainingManagementSystem.Models.ApplicationUser", "User")
                         .WithMany("Enrollments")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("TraineeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

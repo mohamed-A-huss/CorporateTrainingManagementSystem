@@ -1,0 +1,149 @@
+﻿@model LessonVM
+
+<div class="container">
+
+    <div class="row mb-3 align-items-center my-3">
+
+        <div class="col-md-6">
+            <h2 class="display-6">Lesson Details</h2>
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    ID
+                </div>
+
+                <div class="col-md-9">
+                    @Model.LessonId
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Title
+                </div>
+
+                <div class="col-md-9">
+                    @Model.Title
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Course
+                </div>
+
+                <div class="col-md-9">
+                    @Model.CourseTitle
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Content
+                </div>
+
+                <div class="col-md-9">
+
+                    @if (string.IsNullOrWhiteSpace(Model.Content))
+                    {
+                        <span class="text-muted">No Content</span>
+                    }
+                    else
+                    {
+                        @Model.Content
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-3 fw-bold">
+                    Video
+                </div>
+
+                <div class="col-md-9">
+
+                    @if (!string.IsNullOrWhiteSpace(Model.VideoUrl))
+                    {
+                        <a href="@Model.VideoUrl"
+                           target="_blank"
+                           class="btn btn-info">
+
+                            Open Video
+
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No Video</span>
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="row mb-4">
+
+                <div class="col-md-3 fw-bold">
+                    PDF
+                </div>
+
+                <div class="col-md-9">
+
+                    @if (!string.IsNullOrWhiteSpace(Model.PdfPath))
+                    {
+                        <a href="@Model.PdfPath"
+                           target="_blank"
+                           class="btn btn-secondary">
+
+                            View PDF
+
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No PDF</span>
+                    }
+
+                </div>
+
+            </div>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.LessonId"
+               class="btn btn-warning">
+
+                <i class="bi bi-pencil-square"></i>
+
+                Edit
+
+            </a>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
