@@ -13,6 +13,7 @@ namespace CorporateTrainingManagementSystem.Services.Interfaces
         Task<UserDetailsVM?> GetByIdAsync(
             string id,
             CancellationToken cancellationToken = default);
+        Task<ServiceResult> CreateUserAsync(CreateUserVM vm);
 
         Task<ChangeRoleVM?> GetChangeRoleVMAsync(
             string id,

@@ -11,18 +11,21 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
+  
 
 
         public UserManagementService(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IUnitOfWork unitOfWork,
-            ApplicationDbContext context)
+            ApplicationDbContext context
+            )
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _unitOfWork = unitOfWork;
             _context = context;
+     
         }
 
         public async Task<ServiceResult> ChangeRoleAsync(ChangeRoleVM vm,CancellationToken cancellationToken = default)
@@ -191,7 +194,62 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                            user.LockoutEnd > DateTimeOffset.UtcNow
             };
         }
+        public async Task<ServiceResult> CreateUserAsync(CreateUserVM vm)
+{
+    // Check Email
 
+    var existingUser = await _userManager.FindByEmailAsync(vm.Email);
+
+    if (existingUser is not null)
+        return ServiceResult.Failure("Email is already registered.");
+
+    // Check Phone Number
+
+    bool phoneExists = await _userManager.Users
+        .AnyAsync(u => u.PhoneNumber == vm.PhoneNumber);
+
+    if (phoneExists)
+        return ServiceResult.Failure("Phone number is already registered.");
+
+    // Create User
+
+    var user = new ApplicationUser
+    {
+        FullName = vm.FullName,
+        UserName = vm.Email,
+        Email = vm.Email,
+        PhoneNumber = vm.PhoneNumber,
+        DepartmentId = vm.DepartmentId
+    };
+
+    // Save User
+
+    var result = await _userManager.CreateAsync(user, vm.Password);
+
+    if (!result.Succeeded)
+    {
+        return ServiceResult.Failure(
+            string.Join(
+                Environment.NewLine,
+                result.Errors.Select(e => e.Description)));
+    }
+
+    // Assign Role
+
+    var roleResult = await _userManager.AddToRoleAsync(user, vm.Role);
+
+    if (!roleResult.Succeeded)
+    {
+        await _userManager.DeleteAsync(user);
+
+        return ServiceResult.Failure(
+            string.Join(
+                Environment.NewLine,
+                roleResult.Errors.Select(e => e.Description)));
+    }
+
+    return ServiceResult.SuccessResult("User created successfully.");
+}
         public async Task<ChangeRoleVM?> GetChangeRoleVMAsync(string id,CancellationToken cancellationToken = default)
         {
             var user = await _context.Users

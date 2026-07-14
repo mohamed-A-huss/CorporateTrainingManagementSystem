@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
+@using System.Security.Claims
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -50,12 +51,102 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                
+
+                <!-- Fullscreen -->
+
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+
+                    <a class="nav-link"
+                       data-widget="fullscreen"
+                       href="#"
+                       role="button">
+
                         <i class="fas fa-expand-arrows-alt"></i>
+
                     </a>
+
                 </li>
+
+                <!-- User Menu -->
+
+                <li class="nav-item dropdown user-menu">
+
+                    <a href="#"
+                       class="nav-link dropdown-toggle"
+                       data-toggle="dropdown">
+
+                        <img src="~/AdminLTE/dist/img/default user.jpg"
+                             class="user-image img-circle elevation-2"
+                             alt="User Image">
+
+                        <span class="d-none d-md-inline">
+
+                            @User.FindFirstValue(ClaimTypes.Name)
+
+                        </span>
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                        <!-- User Header -->
+
+                        <li class="user-header bg-primary">
+
+                            <img src="~/AdminLTE/dist/img/default user.jpg"
+                                 class="img-circle elevation-2"
+                                 alt="User Image">
+
+                            <p>
+
+                                @User.FindFirstValue(ClaimTypes.Name)
+
+                                <small>
+
+                                    @User.FindFirstValue(ClaimTypes.Email)
+
+                                </small>
+
+                            </p>
+
+                        </li>
+
+                        <!-- Menu Footer -->
+
+                        <li class="user-footer">
+
+                            <a asp-area="Identity"
+                               asp-controller="Profile"
+                               asp-action="Index"
+                               class="btn btn-default btn-flat">
+
+                                Profile
+
+                            </a>
+
+                            <form asp-area="Identity"
+                                  asp-controller="Account"
+                                  asp-action="Logout"
+                                  method="post"
+                                  class="float-right">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="btn btn-default btn-flat">
+
+                                    Logout
+
+                                </button>
+
+                            </form>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
             </ul>
         </nav>
         <!-- /.navbar -->
