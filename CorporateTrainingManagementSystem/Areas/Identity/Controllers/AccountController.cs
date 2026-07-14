@@ -4,6 +4,7 @@ using CorporateTrainingManagementSystem.Services.Interfaces;
 using CorporateTrainingManagementSystem.ViewModels.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
 {
     [Area(SD.IDENTITY_AREA)]
@@ -268,58 +269,142 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ExternalLogin(
-    string provider,
-    string? returnUrl = null)
+        public IActionResult ExternalLogin(string provider,string? returnUrl = null)
         {
             var redirectUrl = Url.Action(
                 nameof(ExternalLoginCallback),
-                new { returnUrl });
+                "Account",
+                new
+                {
+                    returnUrl
+                });
 
             var properties =
                 _signInManager.ConfigureExternalAuthenticationProperties(
                     provider,
                     redirectUrl);
-            return RedirectToAction(nameof(Login));
-            // return Challenge(properties, provider);
+
+            return Challenge(properties, provider);
         }
         [HttpGet]
         public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null,string? remoteError = null)
         {
-            if (remoteError != null)
+            returnUrl ??= Url.Content("~/");
+
+            if (!string.IsNullOrWhiteSpace(remoteError))
             {
                 TempData["Error"] = remoteError;
-
                 return RedirectToAction(nameof(Login));
             }
 
-            var info =
-                await _signInManager.GetExternalLoginInfoAsync();
+            // Get External Login Info
 
-            if (info == null)
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+
+            if (info is null)
             {
-                TempData["Error"] =
-                    "Unable to load external login information.";
-
+                TempData["Error"] = "Unable to load external login information.";
                 return RedirectToAction(nameof(Login));
             }
 
-            var result =
-                await _signInManager.ExternalLoginSignInAsync(
-                    info.LoginProvider,
-                    info.ProviderKey,
-                    isPersistent: false,
-                    bypassTwoFactor: true);
+            // Try Sign In
 
-            if (result.Succeeded)
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(
+                info.LoginProvider,
+                info.ProviderKey,
+                isPersistent: false,
+                bypassTwoFactor: true);
+
+            if (signInResult.Succeeded)
+                return LocalRedirect(returnUrl);
+
+            // Read Email
+
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+            if (string.IsNullOrWhiteSpace(email))
             {
-                return LocalRedirect(returnUrl ?? "/");
+                TempData["Error"] = "Email address was not returned from Google.";
+                return RedirectToAction(nameof(Login));
             }
 
-            TempData["Info"] =
-                "External Login is not configured yet.";
+            // Check Existing User
 
-            return RedirectToAction(nameof(Login));
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user is not null)
+            {
+                // Link Google Account
+
+                var addLoginResult =
+                    await _userManager.AddLoginAsync(user, info);
+
+                if (!addLoginResult.Succeeded)
+                {
+                    TempData["Error"] = string.Join(
+                        Environment.NewLine,
+                        addLoginResult.Errors.Select(e => e.Description));
+
+                    return RedirectToAction(nameof(Login));
+                }
+            }
+            else
+            {
+                // Create New Trainee
+
+                user = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                    FullName =
+                        info.Principal.FindFirstValue(ClaimTypes.Name) ??
+                        email,
+                    EmailConfirmed = true,
+                    DepartmentId = SD.GENERAL_DEPARTMENT_ID
+                };
+
+                var createResult =
+                    await _userManager.CreateAsync(user);
+
+                if (!createResult.Succeeded)
+                {
+                    TempData["Error"] = string.Join(
+                        Environment.NewLine,
+                        createResult.Errors.Select(e => e.Description));
+
+                    return RedirectToAction(nameof(Login));
+                }
+
+                // Assign Role
+
+                await _userManager.AddToRoleAsync(
+                    user,
+                    SD.TRAINEE_ROLE);
+
+                // Link Google Login
+
+                var addLoginResult =
+                    await _userManager.AddLoginAsync(user, info);
+
+                if (!addLoginResult.Succeeded)
+                {
+                    await _userManager.DeleteAsync(user);
+
+                    TempData["Error"] = string.Join(
+                        Environment.NewLine,
+                        addLoginResult.Errors.Select(e => e.Description));
+
+                    return RedirectToAction(nameof(Login));
+                }
+            }
+
+            // Sign In
+
+            await _signInManager.SignInAsync(
+                user,
+                isPersistent: false);
+
+            return LocalRedirect(returnUrl);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

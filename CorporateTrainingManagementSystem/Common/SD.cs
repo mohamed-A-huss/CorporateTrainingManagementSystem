@@ -13,5 +13,7 @@
         public const string ADMIN_ROLE = "Admin";
         public const string INSTRUCTOR_ROLE = "Instructor";
         public const string TRAINEE_ROLE = "Trainee";
+        // General Department ID
+        public const int GENERAL_DEPARTMENT_ID = 14;
     }
 }
