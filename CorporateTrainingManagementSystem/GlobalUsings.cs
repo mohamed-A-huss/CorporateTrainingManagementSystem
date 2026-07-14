@@ -17,3 +17,5 @@ global using CorporateTrainingManagementSystem.ViewModels.Question;
 global using CorporateTrainingManagementSystem.ViewModels.UserManagement;
 global using CorporateTrainingManagementSystem.ViewModels.Dashboard;
 global using CorporateTrainingManagementSystem.ViewModels.Enrollment;
+global using CorporateTrainingManagementSystem.ViewModels.Identity;
+global using CorporateTrainingManagementSystem.ViewModels;

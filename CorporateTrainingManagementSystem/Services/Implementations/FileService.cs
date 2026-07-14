@@ -27,6 +27,14 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 if (file.Length > FileValidation.MaxPdfSize)
                     return UploadResult.Failure("PDF size cannot exceed 10 MB.");
             }
+            if (folderName == UploadFolders.Images || folderName == UploadFolders.Profiles)
+            {
+                if (!FileValidation.ImageExtensions.Contains(extension))
+                    return UploadResult.Failure("Only image files are allowed.");
+
+                if (file.Length > FileValidation.MaxImageSize)
+                    return UploadResult.Failure("Image size cannot exceed 2 MB.");
+            }
 
             var uploadFolder = Path.Combine(
                 _environment.WebRootPath,

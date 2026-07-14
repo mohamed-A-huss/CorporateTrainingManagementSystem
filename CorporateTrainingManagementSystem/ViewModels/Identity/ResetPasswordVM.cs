@@ -8,17 +8,16 @@ namespace CorporateTrainingManagementSystem.ViewModels.Identity
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
 
+        [Required]
         public string Token { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.Password)]
-        [StringLength(100, MinimumLength = 6)]
-        public string Password { get; set; } = string.Empty;
+        public string NewPassword { get; set; } = string.Empty;
 
         [Required]
+        [Compare(nameof(NewPassword))]
         [DataType(DataType.Password)]
-        [Compare(nameof(Password))]
-        [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

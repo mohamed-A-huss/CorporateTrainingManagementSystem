@@ -1,0 +1,219 @@
+﻿@model EditProfileVM
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+
+        <div class="container-fluid">
+
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+
+                    <h1>Edit Profile</h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="content">
+
+        <div class="container-fluid">
+
+            <div class="row justify-content-center">
+
+                <div class="col-md-8">
+
+                    <div class="card card-primary">
+
+                        <div class="card-header">
+
+                            <h3 class="card-title">
+                                Update Your Profile
+                            </h3>
+
+                        </div>
+
+                        <form asp-action="Edit"
+                              method="post"
+                              enctype="multipart/form-data">
+
+                            @Html.AntiForgeryToken()
+
+                            <div class="card-body">
+
+                                <div asp-validation-summary="ModelOnly"
+                                     class="text-danger mb-3">
+                                </div>
+
+                                <!-- Current Profile Picture -->
+
+                                <div class="text-center mb-4">
+
+                                    <img id="previewImage"
+                                         class="profile-user-img img-fluid img-circle"
+                                         style="width:120px;height:120px;object-fit:cover;"
+                                         src="@(string.IsNullOrWhiteSpace(Model.CurrentProfilePicture)
+                                                                                      ? Url.Content("~/AdminLTE/dist/img/default user.jpg")
+                                                                                     : Url.Content(Model.CurrentProfilePicture))"
+                                         alt="Profile Picture" />
+
+                                </div>
+
+                                <!-- Profile Picture -->
+
+                                <div class="form-group">
+
+                                    <label asp-for="ProfilePicture"></label>
+
+                                    <div class="custom-file">
+
+                                        <input asp-for="ProfilePicture"
+                                               class="custom-file-input"
+                                               id="ProfilePicture" />
+
+                                        <label class="custom-file-label">
+                                            Choose image...
+                                        </label>
+
+                                    </div>
+
+                                    <small class="text-muted">
+                                        Allowed: JPG, PNG, WEBP (Max 2 MB)
+                                    </small>
+
+                                    <span asp-validation-for="ProfilePicture"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+                                <!-- Full Name -->
+
+                                <div class="form-group">
+
+                                    <label asp-for="FullName"></label>
+
+                                    <input asp-for="FullName"
+                                           class="form-control"
+                                           placeholder="Enter your full name" />
+
+                                    <span asp-validation-for="FullName"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+                                <!-- Email -->
+
+                                <div class="form-group">
+
+                                    <label asp-for="Email"></label>
+
+                                    <input asp-for="Email"
+                                           class="form-control"
+                                           readonly />
+
+                                    <small class="text-muted">
+                                        Email address cannot be changed.
+                                    </small>
+
+                                </div>
+
+                                <!-- Phone -->
+
+                                <div class="form-group">
+
+                                    <label asp-for="PhoneNumber"></label>
+
+                                    <input asp-for="PhoneNumber"
+                                           class="form-control"
+                                           placeholder="Enter your phone number" />
+
+                                    <span asp-validation-for="PhoneNumber"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-between">
+
+                                <a asp-action="Index"
+                                   class="btn btn-secondary">
+
+                                    <i class="fas fa-arrow-left mr-1"></i>
+
+                                    Back
+
+                                </a>
+
+                                <button type="submit"
+                                        class="btn btn-primary">
+
+                                    <i class="fas fa-save mr-1"></i>
+
+                                    Save Changes
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const input = document.getElementById("ProfilePicture");
+
+            input.addEventListener("change", function () {
+
+                if (this.files.length === 0)
+                    return;
+
+                const file = this.files[0];
+
+                document.querySelector(".custom-file-label").innerText = file.name;
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+
+                    document.getElementById("previewImage").src = e.target.result;
+
+                };
+
+                reader.readAsDataURL(file);
+
+            });
+
+        });
+
+    </script>
+}

@@ -2,6 +2,7 @@ using CorporateTrainingManagementSystem.Data.Seed;
 using CorporateTrainingManagementSystem.DataAccess;
 using CorporateTrainingManagementSystem.Repositories.Implementations;
 using CorporateTrainingManagementSystem.Services.Implementations;
+using CorporateTrainingManagementSystem.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,15 @@ namespace CorporateTrainingManagementSystem
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+                options.Lockout.AllowedForNewUsers = true;
+            });
+
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -38,7 +48,10 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddScoped<IDashboardService, DashboardService>();
             builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
 
+            builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTP"));
 
 
 

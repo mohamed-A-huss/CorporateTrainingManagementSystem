@@ -9,6 +9,7 @@ namespace CorporateTrainingManagementSystem.Models
         public int Points { get; set; }
 
         public int DepartmentId { get; set; }
+        public string? ProfilePicture { get; set; }
 
         public Department Department { get; set; }
 

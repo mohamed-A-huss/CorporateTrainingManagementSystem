@@ -12,6 +12,12 @@ namespace CorporateTrainingManagementSystem.ViewModels.Identity
         [Required]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
+        [Required]
+        [Display(Name = "Department")]
+        public int DepartmentId { get; set; }
+
+        public IEnumerable<SelectListItem> Departments { get; set; }
+            = Enumerable.Empty<SelectListItem>();
 
         [Required]
         [Phone]

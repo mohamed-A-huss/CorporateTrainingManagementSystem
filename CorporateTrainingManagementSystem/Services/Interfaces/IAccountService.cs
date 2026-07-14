@@ -1,4 +1,5 @@
-﻿using CorporateTrainingManagementSystem.ViewModels.Identity;
+﻿using CorporateTrainingManagementSystem.ViewModels;
+using CorporateTrainingManagementSystem.ViewModels.Identity;
 
 namespace CorporateTrainingManagementSystem.Services.Interfaces
 {
@@ -14,35 +15,25 @@ namespace CorporateTrainingManagementSystem.Services.Interfaces
             RegisterVM vm,
             CancellationToken cancellationToken = default);
 
-        Task LogoutAsync();
-
-        // Password Management
-
-        Task<ServiceResult> ForgotPasswordAsync(
-            ForgotPasswordVM vm,
-            CancellationToken cancellationToken = default);
-
+        Task<ForgotPasswordResult> ForgotPasswordAsync(
+        ForgotPasswordVM vm,
+        CancellationToken cancellationToken = default);
+        Task<ServiceResult> ChangePasswordAsync(
+        string userId,
+        ChangePasswordVM vm,
+        CancellationToken cancellationToken = default);
         Task<ServiceResult> ResetPasswordAsync(
             ResetPasswordVM vm,
             CancellationToken cancellationToken = default);
 
         // Profile
+        Task<EditProfileVM?> GetEditProfileAsync(string userId,CancellationToken cancellationToken = default);
+        Task<ProfileVM?> GetProfileAsync(string userId, CancellationToken cancellationToken = default);
+        Task<ServiceResult> UpdateProfileAsync(string userId, EditProfileVM vm, CancellationToken cancellationToken = default);
 
-        Task<ProfileVM?> GetProfileAsync(
-            CancellationToken cancellationToken = default);
 
-        Task<ServiceResult> UpdateProfileAsync(
-            EditProfileVM vm,
-            CancellationToken cancellationToken = default);
 
-        // External Login
 
-        Task<ServiceResult> ExternalLoginAsync(
-            string provider,
-            string returnUrl);
 
-        Task<ServiceResult> ExternalLoginCallbackAsync(
-            string? returnUrl,
-            string? remoteError);
     }
 }

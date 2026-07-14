@@ -6,7 +6,7 @@ namespace CorporateTrainingManagementSystem.Data.Seed
     {
         private const string AdminRole = "Admin";
         private const string InstructorRole = "Instructor";
-        private const string StudentRole = "Student";
+        private const string StudentRole = "Trainee";
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager,RoleManager<IdentityRole> roleManager)
         {
             await SeedRolesAsync(roleManager);
@@ -31,13 +31,13 @@ namespace CorporateTrainingManagementSystem.Data.Seed
             }
         }
         private static async Task CreateUserIfNotExistsAsync(
-    UserManager<ApplicationUser> userManager,
-    string fullName,
-    string userName,
-    string email,
-    string password,
-    string role,
-    int departmentId)
+        UserManager<ApplicationUser> userManager,
+        string fullName,
+        string userName,
+        string email,
+        string password,
+        string role,
+        int departmentId)
         {
             var user = await userManager.FindByEmailAsync(email);
 

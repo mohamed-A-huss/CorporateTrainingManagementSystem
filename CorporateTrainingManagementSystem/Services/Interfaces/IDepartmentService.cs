@@ -5,6 +5,7 @@ namespace CorporateTrainingManagementSystem.Services.Interfaces
     {
         Task<PaginatedDepartment> GetAllAsync(int page , int pageSize, string? query , CancellationToken cancellationToken );
 
+        Task<IEnumerable<DepartmentVM>> GetDropdownAsync(CancellationToken cancellationToken = default);
         Task<DepartmentVM?> GetByIdAsync(int id);
 
         Task<ServiceResult> CreateAsync(CreateDepartmentVM vm);

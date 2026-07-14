@@ -16,5 +16,7 @@
             ".png",
             ".webp"
         };
+
+        public const long MaxImageSize = 2 * 1024 * 1024;
     }
 }

@@ -45,6 +45,15 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             };
         }
 
+        public async Task<IEnumerable<DepartmentVM>> GetDropdownAsync(CancellationToken cancellationToken = default)
+        {
+            var departments = await _unitOfWork.Departments.GetAsync(
+                cancellationToken: cancellationToken);
+
+            return departments
+                .OrderBy(d => d.Name)
+                .Adapt<IEnumerable<DepartmentVM>>();
+        }
         public async Task<DepartmentVM?> GetByIdAsync(int id)
         {
             var department = await _unitOfWork.Departments.GetOneAsync(d => d.DepartmentId == id);

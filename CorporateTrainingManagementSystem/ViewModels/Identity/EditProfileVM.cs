@@ -10,6 +10,12 @@ namespace CorporateTrainingManagementSystem.ViewModels.Identity
         public string FullName { get; set; } = string.Empty;
 
         [Required]
+        [EmailAddress]
+        [StringLength(256)]
+        [Display(Name = "Email")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
         [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = string.Empty;
