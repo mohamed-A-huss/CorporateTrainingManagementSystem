@@ -1,0 +1,213 @@
+﻿@model InstructorQuestionDetailsVM
+
+@{
+    ViewData["Title"] = "Question Management";
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <a asp-action="Details"
+           asp-route-id="@Model.ExamId"
+           class="btn btn-outline-secondary mb-3">
+
+            <i class="fas fa-arrow-left mr-1"></i>
+
+            Back to Exam
+
+        </a>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        <div class="card card-primary">
+
+            <div class="card-header">
+
+                <h3 class="card-title">
+
+                    Question Management
+
+                </h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-9">
+
+                        <dl class="row">
+
+                            <dt class="col-sm-3">
+
+                                Question
+
+                            </dt>
+
+                            <dd class="col-sm-9">
+
+                                @Model.QuestionText
+
+                            </dd>
+
+                            <dt class="col-sm-3">
+
+                                Exam
+
+                            </dt>
+
+                            <dd class="col-sm-9">
+
+                                @Model.ExamTitle
+
+                            </dd>
+
+                            <dt class="col-sm-3">
+
+                                Type
+
+                            </dt>
+
+                            <dd class="col-sm-9">
+
+                                @Model.QuestionType
+
+                            </dd>
+
+                            <dt class="col-sm-3">
+
+                                Mark
+
+                            </dt>
+
+                            <dd class="col-sm-9">
+
+                                @Model.Mark
+
+                            </dd>
+
+                        </dl>
+
+                    </div>
+
+                    <div class="col-md-3 text-right">
+
+                        <button class="btn btn-warning edit-question-btn"
+                                data-toggle="modal"
+                                data-target="#editQuestionModal"
+                                data-id="@Model.QuestionId"
+                                data-question="@Model.QuestionText"
+                                data-type="@((int)Model.QuestionType)"
+                                data-mark="@Model.Mark"
+                                data-examid="@Model.ExamId">
+
+                            <i class="fas fa-edit mr-1"></i>
+
+                            Edit Question
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @await Html.PartialAsync("_Choices", Model)
+
+    </div>
+
+</section>
+
+@await Html.PartialAsync("_EditQuestionModal",
+new InstructorEditQuestionVM())
+
+@section Scripts
+{
+    <script>
+
+        $(document).on('click', '.edit-question-btn', function() {
+
+            let modal = $("#editQuestionModal");
+
+            modal.find('[name="QuestionId"]').val($(this).data('id'));
+
+            modal.find('[name="ExamId"]').val($(this).data('examid'));
+
+            modal.find('[name="QuestionText"]').val($(this).data('question'));
+
+            modal.find('[name="QuestionType"]').val($(this).data('type'));
+
+            modal.find('[name="Mark"]').val($(this).data('mark'));
+
+        });
+        $(document).on('click', '.edit-choice-btn', function() {
+
+            let button = $(this);
+
+            let modal = $('#editChoiceModal');
+
+            modal.find('[name="ChoiceId"]').val(button.data('id'));
+
+            modal.find('[name="QuestionId"]').val(button.data('questionid'));
+
+            modal.find('[name="ChoiceText"]').val(button.data('text'));
+
+            modal.find('[name="IsCorrect"]').prop(
+                'checked',
+                button.data('correct') === true ||
+                button.data('correct') === "True" ||
+                button.data('correct') === "true"
+            );
+
+        });
+        $(document).on('click', '.delete-choice-btn', function() {
+
+            let choiceId = $(this).data('id');
+
+            let questionId = $(this).data('questionid');
+
+            Swal.fire({
+
+                title: 'Delete Choice?',
+
+                text: 'This action cannot be undone.',
+
+                icon: 'warning',
+
+                showCancelButton: true,
+
+                confirmButtonColor: '#d33',
+
+                cancelButtonColor: '#3085d6',
+
+                confirmButtonText: 'Yes, delete it'
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    $('#deleteChoiceId').val(choiceId);
+
+                    $('#deleteQuestionId').val(questionId);
+
+                    $('#deleteChoiceForm').submit();
+
+                }
+
+            });
+
+        });
+    </script>
+
+}

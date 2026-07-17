@@ -1,0 +1,146 @@
+﻿@model InstructorQuestionDetailsVM
+
+<div class="card">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        <h4 class="mb-0">
+
+            Choices
+
+        </h4>
+
+        <button class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#createChoiceModal">
+
+            <i class="fas fa-plus mr-1"></i>
+
+            Add Choice
+
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        @if (!Model.Choices.Any())
+        {
+            <div class="alert alert-info">
+
+                No choices found.
+
+            </div>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Choice</th>
+
+                        <th width="120">Correct</th>
+
+                        <th width="180">Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var choice in Model.Choices)
+                    {
+                        <tr>
+
+                            <td>
+
+                                @choice.ChoiceText
+
+                            </td>
+
+                            <td>
+
+                                @if (choice.IsCorrect)
+                                {
+                                    <span class="badge badge-success">
+
+                                        Correct
+
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-secondary">
+
+                                        Wrong
+
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td>
+
+                                <button class="btn btn-warning btn-sm edit-choice-btn"
+                                        data-toggle="modal"
+                                        data-target="#editChoiceModal"
+                                        data-id="@choice.ChoiceId"
+                                        data-questionid="@Model.QuestionId"
+                                        data-text="@choice.ChoiceText"
+                                        data-correct="@choice.IsCorrect">
+
+                                    <i class="fas fa-edit"></i>
+
+                                </button>
+
+                                <button class="btn btn-danger btn-sm delete-choice-btn"
+                                        data-id="@choice.ChoiceId"
+                                        data-questionid="@Model.QuestionId">
+
+                                    <i class="fas fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        }
+
+    </div>
+
+</div>
+@await Html.PartialAsync(
+"_CreateChoiceModal",
+new InstructorCreateChoiceVM
+{
+    QuestionId = Model.QuestionId
+})
+
+@await Html.PartialAsync(
+"_EditChoiceModal",
+new InstructorEditChoiceVM())
+
+<form id="deleteChoiceForm"
+      asp-action="DeleteChoice"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden"
+           id="deleteChoiceId"
+           name="choiceId" />
+
+    <input type="hidden"
+           id="deleteQuestionId"
+           name="questionId" />
+
+</form>

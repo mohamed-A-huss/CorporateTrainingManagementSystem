@@ -1,0 +1,173 @@
+﻿@model InstructorExamDetailsVM
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+
+                <a asp-action="Details"
+                   asp-controller="Course"
+                   asp-route-id="@Model.CourseId"
+                   class="btn btn-outline-secondary mb-3">
+
+                    <i class="fas fa-arrow-left mr-1"></i>
+
+                    Back To Course
+
+                </a>
+
+                <h1>@Model.Title</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="small-box bg-info">
+
+                    <div class="inner">
+
+                        <h3>@Model.QuestionsCount</h3>
+
+                        <p>Questions</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-question-circle"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="small-box bg-success">
+
+                    <div class="inner">
+
+                        <h3>@Model.TotalMarks</h3>
+
+                        <p>Total Marks</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-star"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="small-box bg-warning">
+
+                    <div class="inner">
+
+                        <h3>@Model.DurationMinutes</h3>
+
+                        <p>Minutes</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-clock"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @await Html.PartialAsync("_Questions", Model)
+
+    </div>
+
+</section>
+@section Scripts
+{
+    <script>
+
+        $(document).on('click', '.edit-question-btn', function() {
+
+            let modal = $('#editQuestionModal');
+
+            modal.find('[name="QuestionId"]').val($(this).data('id'));
+
+            modal.find('[name="ExamId"]').val($(this).data('examid'));
+
+            modal.find('[name="QuestionText"]').val($(this).data('text'));
+
+            modal.find('[name="QuestionType"]').val($(this).data('type'));
+
+            modal.find('[name="Mark"]').val($(this).data('mark'));
+
+        });
+        $(document).on('click', '.delete-question-btn', function() {
+
+            let questionId = $(this).data('id');
+
+            let examId = $(this).data('examid');
+
+            Swal.fire({
+
+                title: 'Delete Question?',
+
+                text: 'This action cannot be undone.',
+
+                icon: 'warning',
+
+                showCancelButton: true,
+
+                confirmButtonColor: '#d33',
+
+                cancelButtonColor: '#3085d6',
+
+                confirmButtonText: 'Yes, delete it'
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    $('#deleteQuestionId').val(questionId);
+
+                    $('#deleteExamId').val(examId);
+
+                    $('#deleteQuestionForm').submit();
+
+                }
+
+            });
+
+        });
+    </script>
+
+}

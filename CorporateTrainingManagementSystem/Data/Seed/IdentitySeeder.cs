@@ -4,12 +4,15 @@ namespace CorporateTrainingManagementSystem.Data.Seed
 {
     public static class IdentitySeeder
     {
+        private const string SuperAdminRole = "SuperAdmin";
         private const string AdminRole = "Admin";
         private const string InstructorRole = "Instructor";
         private const string StudentRole = "Trainee";
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager,RoleManager<IdentityRole> roleManager)
         {
             await SeedRolesAsync(roleManager);
+
+            await SeedSuperAdminAsync(userManager);
 
             await SeedAdminAsync(userManager);
 
@@ -19,7 +22,7 @@ namespace CorporateTrainingManagementSystem.Data.Seed
         }
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-            var roles = new[]{AdminRole,InstructorRole,StudentRole};
+            var roles = new[]{SuperAdminRole, AdminRole, InstructorRole, StudentRole};
 
             foreach (var role in roles)
             {
@@ -65,8 +68,18 @@ namespace CorporateTrainingManagementSystem.Data.Seed
 
             await userManager.AddToRoleAsync(user, role);
         }
-        private static async Task SeedAdminAsync(
-    UserManager<ApplicationUser> userManager)
+        private static async Task SeedSuperAdminAsync(UserManager<ApplicationUser> userManager)
+        {
+            await CreateUserIfNotExistsAsync(
+                userManager,
+                fullName: "Super Administrator",
+                userName: "superadmin",
+                email: "superadmin@cts.com",
+                password: "SuperAdmin@123",
+                role: SuperAdminRole,
+                departmentId: 9);
+        }
+        private static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager)
         {
             await CreateUserIfNotExistsAsync(
                 userManager,
@@ -77,8 +90,7 @@ namespace CorporateTrainingManagementSystem.Data.Seed
                 role: AdminRole,
                 departmentId: 9); // IT
         }
-        private static async Task SeedInstructorsAsync(
-    UserManager<ApplicationUser> userManager)
+        private static async Task SeedInstructorsAsync(UserManager<ApplicationUser> userManager)
         {
             await CreateUserIfNotExistsAsync(
                 userManager,
@@ -107,8 +119,7 @@ namespace CorporateTrainingManagementSystem.Data.Seed
                 InstructorRole,
                 11); // R&D
         }
-        private static async Task SeedStudentsAsync(
-    UserManager<ApplicationUser> userManager)
+        private static async Task SeedStudentsAsync(UserManager<ApplicationUser> userManager)
         {
             await CreateUserIfNotExistsAsync(
                 userManager,

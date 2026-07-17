@@ -19,3 +19,5 @@ global using CorporateTrainingManagementSystem.ViewModels.Dashboard;
 global using CorporateTrainingManagementSystem.ViewModels.Enrollment;
 global using CorporateTrainingManagementSystem.ViewModels.Identity;
 global using CorporateTrainingManagementSystem.ViewModels;
+global using CorporateTrainingManagementSystem.ViewModels.Instructor;
+global using CorporateTrainingManagementSystem.Models;

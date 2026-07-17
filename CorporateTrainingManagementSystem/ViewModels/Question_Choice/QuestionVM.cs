@@ -7,6 +7,7 @@
         public string QuestionText { get; set; } = string.Empty;
 
         public QuestionType QuestionType { get; set; }
+        public int Mark { get; set; }
 
         public string CourseTitle { get; set; } = string.Empty;
 

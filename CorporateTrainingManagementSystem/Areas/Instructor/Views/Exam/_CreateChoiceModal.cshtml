@@ -1,0 +1,97 @@
+﻿@model InstructorCreateChoiceVM
+
+<div class="modal fade"
+     id="createChoiceModal"
+     tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form asp-action="CreateChoice"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input asp-for="QuestionId"
+                       type="hidden" />
+
+                <div class="modal-header">
+
+                    <h4 class="modal-title">
+
+                        Add Choice
+
+                    </h4>
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">
+
+                        <span>&times;</span>
+
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+
+                        <label asp-for="ChoiceText"></label>
+
+                        <input asp-for="ChoiceText"
+                               class="form-control" />
+
+                        <span asp-validation-for="ChoiceText"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="custom-control custom-switch">
+
+                            <input asp-for="IsCorrect"
+                                   class="custom-control-input"
+                                   id="createChoiceCorrect" />
+
+                            <label class="custom-control-label"
+                                   for="createChoiceCorrect">
+
+                                Correct Answer
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        Save Choice
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

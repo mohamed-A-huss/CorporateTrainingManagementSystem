@@ -23,6 +23,10 @@ namespace CorporateTrainingManagementSystem.ViewModels.Question
         [Required]
         [Display(Name = "Question Type")]
         public QuestionType QuestionType { get; set; }
+        [Required]
+        [Display(Name = "Mark")]
+        [Range(1, 100)]
+        public int Mark { get; set; }
 
         public List<EditChoiceVM> Choices { get; set; } = new()
                             {

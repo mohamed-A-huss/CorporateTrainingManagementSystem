@@ -416,6 +416,10 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
 
             return RedirectToAction(nameof(Login));
         }
+        public IActionResult Error404()
+        {
+            return View();
+        }
         private async Task<IActionResult> RedirectToDashboard(ApplicationUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
