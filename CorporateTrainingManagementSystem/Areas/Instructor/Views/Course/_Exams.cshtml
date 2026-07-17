@@ -1,0 +1,134 @@
+﻿@model InstructorExamsVM
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h4 class="mb-0">Exams</h4>
+
+    <button class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#createExamModal">
+
+        <i class="fas fa-plus mr-1"></i>
+
+        Add Exam
+
+    </button>
+
+</div>
+
+@if (!Model.Exams.Any())
+{
+    <div class="alert alert-info">
+
+        No exams found.
+
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+
+        <thead>
+
+            <tr>
+
+                <th>Title</th>
+
+                <th>Duration</th>
+
+                <th>Pass Mark</th>
+
+                <th>Total Marks</th>
+
+                <th>Questions</th>
+
+                <th width="220">Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var exam in Model.Exams)
+            {
+                <tr>
+
+                    <td>@exam.Title</td>
+
+                    <td>@exam.DurationMinutes min</td>
+
+                    <td>@exam.PassMark</td>
+
+                    <td>@exam.TotalMarks</td>
+
+                    <td>@exam.QuestionsCount</td>
+
+                    <td>
+
+                        <a asp-area="@SD.INSTRUCTOR_AREA"
+                           asp-controller="Exam"
+                           asp-action="Details"
+                           asp-route-id="@exam.ExamId"
+                           class="btn btn-info btn-sm">
+
+                            <i class="fas fa-list"></i>
+
+                        </a>
+
+                        <button class="btn btn-warning btn-sm edit-exam-btn"
+                                data-toggle="modal"
+                                data-target="#editExamModal"
+                                data-id="@exam.ExamId"
+                                data-courseid="@Model.CourseId"
+                                data-title="@exam.Title"
+                                data-duration="@exam.DurationMinutes"
+                                data-passmark="@exam.PassMark"
+                                data-totalmarks="@exam.TotalMarks">
+
+                            <i class="fas fa-edit"></i>
+
+                        </button>
+
+                        <form asp-action="DeleteExam"
+                              method="post"
+                              class="d-inline delete-exam-form">
+
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden"
+                                   name="examId"
+                                   value="@exam.ExamId" />
+
+                            <input type="hidden"
+                                   name="courseId"
+                                   value="@Model.CourseId" />
+
+                            <button class="btn btn-danger btn-sm">
+
+                                <i class="fas fa-trash"></i>
+
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}
+
+@await Html.PartialAsync(
+"_CreateExamModal",
+new InstructorCreateExamVM
+{
+    CourseId = Model.CourseId
+})
+
+@await Html.PartialAsync(
+"_EditExamModal",
+new InstructorEditExamVM())

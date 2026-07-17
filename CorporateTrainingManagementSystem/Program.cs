@@ -56,6 +56,10 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IEmailTemplateService, EmailTemplateService>();
             builder.Services.AddScoped<IEmailSender, EmailSender>();
+            builder.Services.AddScoped<IInstructorDashboardService, InstructorDashboardService>();
+            builder.Services.AddScoped<IInstructorCourseService, InstructorCourseService>();
+            builder.Services.AddScoped<IInstructorCourseManagementService,InstructorCourseManagementService>();
+            builder.Services.AddScoped<IInstructorExamService, InstructorExamService>();
 
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTP"));
 
@@ -86,11 +90,15 @@ namespace CorporateTrainingManagementSystem
             app.UseAuthorization();
 
             app.MapStaticAssets();
+
+            app.UseStatusCodePagesWithReExecute("/Identity/Account/Error404");
+            app.MapControllerRoute(
+                 name: "default",
+                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+                .WithStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
-
+                pattern: "{controller=Home}/{action=Index}/{id?}");
             app.Run();
         }
     }

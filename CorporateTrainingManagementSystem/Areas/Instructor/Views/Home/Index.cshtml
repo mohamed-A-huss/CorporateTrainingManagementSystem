@@ -1,0 +1,229 @@
+﻿@model InstructorDashboardVM
+
+@{
+    ViewData["Title"] = "Instructor Dashboard";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+                <h1>Instructor Dashboard</h1>
+
+                <p class="text-muted mb-0">
+                    Welcome back! Here's a quick overview of your teaching activity.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-primary">
+
+                    <div class="inner">
+                        <h3>@Model.CoursesCount</h3>
+                        <p>Courses</p>
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-success">
+
+                    <div class="inner">
+                        <h3>@Model.StudentsCount</h3>
+                        <p>Students</p>
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-warning">
+
+                    <div class="inner">
+                        <h3>@Model.LessonsCount</h3>
+                        <p>Lessons</p>
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-danger">
+
+                    <div class="inner">
+                        <h3>@Model.ExamsCount</h3>
+                        <p>Exams</p>
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+                            My Courses
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+
+                        <table class="table table-hover">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Course</th>
+
+                                    <th class="text-center">Students</th>
+
+                                    <th class="text-center">Lessons</th>
+
+                                    <th class="text-center">Exams</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @if (Model.AllCourses.Any())
+                                {
+                                    @foreach (var course in Model.AllCourses)
+                                    {
+                                        <tr>
+
+                                            <td>
+
+                                                <a asp-area="@SD.INSTRUCTOR_AREA"
+                                                   asp-controller="Course"
+                                                   asp-action="Details"
+                                                   asp-route-id="@course.CourseId">
+
+                                                    @course.Title
+
+                                                </a>
+
+                                            </td>
+
+                                            <td class="text-center">
+                                                @course.StudentsCount
+                                            </td>
+
+                                            <td class="text-center">
+                                                @course.LessonsCount
+                                            </td>
+
+                                            <td class="text-center">
+                                                @course.ExamsCount
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+
+                                        <td colspan="4" class="text-center text-muted py-4">
+
+                                            You are not assigned to any courses yet.
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+                            Quick Actions
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <a asp-area="@SD.INSTRUCTOR_AREA"
+                           asp-controller="Course"
+                           asp-action="Index"
+                           class="btn btn-primary btn-block">
+
+                            <i class="fas fa-book mr-2"></i>
+
+                            My Courses
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Instructor\Controllers\" />
-    <Folder Include="Areas\Trainee\Controllers\" />
-    <Folder Include="Areas\Trainee\Views\" />
     <Folder Include="Helpers\" />
     <Folder Include="wwwroot\lib\Admin\" />
     <Folder Include="wwwroot\uploads\" />

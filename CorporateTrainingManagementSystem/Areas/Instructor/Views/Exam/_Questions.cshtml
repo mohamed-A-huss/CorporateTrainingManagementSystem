@@ -1,0 +1,155 @@
+﻿@model InstructorExamDetailsVM
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h4 class="mb-0">
+
+        Questions
+
+    </h4>
+
+    <button class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#createQuestionModal">
+
+        <i class="fas fa-plus mr-1"></i>
+
+        Add Question
+
+    </button>
+
+</div>
+
+@if (!Model.Questions.Any())
+{
+    <div class="alert alert-info">
+
+        No questions found.
+
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+
+        <thead>
+
+            <tr>
+
+                <th width="45%">Question</th>
+
+                <th>Type</th>
+
+                <th>Mark</th>
+
+                <th>Choices</th>
+
+                <th width="170">Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var question in Model.Questions)
+            {
+                <tr>
+
+                    <td>
+
+                        @question.QuestionText
+
+                    </td>
+
+                    <td>
+
+                        @question.QuestionType
+
+                    </td>
+
+                    <td>
+
+                        @question.Mark
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge badge-info">
+
+                            @question.ChoicesCount Choices
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <a asp-area="@SD.INSTRUCTOR_AREA"
+                           asp-controller="Exam"
+                           asp-action="QuestionDetails"
+                           asp-route-id="@question.QuestionId"
+                           class="btn btn-info btn-sm"
+                           title="Manage Choices">
+
+                            <i class="fas fa-list"></i>
+
+                        </a>
+
+                        <button class="btn btn-warning btn-sm edit-question-btn"
+                                data-toggle="modal"
+                                data-target="#editQuestionModal"
+                                data-id="@question.QuestionId"
+                                data-examid="@Model.ExamId"
+                                data-text="@question.QuestionText"
+                                data-type="@((int)question.QuestionType)"
+                                data-mark="@question.Mark">
+
+                            <i class="fas fa-edit"></i>
+
+                        </button>
+
+                        <button class="btn btn-danger btn-sm delete-question-btn"
+                                data-id="@question.QuestionId"
+                                data-examid="@Model.ExamId">
+
+                            <i class="fas fa-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}
+
+@await Html.PartialAsync(
+"_CreateQuestionModal",
+new InstructorCreateQuestionVM
+{
+    ExamId = Model.ExamId
+})
+
+@await Html.PartialAsync(
+"_EditQuestionModal",
+new InstructorEditQuestionVM ())
+<form id="deleteQuestionForm"
+      asp-action="DeleteQuestion"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden"
+           id="deleteQuestionId"
+           name="questionId" />
+
+    <input type="hidden"
+           id="deleteExamId"
+           name="examId" />
+
+</form>

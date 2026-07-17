@@ -1,0 +1,10 @@
+﻿@model InstructorCourseDetailsVM
+
+<h4>Course Overview</h4>
+<hr />
+
+<p>
+    Model: @Model.Title
+    Description: @(string.IsNullOrWhiteSpace(Model.Description) ? "No description available." : Model.Description)
+
+</p>

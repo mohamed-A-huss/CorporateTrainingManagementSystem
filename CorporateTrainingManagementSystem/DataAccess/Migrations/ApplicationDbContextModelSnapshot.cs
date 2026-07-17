@@ -399,6 +399,9 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Property<int>("ExamId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Mark")
+                        .HasColumnType("int");
+
                     b.Property<string>("QuestionText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

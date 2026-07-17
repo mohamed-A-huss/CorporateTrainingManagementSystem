@@ -1,6 +1,4 @@
-﻿using CorporateTrainingManagementSystem.ViewModels.Enrollment;
-
-namespace CorporateTrainingManagementSystem.Models
+﻿namespace CorporateTrainingManagementSystem.Models
 {
     public class Enrollment
     {

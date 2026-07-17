@@ -1,5 +1,4 @@
-﻿@using CorporateTrainingManagementSystem.Models
-@model EditQuestionVM
+﻿@model EditQuestionVM
 
 <div class="container">
 
@@ -97,6 +96,21 @@
                     <input type="hidden" asp-for="QuestionType" />
 
                     <span asp-validation-for="QuestionType"
+                          class="text-danger">
+                    </span>
+
+                </div>
+                <!-- Mark -->
+                <div class="mb-3">
+
+                    <label asp-for="Mark"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="Mark"
+                           class="form-control" />
+
+                    <span asp-validation-for="Mark"
                           class="text-danger">
                     </span>
 

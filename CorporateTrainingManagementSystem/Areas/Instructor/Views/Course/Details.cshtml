@@ -1,0 +1,365 @@
+﻿@model InstructorCourseDetailsVM
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary mb-3">
+
+                    <i class="fas fa-arrow-left mr-1"></i>
+
+                    Back to My Courses
+
+                </a>
+
+                <h1>@Model.Title</h1>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item">
+
+                        <a asp-area="@SD.INSTRUCTOR_AREA"
+                           asp-controller="Home"
+                           asp-action="Index">
+
+                            Dashboard
+
+                        </a>
+
+                    </li>
+
+                    <li class="breadcrumb-item">
+
+                        <a asp-action="Index">
+
+                            My Courses
+
+                        </a>
+
+                    </li>
+
+                    <li class="breadcrumb-item active">
+
+                        @Model.Title
+
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h3 class="font-weight-bold">
+
+                    @Model.Title
+
+                </h3>
+
+                <p class="text-muted">
+
+                    @(string.IsNullOrWhiteSpace(Model.Description)
+                        ? "No description available."
+                        : Model.Description)
+
+                </p>
+
+                <small class="text-muted">
+
+                    Created
+
+                    @Model.CreatedAt.ToString("dd MMM yyyy")
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="small-box bg-info">
+
+                    <div class="inner">
+
+                        <h3>@Model.StudentsCount</h3>
+
+                        <p>Students</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-user-graduate"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="small-box bg-success">
+
+                    <div class="inner">
+
+                        <h3>@Model.LessonsCount</h3>
+
+                        <p>Lessons</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-book"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="small-box bg-warning">
+
+                    <div class="inner">
+
+                        <h3>@Model.ExamsCount</h3>
+
+                        <p>Exams</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-file-alt"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card card-primary card-outline">
+
+            <div class="card-header p-2">
+
+                <ul class="nav nav-pills">
+
+                    <li class="nav-item">
+
+                        <a class="nav-link active"
+                           href="#overview"
+                           data-toggle="tab">
+
+                            Overview
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="#lessons"
+                           data-toggle="tab">
+
+                            Lessons
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="#exams"
+                           data-toggle="tab">
+
+                            Exams
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="#students"
+                           data-toggle="tab">
+
+                            Students
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="tab-content">
+
+                    <div class="active tab-pane"
+                         id="overview">
+
+                        @await Html.PartialAsync("_Overview", Model)
+
+                    </div>
+
+                    <div class="tab-pane"
+                         id="lessons">
+
+                        @await Html.PartialAsync("_Lessons", new InstructorLessonsVM
+                        {
+                            CourseId = Model.CourseId,
+                            Lessons = Model.Lessons
+                        }))
+
+                    </div>
+
+                    <div class="tab-pane"
+                         id="exams">
+
+                        @await Html.PartialAsync("_Exams", new InstructorExamsVM
+                        {
+                            CourseId = Model.CourseId,
+                            Exams = Model.Exams
+                        }))
+
+                    </div>
+
+                    <div class="tab-pane"
+                         id="students">
+
+                        @await Html.PartialAsync("_Students", Model)
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+@section Scripts
+{
+    <script>
+        $(document).on('click', '.edit-lesson-btn', function() {
+
+            const button = $(this);
+            const modal = $('#editLessonModal');
+
+            modal.find('input[name="LessonId"]').val(button.data('id'));
+            modal.find('input[name="CourseId"]').val(button.data('courseid'));
+            modal.find('input[name="Title"]').val(button.data('title'));
+            modal.find('textarea[name="Content"]').val(button.data('content'));
+            modal.find('input[name="VideoUrl"]').val(button.data('video'));
+            modal.find('input[name="ExistingPdf"]').val(button.data('pdf'));
+
+        });
+            $('.delete-lesson-form').submit(function (e) {
+
+            e.preventDefault();
+
+            const form = this;
+
+            Swal.fire({
+                title: 'Delete Lesson?',
+                text: "This action cannot be undone.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, Delete'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+
+            });
+
+        });
+                $(document).on('click', '.edit-exam-btn', function () {
+
+            const button = $(this);
+
+            const modal = $('#editExamModal');
+
+            modal.find('input[name="ExamId"]').val(button.data('id'));
+
+            modal.find('input[name="CourseId"]').val(button.data('courseid'));
+
+            modal.find('input[name="Title"]').val(button.data('title'));
+
+            modal.find('input[name="DurationMinutes"]').val(button.data('duration'));
+
+            modal.find('input[name="PassMark"]').val(button.data('passmark'));
+
+            modal.find('input[name="TotalMarks"]').val(button.data('totalmarks'));
+
+        });
+                $('.delete-exam-form').submit(function (e) {
+
+            e.preventDefault();
+
+            const form = this;
+
+            Swal.fire({
+                title: 'Delete Exam?',
+                text: 'This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, Delete'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    form.submit();
+
+                }
+
+            });
+
+        });
+    </script>
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>Instructor | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
+@using System.Security.Claims
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -44,27 +45,115 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/Admin/Home" class="nav-link">Home</a>
+                    <a href="/Instructor/Home" class="nav-link">Home</a>
                 </li>
             </ul>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
 
+                <!-- Fullscreen -->
 
-              
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+
+                    <a class="nav-link"
+                       data-widget="fullscreen"
+                       href="#"
+                       role="button">
+
                         <i class="fas fa-expand-arrows-alt"></i>
+
                     </a>
+
                 </li>
+
+                <!-- User Menu -->
+
+                <li class="nav-item dropdown user-menu">
+
+                    <a href="#"
+                       class="nav-link dropdown-toggle"
+                       data-toggle="dropdown">
+
+                        <img src="~/AdminLTE/dist/img/default user.jpg"
+                             class="user-image img-circle elevation-2"
+                             alt="User Image">
+
+                        <span class="d-none d-md-inline">
+
+                            @User.FindFirstValue(ClaimTypes.Name)
+
+                        </span>
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                        <!-- User Header -->
+
+                        <li class="user-header bg-primary">
+
+                            <img src="~/AdminLTE/dist/img/default user.jpg"
+                                 class="img-circle elevation-2"
+                                 alt="User Image">
+
+                            <p>
+
+                                @User.FindFirstValue(ClaimTypes.Name)
+
+                                <small>
+
+                                    @User.FindFirstValue(ClaimTypes.Email)
+
+                                </small>
+
+                            </p>
+
+                        </li>
+
+                        <!-- Menu Footer -->
+
+                        <li class="user-footer">
+
+                            <a asp-area="Identity"
+                               asp-controller="Profile"
+                               asp-action="Index"
+                               class="btn btn-default btn-flat">
+
+                                Profile
+
+                            </a>
+
+                            <form asp-area="Identity"
+                                  asp-controller="Account"
+                                  asp-action="Logout"
+                                  method="post"
+                                  class="float-right">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="btn btn-default btn-flat">
+
+                                    Logout
+
+                                </button>
+
+                            </form>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
             </ul>
         </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/Admin/Home" class="brand-link">
+            <a href="/Instructor/Home" class="brand-link">
 				<h3 class="brand-text font-weight-light">Corporate Training</h3>
             </a>
 
@@ -87,23 +176,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/Admin/Home" class="nav-link active">
+                                    <a href="/Instructor/Home" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Dashboard v1</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="/Admin/Home" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Admin/Home" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
+                            
                             </ul>
                         </li>
                         
@@ -111,57 +189,22 @@
                        
                         <li class="nav-header">Management</li>
                         <li class="nav-item">
-                            <a href="/Admin/User" class="nav-link">
+                            <a href="/Instructor/Course" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>User</p>
+                                <p>My Courses</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Department" class="nav-link">
+                            <a href="/Instructor/Student" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Department</p>
+                                <p>My Students</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/Admin/Course" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Course</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Admin/Enrollment" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Enrollment</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Admin/Lesson" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Lesson</p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a href="/Admin/Exam" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Exam</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Admin/Question" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Question</p>
-                            </a>
-                        </li>
+
+ 
                         
                         
                         
-                        <li class="nav-item">
-                            <a href="/Admin/Badge" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Badge</p>
-                            </a>
-                        </li>
                         
                         
                        

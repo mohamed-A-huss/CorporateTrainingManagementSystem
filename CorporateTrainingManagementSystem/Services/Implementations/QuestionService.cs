@@ -165,6 +165,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             {
                 QuestionText = vm.QuestionText.Trim(),
                 QuestionType = vm.QuestionType,
+                Mark = vm.Mark,
                 ExamId = vm.ExamId,
                 Choices = new List<Choice>()
             };
@@ -235,6 +236,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 QuestionText = question.QuestionText,
                 QuestionType = question.QuestionType,
                 CourseId = question.Exam.CourseId,
+                Mark = question.Mark,
                 ExamId = question.ExamId
             };
 
@@ -293,6 +295,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
 
             question.QuestionText = vm.QuestionText.Trim();
             question.QuestionType = vm.QuestionType;
+            question.Mark = vm.Mark;
             question.ExamId = vm.ExamId;
 
             foreach (var choice in question.Choices.ToList())

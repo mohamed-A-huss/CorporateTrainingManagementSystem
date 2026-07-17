@@ -12,6 +12,7 @@
         public string QuestionText { get; set; }
 
         public QuestionType QuestionType { get; set; }
+        public int Mark { get; set; }
 
         public int ExamId { get; set; }
 
