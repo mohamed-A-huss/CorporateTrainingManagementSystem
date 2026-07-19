@@ -15,12 +15,6 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
         private readonly IRepository<ApplicationUserOTP> _applicationUserOTPRepository;
         private readonly IEmailSender _emailSender;
 
-        // IdentityUser (ApplicationUser) => Service layer => UserManager
-        // IdentityUser (ApplicationUser) => Repo layer => UserStore
-        // IdentityRole (ApplicationRole) => Service layer => RoleManager
-        // IdentityRole (ApplicationRole) => Repo layer => RoleStore
-        // Another Services => SignInManger
-
         public AccountController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManger, IEmailSender emailSender, IRepository<ApplicationUserOTP> applicationUserOTPRepository)
         {
@@ -63,32 +57,20 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, regiterVM.Password);
-            // Why generate Errors?
-            // Password (Uppercase-lowercase-digits-special char-min lenght = 6) < = by default
-            // dublicate username < = by default
-            // dublicate email, phone number
 
             if (!result.Succeeded)
             {
-                // Print Errors
                 foreach (var item in result.Errors)
                     ModelState.AddModelError(string.Empty, item.Description);
 
                 return View(regiterVM);
             }
 
-            // Send Email Confirmation
-            //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user); // By Default => token valid to 24h
-            //var link = Url.Action("Confirm", "Account", new { area = "Identity", token = token, userId = user.Id }, Request.Scheme);
-            //await _emailSender.SendEmailAsync(user.Email, "Conirmation Your account",
-            //    $"<h1>Confirm Your Account By Clicking <a href='{link}'>here</a></h1>");
             await SendConfirmationMailAsync(user);
 
-            TempData["success-notification"] = "Create Account Successfully, Please Check Your email to verfiy";
+            TempData["success-notification"] = "Create Account Successfully, Please Check Your email to verify";
 
-            //await _signInManger.SignInAsync(user, false); // Automatic login
-
-            await _userManager.AddToRoleAsync(user, );
+            await _userManager.AddToRoleAsync(user, "Employee");
 
             return RedirectToAction(nameof(Login));
         }
@@ -103,19 +85,11 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
 
             if (!result.Succeeded)
             {
-                // Print Errors
-                //foreach (var item in result.Errors)
-                //ModelState.AddModelError(string.Empty, item.Description);
-
                 TempData["error-notification"] = String.Join(", ", result.Errors.Select(e => e.Description));
-
                 return RedirectToAction(nameof(Login));
             }
 
             TempData["success-notification"] = "Active Account Successfully";
-
-            //await _signInManger.SignInAsync(user, false);
-            //return RedirectToAction("Index", "Home", new { area = "Customer" });
             return RedirectToAction(nameof(Login));
         }
 
@@ -138,7 +112,6 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             {
                 ModelState.AddModelError("UserNameOrEmail", "Email Or UserName Incorrect");
                 ModelState.AddModelError("Password", "Password Incorrect");
-
                 return View(loginVM);
             }
 
@@ -204,10 +177,10 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             if (user is not null)
             {
                 await SendOTPToMailAsync(user);
+                TempData["userId"] = user.Id;
             }
 
             TempData["success-notification"] = "Send OTP Number To Your Mail, Check Your Mail";
-            TempData["userId"] = user.Id;
             return RedirectToAction("ValidateOTP");
         }
 
@@ -227,15 +200,21 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
                 return View(validateOTPVM);
 
             var userId = TempData.Peek("userId");
+            if (userId is null) return NotFound();
 
             var otpInDB = (await _applicationUserOTPRepository.GetAsync(e => e.ApplicationUserId == userId.ToString() && !e.IsUsed))
                 .OrderByDescending(e => e.CreateAt).FirstOrDefault();
 
-            if (otpInDB.OTP != validateOTPVM.OTP)
+            if (otpInDB is null || otpInDB.OTP != validateOTPVM.OTP)
             {
-                TempData["error-notification"] = "In Valid Or Expired OTP";
-                return View();
+                TempData["error-notification"] = "Invalid Or Expired OTP";
+                return View(validateOTPVM);
             }
+
+            otpInDB.IsUsed = true;
+            await _applicationUserOTPRepository.CommitAsync();
+
+            TempData["userId"] = userId;
 
             return RedirectToAction("ChangePassword");
         }
@@ -255,8 +234,10 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             if (!ModelState.IsValid)
                 return View(changePasswordVM);
 
-            var user = await _userManager.FindByIdAsync(TempData["userId"].ToString());
+            var userIdObj = TempData["userId"];
+            if (userIdObj is null) return NotFound();
 
+            var user = await _userManager.FindByIdAsync(userIdObj.ToString());
             if (user is null) return NotFound();
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -266,7 +247,7 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             {
                 TempData["error-notification"] = String.Join(", ", result.Errors.Select(e => e.Description));
                 TempData["userId"] = user.Id;
-                return View();
+                return View(changePasswordVM);
             }
 
             TempData["success-notification"] = "Change Password Successfully";
@@ -277,10 +258,9 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
         {
             try
             {
-                // Send Email Confirmation
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user); // By Default => token valid to 24h
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var link = Url.Action("Confirm", "Account", new { area = "Identity", token = token, userId = user.Id }, Request.Scheme);
-                await _emailSender.SendEmailAsync(user.Email, "Conirmation Your account",
+                await _emailSender.SendEmailAsync(user.Email, "Confirmation Your account",
                     $"<h1>Confirm Your Account By Clicking <a href='{link}'>here</a></h1>");
 
                 return true;
@@ -296,17 +276,16 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
         {
             try
             {
-                // Send Email Confirmation
                 var otp = new Random().Next(100000, 999999);
-                //new Guid().ToString().Substring(0, 5);
 
                 await _emailSender.SendEmailAsync(user.Email, $"Reset Password Your Account - {DateTime.Now}",
-                    $"<h1>OTP: <b>{otp}</b>. Don't share it.<h1>");
+                    $"<h1>OTP: <b>{otp}</b>. Don't share it.</h1>");
 
                 await _applicationUserOTPRepository.CreateAsync(new ApplicationUserOTP()
                 {
                     OTP = otp.ToString(),
-                    ApplicationUserId = user.Id
+                    ApplicationUserId = user.Id,
+                    IsUsed = false
                 });
                 await _applicationUserOTPRepository.CommitAsync();
 
