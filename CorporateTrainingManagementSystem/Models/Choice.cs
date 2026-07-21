@@ -11,5 +11,6 @@
         public int QuestionId { get; set; }
 
         public Question Question { get; set; }
+        public ICollection<ExamAnswer> ExamAnswers { get; set; } = [];
     }
 }

@@ -22,7 +22,7 @@
         public IEnumerable<InstructorExamVM> Exams { get; set; }
             = Enumerable.Empty<InstructorExamVM>();
 
-        public IEnumerable<InstructorStudentVM> Students { get; set; }
-            = Enumerable.Empty<InstructorStudentVM>();
+        public IEnumerable<InstructorStudentProgressVM> Students { get; set; }
+            = Enumerable.Empty<InstructorStudentProgressVM>();
     }
 }

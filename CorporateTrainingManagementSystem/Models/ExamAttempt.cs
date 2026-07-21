@@ -16,6 +16,10 @@
 
         public bool IsPassed { get; set; }
 
-        public DateTime AttemptDate { get; set; } = DateTime.Now;
+        public DateTime StartTime { get; set; }
+
+        public DateTime? EndTime { get; set; }
+
+        public ICollection<ExamAnswer> Answers { get; set; } = [];
     }
 }

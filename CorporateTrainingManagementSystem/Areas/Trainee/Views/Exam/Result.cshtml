@@ -1,0 +1,342 @@
+﻿@model ExamResultVM
+
+@{
+    ViewData["Title"] = "Exam Result";
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+
+                <h1>Exam Result</h1>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item">
+                        <a asp-area="Trainee"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        Result
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        @if (Model.Passed)
+        {
+            <div class="alert alert-success text-center">
+
+                <h3>
+                    <i class="fas fa-check-circle mr-2"></i>
+
+                    Congratulations!
+                </h3>
+
+                <p class="mb-0">
+
+                    You have successfully passed this exam.
+
+                </p>
+
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger text-center">
+
+                <h3>
+
+                    <i class="fas fa-times-circle mr-2"></i>
+
+                    Better Luck Next Time
+
+                </h3>
+
+                <p class="mb-0">
+
+                    Unfortunately, you did not reach the passing score.
+
+                </p>
+
+            </div>
+        }
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <div class="small-box bg-info">
+
+                    <div class="inner">
+
+                        <h3>@Model.Score / @Model.TotalMarks</h3>
+
+                        <p>Your Score</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-star"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="small-box bg-secondary">
+
+                    <div class="inner">
+
+                        <h3>@Model.TotalMarks</h3>
+
+                        <p>Total Marks</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-list-ol"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="small-box bg-warning">
+
+                    <div class="inner">
+
+                        <h3>@Model.PassMark</h3>
+
+                        <p>Pass Mark</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-award"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="small-box @(Model.Passed ? "bg-success" : "bg-danger")">
+
+                    <div class="inner">
+
+                        <h3>
+
+                            @(Model.Passed ? "Passed" : "Failed")
+
+                        </h3>
+
+                        <p>Status</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas @(Model.Passed ? "fa-check" : "fa-times")"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3 class="card-title">
+
+                    Exam Summary
+
+                </h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-bordered">
+
+                    <tr>
+
+                        <th style="width:40%">
+
+                            Attempts Used
+
+                        </th>
+
+                        <td>
+
+                            @Model.AttemptsUsed
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>
+
+                            Remaining Attempts
+
+                        </th>
+
+                        <td>
+
+                            @Model.AttemptsRemaining
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>
+
+                            Certificate
+
+                        </th>
+
+                        <td>
+
+                            @if (Model.HasCertificate)
+                            {
+                                <span class="badge badge-success">
+
+                                    Earned
+
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary">
+
+                                    Not Available
+
+                                </span>
+                            }
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="card-footer text-center">
+
+                @if (Model.Passed)
+                {
+                    <a asp-area="Trainee"
+                       asp-controller="Certificate"
+                       asp-action="Index"
+                       class="btn btn-success">
+
+                        <i class="fas fa-certificate mr-1"></i>
+
+                        View Certificates
+
+                    </a>
+                    <a asp-area="Trainee"
+                       asp-controller="Home"
+                       asp-action="Index"
+                       class="btn btn-success">
+                        Go to Dashboard
+                    </a>
+                }
+                else
+                {
+                    if (Model.AttemptsRemaining > 0)
+                    {
+                        <form asp-area="Trainee"
+                              asp-controller="Exam"
+                              asp-action="Begin"
+                              method="post"
+                              class="d-inline">
+
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden"
+                                   name="examId"
+                                   value="@Model.ExamId" />
+
+                            <button type="submit"
+                                    class="btn btn-warning">
+
+                                <i class="fas fa-redo mr-1"></i>
+
+                                Try Again
+
+                            </button>
+
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning mt-3">
+
+                            You have used all available attempts for this exam.
+
+                        </div>
+                    }
+                }
+
+                <a asp-area="Trainee"
+                   asp-controller="Course"
+                   asp-action="MyCourses"
+                   class="btn btn-primary">
+
+                    <i class="fas fa-book mr-1"></i>
+
+                    Back to My Courses
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

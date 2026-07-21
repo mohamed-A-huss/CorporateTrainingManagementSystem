@@ -60,12 +60,16 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddScoped<IInstructorCourseService, InstructorCourseService>();
             builder.Services.AddScoped<IInstructorCourseManagementService,InstructorCourseManagementService>();
             builder.Services.AddScoped<IInstructorExamService, InstructorExamService>();
+            builder.Services.AddScoped<ITraineeDashboardService, TraineeDashboardService>();
+            builder.Services.AddScoped<ITraineeCourseService, TraineeCourseService>();
+            builder.Services.AddScoped<ITraineeCertificateService, TraineeCertificateService>();
 
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTP"));
 
 
-
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
             var app = builder.Build();
+
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -76,12 +80,13 @@ namespace CorporateTrainingManagementSystem
                 await IdentitySeeder.SeedAsync(userManager, roleManager);
             }
             // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            //if (!app.Environment.IsDevelopment())
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
+            app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
             app.UseRouting();

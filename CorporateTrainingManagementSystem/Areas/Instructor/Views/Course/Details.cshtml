@@ -265,7 +265,7 @@
                     <div class="tab-pane"
                          id="students">
 
-                        @await Html.PartialAsync("_Students", Model)
+                        @await Html.PartialAsync("_Students",Model.Students)
 
                     </div>
 
@@ -292,6 +292,7 @@
             modal.find('textarea[name="Content"]').val(button.data('content'));
             modal.find('input[name="VideoUrl"]').val(button.data('video'));
             modal.find('input[name="ExistingPdf"]').val(button.data('pdf'));
+            modal.find('input[name="Order"]').val(button.data('order'));
 
         });
             $('.delete-lesson-form').submit(function (e) {
@@ -334,6 +335,8 @@
             modal.find('input[name="PassMark"]').val(button.data('passmark'));
 
             modal.find('input[name="TotalMarks"]').val(button.data('totalmarks'));
+
+            modal.find('input[name="MaxAttempts"]').val(button.data('maxattempts'));
 
         });
                 $('.delete-exam-form').submit(function (e) {

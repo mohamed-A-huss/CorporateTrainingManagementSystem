@@ -1,4 +1,129 @@
-﻿@model InstructorCourseDetailsVM
+﻿@model IEnumerable<InstructorStudentProgressVM>
 
-<h4>Students</h4>
-<hr />
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+
+        <i class="fas fa-info-circle mr-2"></i>
+
+        No students have enrolled in this course yet.
+
+    </div>
+}
+else
+{
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3 class="card-title">
+
+                Students Progress
+
+            </h3>
+
+        </div>
+
+        <div class="card-body table-responsive p-0">
+
+            <table class="table table-hover text-nowrap">
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:35%">
+
+                            Student
+
+                        </th>
+
+                        <th style="width:40%">
+
+                            Progress
+
+                        </th>
+
+                        <th style="width:25%">
+
+                            Status
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var student in Model)
+                    {
+                        <tr>
+
+                            <td>
+
+                                <strong>
+
+                                    @student.StudentName
+
+                                </strong>
+
+                            </td>
+
+                            <td>
+
+                                <div class="progress progress-sm">
+
+                                    <div class="progress-bar
+                                        @(student.ProgressPercentage == 100
+                                            ? "bg-success"
+                                            : "bg-info")"
+                                         role="progressbar"
+                                         style="width:@student.ProgressPercentage%">
+                                    </div>
+
+                                </div>
+
+                                <small class="text-muted">
+
+                                    @student.CompletedLessons /
+                                    @student.TotalLessons Lessons
+
+                                    (@student.ProgressPercentage%)
+
+                                </small>
+
+                            </td>
+
+                            <td>
+
+                                @if (student.ProgressPercentage == 100)
+                                {
+                                    <span class="badge badge-success">
+
+                                        Completed
+
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-warning">
+
+                                        In Progress
+
+                                    </span>
+                                }
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+}

@@ -16,6 +16,8 @@ namespace CorporateTrainingManagementSystem.ViewModels.Lesson
         public string? VideoUrl { get; set; }
 
         public IFormFile? PdfFile { get; set; }
+        [Range(1, 1000)]
+        public int Order { get; set; }
 
         [Required]
         [Display(Name = "Course")]

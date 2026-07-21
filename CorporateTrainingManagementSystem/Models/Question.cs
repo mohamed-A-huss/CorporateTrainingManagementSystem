@@ -19,5 +19,6 @@
         public Exam Exam { get; set; }
 
         public ICollection<Choice> Choices { get; set; }
+        public ICollection<ExamAnswer> ExamAnswers { get; set; } = [];
     }
 }

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<InstructorStudentProgressVM>
+
+@{
+    ViewData["Title"] = "My Students";
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+
+                <h1>My Students</h1>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item">
+                        <a asp-area="@SD.INSTRUCTOR_AREA"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        My Students
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3 class="card-title">
+
+                    Students Overview
+
+                </h3>
+
+            </div>
+
+            <div class="card-body table-responsive p-0">
+
+                <table class="table table-hover text-nowrap">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Student</th>
+
+                            <th>Course</th>
+
+                            <th style="width:250px">
+
+                                Progress
+
+                            </th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+
+                                <td colspan="4"
+                                    class="text-center text-muted py-4">
+
+                                    No students found.
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var student in Model)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        @student.StudentName
+
+                                    </td>
+
+                                    <td>
+
+                                        @student.CourseTitle
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="progress">
+
+                                            <div class="progress-bar
+                                                @(student.ProgressPercentage == 100
+                                                    ? "bg-success"
+                                                    : "bg-info")"
+                                                 style="width:@student.ProgressPercentage%">
+
+                                                @student.ProgressPercentage%
+
+                                            </div>
+
+                                        </div>
+
+                                        <small class="text-muted">
+
+                                            @student.CompletedLessons /
+                                            @student.TotalLessons Lessons
+
+                                        </small>
+
+                                    </td>
+
+                                    <td>
+
+                                        @if (student.Status == "Completed")
+                                        {
+                                            <span class="badge badge-success">
+
+                                                Completed
+
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-warning">
+
+                                                In Progress
+
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

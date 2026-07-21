@@ -40,6 +40,7 @@ else
 
                 <th>Total Marks</th>
 
+                <th>Attempts</th>
                 <th>Questions</th>
 
                 <th width="220">Actions</th>
@@ -61,6 +62,7 @@ else
                     <td>@exam.PassMark</td>
 
                     <td>@exam.TotalMarks</td>
+                    <td>@exam.MaxAttempts</td>
 
                     <td>@exam.QuestionsCount</td>
 
@@ -84,7 +86,8 @@ else
                                 data-title="@exam.Title"
                                 data-duration="@exam.DurationMinutes"
                                 data-passmark="@exam.PassMark"
-                                data-totalmarks="@exam.TotalMarks">
+                                data-totalmarks="@exam.TotalMarks"
+                                data-maxattempts="@exam.MaxAttempts">
 
                             <i class="fas fa-edit"></i>
 

@@ -20,6 +20,8 @@ namespace CorporateTrainingManagementSystem.ViewModels.Exam
         [Display(Name = "Total Marks")]
         [Range(1, 1000)]
         public int TotalMarks { get; set; }
+        [Range(1, 10)]
+        public int MaxAttempts { get; set; } = 3;
 
         [Required]
         [Display(Name = "Course")]

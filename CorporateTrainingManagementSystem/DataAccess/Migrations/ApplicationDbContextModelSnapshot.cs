@@ -110,7 +110,15 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BadgeId"));
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -203,6 +211,9 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("RewardPoints")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -276,6 +287,9 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("int");
 
+                    b.Property<int>("MaxAttempts")
+                        .HasColumnType("int");
+
                     b.Property<int>("PassMark")
                         .HasColumnType("int");
 
@@ -293,6 +307,34 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.ToTable("Exams");
                 });
 
+            modelBuilder.Entity("CorporateTrainingManagementSystem.Models.ExamAnswer", b =>
+                {
+                    b.Property<int>("ExamAnswerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamAnswerId"));
+
+                    b.Property<int>("AttemptId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExamAnswerId");
+
+                    b.HasIndex("AttemptId");
+
+                    b.HasIndex("ChoiceId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("ExamAnswers");
+                });
+
             modelBuilder.Entity("CorporateTrainingManagementSystem.Models.ExamAttempt", b =>
                 {
                     b.Property<int>("AttemptId")
@@ -301,7 +343,7 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttemptId"));
 
-                    b.Property<DateTime>("AttemptDate")
+                    b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ExamId")
@@ -312,6 +354,9 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
 
                     b.Property<double>("Score")
                         .HasColumnType("float");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -338,6 +383,9 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<string>("PdfPath")
@@ -659,6 +707,33 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("CorporateTrainingManagementSystem.Models.ExamAnswer", b =>
+                {
+                    b.HasOne("CorporateTrainingManagementSystem.Models.ExamAttempt", "Attempt")
+                        .WithMany("Answers")
+                        .HasForeignKey("AttemptId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("CorporateTrainingManagementSystem.Models.Choice", "Choice")
+                        .WithMany("ExamAnswers")
+                        .HasForeignKey("ChoiceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("CorporateTrainingManagementSystem.Models.Question", "Question")
+                        .WithMany("ExamAnswers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Attempt");
+
+                    b.Navigation("Choice");
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("CorporateTrainingManagementSystem.Models.ExamAttempt", b =>
                 {
                     b.HasOne("CorporateTrainingManagementSystem.Models.Exam", "Exam")
@@ -809,6 +884,11 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Navigation("UserBadges");
                 });
 
+            modelBuilder.Entity("CorporateTrainingManagementSystem.Models.Choice", b =>
+                {
+                    b.Navigation("ExamAnswers");
+                });
+
             modelBuilder.Entity("CorporateTrainingManagementSystem.Models.Course", b =>
                 {
                     b.Navigation("Certificates");
@@ -832,6 +912,11 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
                     b.Navigation("Questions");
                 });
 
+            modelBuilder.Entity("CorporateTrainingManagementSystem.Models.ExamAttempt", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
             modelBuilder.Entity("CorporateTrainingManagementSystem.Models.Lesson", b =>
                 {
                     b.Navigation("LessonProgresses");
@@ -840,6 +925,8 @@ namespace CorporateTrainingManagementSystem.DataAccess.Migrations
             modelBuilder.Entity("CorporateTrainingManagementSystem.Models.Question", b =>
                 {
                     b.Navigation("Choices");
+
+                    b.Navigation("ExamAnswers");
                 });
 #pragma warning restore 612, 618
         }

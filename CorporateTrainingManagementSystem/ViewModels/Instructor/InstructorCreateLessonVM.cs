@@ -12,9 +12,12 @@ namespace CorporateTrainingManagementSystem.ViewModels.Instructor
 
         public string? Content { get; set; }
 
+
         [Url]
         public string? VideoUrl { get; set; }
 
         public IFormFile? PdfFile { get; set; }
+        [Range(1, 1000)]
+        public int Order { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace CorporateTrainingManagementSystem.Areas.Instructor.Controllers
 {
@@ -13,13 +12,13 @@ namespace CorporateTrainingManagementSystem.Areas.Instructor.Controllers
             _dashboardService = dashboardService;
         }
 
-        private string UserId =>
-            User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-
-        public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(
+        CancellationToken cancellationToken)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
             var vm = await _dashboardService.GetDashboardAsync(
-                UserId,
+                userId,
                 cancellationToken);
 
             return View(vm);

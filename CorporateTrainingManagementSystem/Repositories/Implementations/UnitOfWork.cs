@@ -19,6 +19,7 @@ namespace CorporateTrainingManagementSystem.Repositories.Implementations
         private IRepository<Badge>? _badges;
         private IRepository<UserBadge>? _userBadges;
         private IRepository<Certificate>? _certificates;
+        private IRepository<ExamAnswer>? _examAnswers;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -60,6 +61,8 @@ namespace CorporateTrainingManagementSystem.Repositories.Implementations
 
         public IRepository<Certificate> Certificates
             => _certificates ??= new Repository<Certificate>(_context);
+        public IRepository<ExamAnswer> ExamAnswers
+            => _examAnswers ??= new Repository<ExamAnswer>(_context);
 
         public Task<int> CommitAsync(CancellationToken cancellationToken = default)
         {

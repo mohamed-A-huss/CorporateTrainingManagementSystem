@@ -1,0 +1,180 @@
+﻿@model IEnumerable<BrowseCourseVM>
+
+@{
+    ViewData["Title"] = "Browse Courses";
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+                <h1>Browse Courses</h1>
+            </div>
+
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item">
+                        <a asp-area="@SD.TRAINEE_AREA"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        Browse Courses
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        @if (TempData["Success"] is not null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (TempData["Error"] is not null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        <div class="row">
+
+            @foreach (var course in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="card card-primary card-outline h-100">
+
+                        <div class="card-header">
+
+                            <h3 class="card-title">
+
+                                @course.Title
+
+                            </h3>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <p class="text-muted">
+
+                                @course.Description
+
+                            </p>
+
+                            <hr />
+
+                            <p>
+
+                                <strong>Instructor:</strong>
+
+                                @course.InstructorName
+
+                            </p>
+
+                            <p>
+
+                                <strong>Lessons:</strong>
+
+                                @course.LessonsCount
+
+                            </p>
+
+                            <p>
+
+                                <strong>Reward:</strong>
+
+                                @course.RewardPoints Points
+
+                            </p>
+
+                        </div>
+
+                        <div class="card-footer text-center">
+                            @if (course.IsEnrolled)
+                            {
+                            <a asp-area="@SD.TRAINEE_AREA"
+                               asp-controller="Course"
+                               asp-action="Details"
+                               asp-route-id="@course.CourseId"
+                               class="btn btn-info">
+
+                                View Details
+
+                            </a>
+
+                            
+                                <button class="btn btn-success"
+                                        disabled>
+
+                                    Already Enrolled
+
+                                </button>
+                            }
+                            else
+                            {
+                                <a asp-area="@SD.TRAINEE_AREA"
+                                   asp-controller="Course"
+                                   asp-action="Preview"
+                                   asp-route-id="@course.CourseId"
+                                   class="btn btn-info">
+
+                                    View Details
+
+                                </a>
+                                <form asp-area="@SD.TRAINEE_AREA"
+                                      asp-controller="Course"
+                                      asp-action="Enroll"
+                                      method="post"
+                                      class="d-inline">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="courseId"
+                                           value="@course.CourseId" />
+
+                                    <button type="submit"
+                                            class="btn btn-primary">
+
+                                        Enroll Now
+
+                                    </button>
+
+                                </form>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
