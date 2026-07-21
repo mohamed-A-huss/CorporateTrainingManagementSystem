@@ -10,7 +10,7 @@ https://corporatetraining.runasp.net
 | Role | Email | Password |
 |------|-------|----------|
 | Super Admin | superadmin@cts.com | SuperAdmin@123 |
-| Instructor | belevab262@buloan.com | Kakakoka53@ |
+| Instructor | mohamed.ibrahim@cts.com | Instructor@123 |
 | Student | omar.adel@cts.com | Student@123 |
 
 Team Members
