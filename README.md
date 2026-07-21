@@ -6,7 +6,6 @@ Team Members
 
 - Mohamed Ahmed Hussein (Leader)
 - Ali Hisham Amira
-- Taha Ramadan Ahmed Abdallah
 
 Technologies
 
