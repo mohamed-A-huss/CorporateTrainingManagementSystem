@@ -1,4 +1,6 @@
-﻿namespace CorporateTrainingManagementSystem.ViewModels.Exam
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CorporateTrainingManagementSystem.ViewModels.Exam
 {
     public class ExamVM
     {
@@ -9,6 +11,7 @@
         public int DurationMinutes { get; set; }
 
         public int PassMark { get; set; }
+        public int MaxAttempts { get; set; } = 3;
 
         public int TotalMarks { get; set; }
 

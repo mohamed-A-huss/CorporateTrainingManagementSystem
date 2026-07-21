@@ -1,0 +1,162 @@
+﻿@model PublicCourseDetailsVM
+
+@{
+    ViewData["Title"] = "Course Preview";
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+
+                <h1>@Model.Title</h1>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item">
+                        <a asp-area="@SD.TRAINEE_AREA"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a asp-action="Browse">
+                            Browse Courses
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        Preview
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        <div class="card card-primary card-outline">
+
+            <div class="card-header">
+
+                <h3 class="card-title">
+
+                    Course Information
+
+                </h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <dl class="row">
+
+                    <dt class="col-sm-3">
+                        Title
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.Title
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Description
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.Description
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Instructor
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.InstructorName
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Lessons
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.LessonsCount
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Reward
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.RewardPoints Points
+                    </dd>
+
+                </dl>
+
+            </div>
+
+            <div class="card-footer">
+
+                @if (Model.IsEnrolled)
+                {
+                    <a asp-action="Details"
+                       asp-route-id="@Model.CourseId"
+                       class="btn btn-success">
+
+                        Go To Course
+
+                    </a>
+                }
+                else
+                {
+                    <form asp-action="Enroll"
+                          method="post"
+                          class="d-inline">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="courseId"
+                               value="@Model.CourseId" />
+
+                        <button type="submit"
+                                class="btn btn-primary">
+
+                            Enroll Now
+
+                        </button>
+
+                    </form>
+                }
+
+                <a asp-action="Browse"
+                   class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

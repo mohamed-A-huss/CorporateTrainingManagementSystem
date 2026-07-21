@@ -1,0 +1,109 @@
+﻿@model List<CertificateVM>
+
+@{
+    ViewData["Title"] = "My Certificates";
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <h1>
+
+            My Certificates
+
+        </h1>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">
+
+                You don't have any certificates yet.
+
+            </div>
+        }
+        else
+        {
+            <div class="card">
+
+                <div class="card-body">
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Course</th>
+
+                                <th>Certificate Number</th>
+
+                                <th>Issue Date</th>
+
+                                <th width="180"></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        @item.CourseTitle
+
+                                    </td>
+
+                                    <td>
+
+                                        @item.CertificateNumber
+
+                                    </td>
+
+                                    <td>
+
+                                        @item.IssueDate.ToString("dd MMM yyyy")
+
+                                    </td>
+
+                                    <td>
+
+                                        <a asp-action="Download"
+                                           asp-route-id="@item.CertificateId"
+                                           class="btn btn-success">
+
+                                            <i class="fas fa-download mr-1"></i>
+
+                                            Download PDF
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</section>

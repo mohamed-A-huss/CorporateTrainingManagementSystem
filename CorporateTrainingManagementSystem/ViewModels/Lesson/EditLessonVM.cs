@@ -16,6 +16,8 @@ namespace CorporateTrainingManagementSystem.ViewModels.Lesson
         [Display(Name = "Video URL")]
         [Url]
         public string? VideoUrl { get; set; }
+        [Range(1, 1000)]
+        public int Order { get; set; }
 
         public string? PdfPath { get; set; }   
 

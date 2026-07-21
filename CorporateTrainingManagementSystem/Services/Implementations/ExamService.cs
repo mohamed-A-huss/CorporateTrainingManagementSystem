@@ -73,6 +73,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                     Title = e.Title,
                     DurationMinutes = e.DurationMinutes,
                     PassMark = e.PassMark,
+                    MaxAttempts = e.MaxAttempts,
                     TotalMarks = e.TotalMarks,
                     CourseTitle = e.Course.Title
                 }),
@@ -100,6 +101,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Title = exam.Title,
                 DurationMinutes = exam.DurationMinutes,
                 PassMark = exam.PassMark,
+                MaxAttempts = exam.MaxAttempts,
                 TotalMarks = exam.TotalMarks,
                 CourseTitle = exam.Course.Title
             };
@@ -130,6 +132,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Title = vm.Title.Trim(),
                 DurationMinutes = vm.DurationMinutes,
                 PassMark = vm.PassMark,
+                MaxAttempts = vm.MaxAttempts,
                 TotalMarks = vm.TotalMarks,
                 CourseId = vm.CourseId
             };
@@ -182,6 +185,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             exam.Title = vm.Title.Trim();
             exam.DurationMinutes = vm.DurationMinutes;
             exam.PassMark = vm.PassMark;
+            exam.MaxAttempts = vm.MaxAttempts;
             exam.TotalMarks = vm.TotalMarks;
             exam.CourseId = vm.CourseId;
 
@@ -211,6 +215,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Title = exam.Title,
                 DurationMinutes = exam.DurationMinutes,
                 PassMark = exam.PassMark,
+                MaxAttempts = exam.MaxAttempts,
                 TotalMarks = exam.TotalMarks,
                 CourseId = exam.CourseId
             };

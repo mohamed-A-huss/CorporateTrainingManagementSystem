@@ -11,6 +11,7 @@
         public int PassMark { get; set; }
 
         public int TotalMarks { get; set; }
+        public int MaxAttempts { get; set; } = 3;
 
         public int CourseId { get; set; }
 

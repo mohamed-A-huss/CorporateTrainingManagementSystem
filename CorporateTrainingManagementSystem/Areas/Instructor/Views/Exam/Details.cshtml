@@ -104,6 +104,29 @@
                 </div>
 
             </div>
+            <div class="col-md-4">
+
+                <div class="small-box bg-warning">
+
+                    <div class="inner">
+
+                        <h3>@Model.MaxAttempts</h3>
+
+                        <p>Max Attempts</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fas fa-clock"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
 
         </div>
 
@@ -129,6 +152,8 @@
             modal.find('[name="QuestionType"]').val($(this).data('type'));
 
             modal.find('[name="Mark"]').val($(this).data('mark'));
+
+            modal.find('[name="MaxAttempts"]').val($(this).data('maxattempts'));
 
         });
         $(document).on('click', '.delete-question-btn', function() {

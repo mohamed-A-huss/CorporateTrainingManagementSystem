@@ -1,4 +1,6 @@
 ﻿
+using CorporateTrainingManagementSystem.ViewModels.Instructor.Student;
+
 namespace CorporateTrainingManagementSystem.Services.Interfaces
 {
     public interface IInstructorCourseService
@@ -15,6 +17,14 @@ namespace CorporateTrainingManagementSystem.Services.Interfaces
             int courseId,
             string instructorId,
             CancellationToken cancellationToken = default);
-    
+        Task<List<InstructorStudentProgressVM>> GetInstructorStudentsAsync(
+            string instructorId,
+            CancellationToken cancellationToken = default);
+
+        Task<CourseStudentsVM?> GetCourseStudentsAsync(
+            int courseId,
+            string instructorId,
+            CancellationToken cancellationToken = default);
+
     }
 }

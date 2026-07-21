@@ -39,7 +39,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
 
             lessons = lessons
                 .Skip((page - 1) * pageSize)
-                .Take(pageSize);
+                .Take(pageSize).OrderBy(l => l.Order);
 
             var result = lessons.Select(l => new LessonVM
             {
@@ -48,6 +48,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Content = l.Content,
                 VideoUrl = l.VideoUrl,
                 PdfPath = l.PdfPath,
+                Order = l.Order,
                 CourseTitle = l.Course.Title
             });
 
@@ -77,6 +78,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Content = lesson.Content,
                 VideoUrl = lesson.VideoUrl,
                 PdfPath = lesson.PdfPath,
+                Order = lesson.Order,
                 CourseTitle = lesson.Course.Title
             };
         }
@@ -98,6 +100,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Title = vm.Title.Trim(),
                 Content = vm.Content,
                 VideoUrl = vm.VideoUrl,
+                Order = vm.Order,
                 CourseId = vm.CourseId
             };
 
@@ -155,6 +158,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
                 Content = lesson.Content,
                 VideoUrl = lesson.VideoUrl,
                 PdfPath = lesson.PdfPath,
+                Order = lesson.Order,
                 CourseId = lesson.CourseId
             };
 
@@ -187,6 +191,7 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             lesson.Content = vm.Content;
             lesson.VideoUrl = vm.VideoUrl;
             lesson.CourseId = vm.CourseId;
+            lesson.Order = vm.Order;
 
             // Upload new PDF if provided
             if (vm.PdfFile is not null)

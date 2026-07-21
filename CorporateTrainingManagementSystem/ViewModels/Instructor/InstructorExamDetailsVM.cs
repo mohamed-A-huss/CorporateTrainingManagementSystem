@@ -17,6 +17,7 @@
         public int TotalMarks { get; set; }
 
         public int QuestionsCount { get; set; }
+        public int MaxAttempts { get; set; } 
 
         public IEnumerable<InstructorQuestionVM> Questions { get; set; }
             = Enumerable.Empty<InstructorQuestionVM>();

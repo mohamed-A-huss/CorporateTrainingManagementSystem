@@ -34,6 +34,7 @@ namespace CorporateTrainingManagementSystem.DataAccess
         public DbSet<UserBadge> UserBadges { get; set; }
 
         public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<ExamAnswer> ExamAnswers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

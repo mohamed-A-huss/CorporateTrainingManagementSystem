@@ -60,6 +60,7 @@
                 VideoUrl = vm.VideoUrl,
 
                 PdfPath = pdfPath,
+                Order = vm.Order,
 
                 CourseId = vm.CourseId
             };
@@ -101,6 +102,7 @@
                 Content = lesson.Content,
 
                 VideoUrl = lesson.VideoUrl,
+                Order = lesson.Order,
 
                 ExistingPdf = lesson.PdfPath
             };
@@ -127,6 +129,7 @@
             lesson.Content = vm.Content;
 
             lesson.VideoUrl = vm.VideoUrl;
+            lesson.Order = vm.Order;
 
             if (vm.PdfFile is not null)
             {
@@ -196,6 +199,7 @@
                 DurationMinutes = vm.DurationMinutes,
                 PassMark = vm.PassMark,
                 TotalMarks = vm.TotalMarks,
+                MaxAttempts = vm.MaxAttempts,
                 CourseId = vm.CourseId
             };
 
@@ -225,6 +229,7 @@
             exam.DurationMinutes = vm.DurationMinutes;
             exam.PassMark = vm.PassMark;
             exam.TotalMarks = vm.TotalMarks;
+            exam.MaxAttempts = vm.MaxAttempts;
 
             _unitOfWork.Exams.Update(exam);
 

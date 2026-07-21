@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="CorporateTrainingManagementSystem/CorporateTrainingManagementSystem.csproj" />
+  <Project Path="CorporateTrainingManagementSystem/CorporateTrainingManagementSystem.csproj">
+    <BuildType Project="Release" />
+  </Project>
 </Solution>

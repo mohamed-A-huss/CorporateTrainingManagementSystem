@@ -89,8 +89,6 @@ namespace CorporateTrainingManagementSystem.Areas.Instructor.Controllers
                     id = vm.CourseId
                 });
             }
-            Console.WriteLine($"LessonId = {vm.LessonId}");
-            Console.WriteLine($"CourseId = {vm.CourseId}");
             var result =
                 await _managementService.UpdateLessonAsync(
                     vm,
@@ -192,6 +190,21 @@ namespace CorporateTrainingManagementSystem.Areas.Instructor.Controllers
             {
                 id = courseId
             });
+        }
+        public async Task<IActionResult> Students(int id,CancellationToken cancellationToken)
+        {
+            var instructorId =
+                User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+            var vm = await _courseService.GetCourseStudentsAsync(
+                id,
+                instructorId,
+                cancellationToken);
+
+            if (vm is null)
+                return NotFound();
+
+            return View(vm);
         }
     }
 }

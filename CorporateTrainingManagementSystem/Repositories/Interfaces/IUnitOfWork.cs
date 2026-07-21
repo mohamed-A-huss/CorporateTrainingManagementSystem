@@ -27,6 +27,7 @@ namespace CorporateTrainingManagementSystem.Repositories.Interfaces
         IRepository<UserBadge> UserBadges { get; }
 
         IRepository<Certificate> Certificates { get; }
+        IRepository<ExamAnswer> ExamAnswers { get; }
 
         Task<int> CommitAsync(CancellationToken cancellationToken = default);
     }

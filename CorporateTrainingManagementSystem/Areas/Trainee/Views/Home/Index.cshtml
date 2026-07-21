@@ -1,1 +1,225 @@
-﻿<h1> Coming Soon</h1>
+﻿@model TraineeDashboardVM
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="content-header">
+
+    <div class="container-fluid">
+
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+
+                <h1>Dashboard</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h3 class="mb-1">
+                    Welcome, @Model.FullName 👋
+                </h3>
+
+                <p class="text-muted mb-0">
+                    Keep learning and earn more certificates and badges.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-primary">
+
+                    <div class="inner">
+
+                        <h3>@Model.ActiveCourses</h3>
+
+                        <p>Active Courses</p>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-success">
+
+                    <div class="inner">
+
+                        <h3>@Model.CompletedCourses</h3>
+
+                        <p>Completed Courses</p>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-warning">
+
+                    <div class="inner">
+
+                        <h3>@Model.BadgesCount</h3>
+
+                        <p>Badges</p>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-info">
+
+                    <div class="inner">
+
+                        <h3>@Model.CertificatesCount</h3>
+
+                        <p>Certificates</p>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+                            Quick Actions
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <a asp-area="@SD.TRAINEE_AREA"
+                           asp-controller="Course"
+                           asp-action="Browse"
+                           class="btn btn-primary mr-2 mb-2">
+
+                            Browse Courses
+
+                        </a>
+
+                        <a asp-area="@SD.TRAINEE_AREA"
+                           asp-controller="Course"
+                           asp-action="MyCourses"
+                           class="btn btn-success mr-2 mb-2">
+
+                            My Courses
+
+                        </a>
+
+                        <a asp-area="@SD.TRAINEE_AREA"
+                           asp-controller="Certificate"
+                           asp-action="Index"
+                           class="btn btn-warning mr-2 mb-2">
+
+                            Certificates
+
+                        </a>
+
+                        <a asp-area="@SD.TRAINEE_AREA"
+                           asp-controller="Badge"
+                           asp-action="Index"
+                           class="btn btn-info mb-2">
+
+                            Badges
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3 class="card-title">
+
+                            Points
+
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body text-center">
+
+                        <h1 class="display-4 text-primary">
+
+                            @Model.Points
+
+                        </h1>
+
+                        <p class="text-muted">
+
+                            Total Earned Points
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

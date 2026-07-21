@@ -17,6 +17,8 @@ namespace CorporateTrainingManagementSystem.ViewModels.Instructor
 
         [Range(1, 100)]
         public int PassMark { get; set; }
+        [Range(1, 10)]
+        public int MaxAttempts { get; set; }
 
         [Range(1, 500)]
         public int TotalMarks { get; set; }

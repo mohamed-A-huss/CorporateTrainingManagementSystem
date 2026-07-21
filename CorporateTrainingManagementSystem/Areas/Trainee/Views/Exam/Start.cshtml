@@ -1,0 +1,185 @@
+﻿@model TraineeExamStartVM
+
+@{
+    ViewData["Title"] = "Start Exam";
+}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        @Model.ExamTitle
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <h5 class="mb-4">
+
+                        Course:
+                        <span class="text-primary">
+                            @Model.CourseTitle
+                        </span>
+
+                    </h5>
+
+                    <div class="row text-center mb-4">
+
+                        <div class="col-md-3">
+
+                            <div class="border rounded p-3">
+
+                                <h4>@Model.DurationMinutes</h4>
+
+                                <small class="text-muted">
+                                    Minutes
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="border rounded p-3">
+
+                                <h4>@Model.QuestionsCount</h4>
+
+                                <small class="text-muted">
+                                    Questions
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="border rounded p-3">
+
+                                <h4>@Model.PassMark</h4>
+
+                                <small class="text-muted">
+                                    Pass Mark
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="border rounded p-3">
+
+                                <h4>
+                                    @Model.AttemptsRemaining /
+                                    @Model.MaxAttempts
+                                </h4>
+
+                                <small class="text-muted">
+                                    Attempts Left
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <h5 class="mb-3">
+
+                        Instructions
+
+                    </h5>
+
+                    <ul>
+
+                        <li>
+                            The timer starts immediately after you click
+                            <strong>Start Exam</strong>.
+                        </li>
+
+                        <li>
+                            You cannot pause the exam.
+                        </li>
+
+                        <li>
+                            The exam will be submitted automatically when the time expires.
+                        </li>
+
+                        <li>
+                            Your answers are graded automatically.
+                        </li>
+
+                        <li>
+                            A certificate will be generated automatically if you pass.
+                        </li>
+
+                    </ul>
+
+                    <div class="alert alert-warning mt-4">
+
+                        <strong>
+
+                            Remaining Attempts:
+
+                        </strong>
+
+                        @Model.AttemptsRemaining of @Model.MaxAttempts
+
+                    </div>
+
+                    <div class="text-end mt-4">
+
+                        <a asp-area="@SD.TRAINEE_AREA"
+                           asp-controller="Course"
+                           asp-action="Details"
+                           asp-route-id="@Model.CourseId"
+                           class="btn btn-secondary">
+
+                            Back
+
+                        </a>
+
+                        <form asp-action="Begin"
+                              method="post"
+                              class="d-inline">
+
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden"
+                                   name="examId"
+                                   value="@Model.ExamId" />
+
+                            <button type="submit"
+                                    class="btn btn-success">
+
+                                <i class="fas fa-play me-2"></i>
+
+                                Start Exam
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
