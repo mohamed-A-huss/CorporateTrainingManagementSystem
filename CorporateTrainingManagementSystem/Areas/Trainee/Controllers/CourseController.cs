@@ -1,10 +1,13 @@
 ﻿using CorporateTrainingManagementSystem.Services.Implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CorporateTrainingManagementSystem.Areas.Trainee.Controllers
 {
     [Area(SD.TRAINEE_AREA)]
+    [Authorize(Roles = SD.TRAINEE_ROLE)]
+
     public class CourseController : Controller
     {
         private readonly ITraineeCourseService _courseService;

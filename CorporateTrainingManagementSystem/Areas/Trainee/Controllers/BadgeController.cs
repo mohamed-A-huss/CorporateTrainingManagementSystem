@@ -5,6 +5,8 @@ using System.Security.Claims;
 namespace CorporateTrainingManagementSystem.Areas.Trainee.Controllers
 {
     [Area(SD.TRAINEE_AREA)]
+    [Authorize(Roles = SD.TRAINEE_ROLE)]
+
     public class BadgeController : Controller
     {
         private readonly ITraineeCourseService _courseService;

@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizerFactory Factory
+
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,6 +39,42 @@
 </head>
 
 <body class="hold-transition @(ViewData["BodyClass"])">
+    <div class="position-absolute"
+     style="top:20px; right:20px; z-index:999;">
+
+    <form asp-area=""
+          asp-controller="Home"
+          asp-action="SetLanguage"
+          method="post">
+
+        <input type="hidden"
+               name="returnUrl"
+               value="@Context.Request.Path@Context.Request.QueryString" />
+
+        @{
+            var culture = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        }
+
+        <select name="culture"
+                class="form-control form-control-sm"
+                onchange="this.form.submit()">
+
+            @if (culture == "en")
+            {
+                <option value="en" selected>🇺🇸 English</option>
+                <option value="ar">🇪🇬 العربية</option>
+            }
+            else
+            {
+                <option value="en">🇺🇸 English</option>
+                <option value="ar" selected>🇪🇬 العربية</option>
+            }
+
+        </select>
+
+    </form>
+
+</div>
 
     @RenderBody()
 

@@ -15,8 +15,8 @@ namespace CorporateTrainingManagementSystem.Services.Implementations
             _userManager = userManager;
         }
         public async Task<TraineeDashboardVM?> GetDashboardAsync(
-    string traineeId,
-    CancellationToken cancellationToken = default)
+            string traineeId,
+            CancellationToken cancellationToken = default)
         {
             var user = await _userManager.Users
                     .Include(u => u.Enrollments)

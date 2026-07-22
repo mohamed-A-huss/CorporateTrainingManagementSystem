@@ -142,8 +142,10 @@ namespace CorporateTrainingManagementSystem.Documents
                                         col.Item()
                                             .PaddingTop(6)
                                             .AlignRight()
+                                            //.Hyperlink(
+                                            //    $"https://localhost:7181/Verify/{_certificate.CertificateNumber}")
                                             .Hyperlink(
-                                                $"https://localhost:7181/Verify/{_certificate.CertificateNumber}")
+                                                $"https://corporatetraining.runasp.net/Verify/{_certificate.CertificateNumber}")
                                             .Text("🔗 Verify Certificate")
                                             .FontSize(12)
                                             .FontColor(Colors.Blue.Medium)
