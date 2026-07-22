@@ -1,9 +1,11 @@
 ﻿using CorporateTrainingManagementSystem.Services.Implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(SD.ADMIN_AREA)]
+    [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE}")]
     public class LessonController : Controller
     {
         private readonly ILessonService _lessonService;

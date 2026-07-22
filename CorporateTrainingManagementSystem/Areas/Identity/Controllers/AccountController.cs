@@ -1,13 +1,11 @@
-﻿using CorporateTrainingManagementSystem.Models;
-using CorporateTrainingManagementSystem.Services.Implementations;
-using CorporateTrainingManagementSystem.Services.Interfaces;
-using CorporateTrainingManagementSystem.ViewModels.Identity;
+﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
 {
     [Area(SD.IDENTITY_AREA)]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
@@ -454,6 +452,11 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             TempData["Error"] = "No role has been assigned to your account.";
 
             return RedirectToAction(nameof(Login));
+        }
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

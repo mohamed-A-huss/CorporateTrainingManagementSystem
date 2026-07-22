@@ -1,11 +1,12 @@
-﻿using CorporateTrainingManagementSystem.Services.Implementations;
-using CorporateTrainingManagementSystem.ViewModels.UserManagement;
+﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(SD.ADMIN_AREA)]
+    [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE}")]
     public class UserController : Controller
     {
         private readonly IUserManagementService _userManagementService;

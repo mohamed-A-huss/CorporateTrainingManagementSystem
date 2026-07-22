@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizerFactory Factory
+
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -27,7 +37,7 @@
     <link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
-@using System.Security.Claims
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -45,13 +55,44 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/Admin/Home" class="nav-link">Home</a>
+                    <a href="/Admin/Home" class="nav-link">@Localizer["Home"]</a>
                 </li>
             </ul>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                <form asp-area=""
+                      asp-controller="Home"
+                      asp-action="SetLanguage"
+                      method="post"
+                      class="form-inline mr-3">
 
+                    <input type="hidden"
+                           name="returnUrl"
+                           value="@Context.Request.Path@Context.Request.QueryString" />
+
+                    @{
+                        var culture = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+                    }
+
+                    <select name="culture"
+                            class="form-control form-control-sm"
+                            onchange="this.form.submit()">
+
+                        @if (culture == "en")
+                        {
+                            <option value="en" selected>🇺🇸 English</option>
+                            <option value="ar">🇪🇬 العربية</option>
+                        }
+                        else
+                        {
+                            <option value="en">🇺🇸 English</option>
+                            <option value="ar" selected>🇪🇬 العربية</option>
+                        }
+
+                    </select>
+
+                </form>
                 <!-- Fullscreen -->
 
                 <li class="nav-item">
@@ -120,7 +161,7 @@
                                asp-action="Index"
                                class="btn btn-default btn-flat">
 
-                                Profile
+                                @Localizer["Profile"]
 
                             </a>
 
@@ -135,7 +176,7 @@
                                 <button type="submit"
                                         class="btn btn-default btn-flat">
 
-                                    Logout
+                                    @Localizer["Logout"]
 
                                 </button>
 
@@ -154,7 +195,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/Admin/Home" class="brand-link">
-				<h3 class="brand-text font-weight-light">Corporate Training</h3>
+				<h3 class="brand-text font-weight-light">@Localizer["Corporate Training"]</h3>
             </a>
 
             <!-- Sidebar -->
@@ -170,7 +211,7 @@
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Dashboard
+                                    @Localizer["Dashboard"]
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -178,7 +219,7 @@
                                 <li class="nav-item">
                                     <a href="/Admin/Home" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
+                                        <p>@Localizer["Dashboard"] v1</p>
                                     </a>
                                 </li>
                              
@@ -187,48 +228,48 @@
                         
                         
                        
-                        <li class="nav-header">Management</li>
+                        <li class="nav-header">@Localizer["Management"]</li>
                         <li class="nav-item">
                             <a href="/Admin/User" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>User</p>
+                                <p>@Localizer["User"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Department" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Department</p>
+                                <p>@Localizer["Department"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Course" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Course</p>
+                                <p>@Localizer["Course"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Enrollment" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Enrollment</p>
+                                <p>@Localizer["Enrollment"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Lesson" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Lesson</p>
+                                <p>@Localizer["Lesson"]</p>
                             </a>
                         </li>
                         
                         <li class="nav-item">
                             <a href="/Admin/Exam" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Exam</p>
+                                <p>@Localizer["Exam"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Question" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Question</p>
+                                <p>@Localizer["Question"]</p>
                             </a>
                         </li>
                         
@@ -237,7 +278,7 @@
                         <li class="nav-item">
                             <a href="/Admin/Badge" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Badge</p>
+                                <p>@Localizer["Badge"]</p>
                             </a>
                         </li>
                         

@@ -1,10 +1,11 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 namespace CorporateTrainingManagementSystem.Areas.Instructor.Controllers
 {
     [Area(SD.INSTRUCTOR_AREA)]
-
+    [Authorize(Roles = SD.INSTRUCTOR_ROLE)]
     public class StudentController : Controller
     {
         private readonly IInstructorCourseService _courseService;

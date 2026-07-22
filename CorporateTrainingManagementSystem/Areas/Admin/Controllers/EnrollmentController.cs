@@ -1,10 +1,10 @@
-﻿using CorporateTrainingManagementSystem.ViewModels.Enrollment;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+
 
 namespace CorporateTrainingManagementSystem.Areas.Admin.Controllers
 {
     [Area(SD.ADMIN_AREA)]
-
+    [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE},{SD.ADMIN_ROLE}")]
     public class EnrollmentController : Controller
     {
         private readonly IEnrollmentService _enrollmentService;

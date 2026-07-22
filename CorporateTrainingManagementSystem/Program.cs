@@ -4,7 +4,10 @@ using CorporateTrainingManagementSystem.Repositories.Implementations;
 using CorporateTrainingManagementSystem.Services.Implementations;
 using CorporateTrainingManagementSystem.Settings;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace CorporateTrainingManagementSystem
 {
@@ -13,9 +16,14 @@ namespace CorporateTrainingManagementSystem
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddLocalization(options =>
+            {
+                options.ResourcesPath = "Resources";
+            });
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddDataAnnotationsLocalization();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -37,6 +45,11 @@ namespace CorporateTrainingManagementSystem
                 options.Lockout.MaxFailedAccessAttempts = 5;
 
                 options.Lockout.AllowedForNewUsers = true;
+            });
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -69,6 +82,24 @@ namespace CorporateTrainingManagementSystem
 
             QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
             var app = builder.Build();
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en"),
+                new CultureInfo("ar")
+            };
+
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            };
+
+            localizationOptions.RequestCultureProviders.Insert(
+                0,
+                new CookieRequestCultureProvider());
+
+            app.UseRequestLocalization(localizationOptions);
 
             using (var scope = app.Services.CreateScope())
             {

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CorporateTrainingManagementSystem.Areas.Instructor.Controllers
 {
     [Area(SD.INSTRUCTOR_AREA)]
+    [Authorize(Roles = SD.INSTRUCTOR_ROLE)]
+
     public class ExamController : Controller
     {
         private readonly IInstructorExamService _examService;
