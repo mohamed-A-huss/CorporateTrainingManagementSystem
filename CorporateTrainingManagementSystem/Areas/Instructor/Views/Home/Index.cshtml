@@ -1,7 +1,12 @@
 ﻿@model InstructorDashboardVM
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
 
 @{
     ViewData["Title"] = "Instructor Dashboard";
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
 }
 
 <section class="content-header">
@@ -13,7 +18,7 @@
                 <h1>Instructor Dashboard</h1>
 
                 <p class="text-muted mb-0">
-                    Welcome back! Here's a quick overview of your teaching activity.
+                    @Localizer["Welcome back! Here's a quick overview of your teaching activity."]
                 </p>
             </div>
 
@@ -34,7 +39,7 @@
 
                     <div class="inner">
                         <h3>@Model.CoursesCount</h3>
-                        <p>Courses</p>
+                        <p>@Localizer["Courses"]</p>
                     </div>
 
                     <div class="icon">
@@ -51,7 +56,7 @@
 
                     <div class="inner">
                         <h3>@Model.StudentsCount</h3>
-                        <p>Students</p>
+                        <p>@Localizer["Students"]</p>
                     </div>
 
                     <div class="icon">
@@ -68,7 +73,7 @@
 
                     <div class="inner">
                         <h3>@Model.LessonsCount</h3>
-                        <p>Lessons</p>
+                        <p>@Localizer["Lessons"]</p>
                     </div>
 
                     <div class="icon">
@@ -85,7 +90,7 @@
 
                     <div class="inner">
                         <h3>@Model.ExamsCount</h3>
-                        <p>Exams</p>
+                        <p>@Localizer["Exams"]</p>
                     </div>
 
                     <div class="icon">
@@ -107,7 +112,7 @@
                     <div class="card-header">
 
                         <h3 class="card-title">
-                            My Courses
+                            @Localizer["My Courses"]
                         </h3>
 
                     </div>
@@ -120,13 +125,13 @@
 
                                 <tr>
 
-                                    <th>Course</th>
+                                    <th>@Localizer["Course"]</th>
 
-                                    <th class="text-center">Students</th>
+                                    <th class="text-center">@Localizer["Students"]</th>
 
-                                    <th class="text-center">Lessons</th>
+                                    <th class="text-center">@Localizer["Lessons"]</th>
 
-                                    <th class="text-center">Exams</th>
+                                    <th class="text-center">@Localizer["Exams"]</th>
 
                                 </tr>
 
@@ -174,7 +179,7 @@
 
                                         <td colspan="4" class="text-center text-muted py-4">
 
-                                            You are not assigned to any courses yet.
+                                            @Localizer["You are not assigned to any courses yet."]
 
                                         </td>
 
@@ -198,7 +203,7 @@
                     <div class="card-header">
 
                         <h3 class="card-title">
-                            Quick Actions
+                            @Localizer["Quick Actions"]
                         </h3>
 
                     </div>
@@ -212,7 +217,7 @@
 
                             <i class="fas fa-book mr-2"></i>
 
-                            My Courses
+                            @Localizer["My Courses"]
 
                         </a>
 

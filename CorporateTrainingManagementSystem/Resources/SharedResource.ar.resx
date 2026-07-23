@@ -121,7 +121,7 @@
     <value>الرئيسية</value>
   </data>
   <data name="Profile" xml:space="preserve">
-    <value>الملف الشخصى</value>
+    <value>الملف الشخصي</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>تسجيل الخروج</value>
@@ -191,5 +191,323 @@
   </data>
   <data name="OR" xml:space="preserve">
     <value>او</value>
+  </data>
+  <data name="Sign in to continue" xml:space="preserve">
+    <value>سجل الدخول</value>
+  </data>
+  <data name="Sign in using Google" xml:space="preserve">
+    <value>تسجيل الدخول بجوجل</value>
+  </data>
+  <data name="Demo Accounts" xml:space="preserve">
+    <value>حسابات للتجربة</value>
+  </data>
+  <data name="Register here" xml:space="preserve">
+    <value>سجل حساب جديد من هنا</value>
+  </data>
+  <data name="Don't have an account?" xml:space="preserve">
+    <value>لا تمتلك حساب؟</value>
+  </data>
+  <data name="Create a new account" xml:space="preserve">
+    <value>تسجيل حساب جديد</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="Already have an account?" xml:space="preserve">
+    <value>لديك حساب بالفعل؟</value>
+  </data>
+  <data name="Page Not Found" xml:space="preserve">
+    <value>حدث خطأ الصفحة غير موجودة</value>
+  </data>
+  <data name="Back to Home" xml:space="preserve">
+    <value>الذهاب للقائمة الرئيسية</value>
+  </data>
+  <data name="The page you are looking for does not exist." xml:space="preserve">
+    <value>الصفحة المطلوبة غير موجودة</value>
+  </data>
+  <data name="Access Denied" xml:space="preserve">
+    <value>رفض الوصول</value>
+  </data>
+  <data name="You do not have permission to access this page." xml:space="preserve">
+    <value>ليس لديك الصلاحية للوصول لهذه الصفحة</value>
+  </data>
+  <data name="Reset your password below." xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور هنا</value>
+  </data>
+  <data name="Reset Password" xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور</value>
+  </data>
+  <data name="Back to Login" xml:space="preserve">
+    <value>الذهاب لصفحة تسجيل الدخول</value>
+  </data>
+  <data name="Total Courses" xml:space="preserve">
+    <value>إجمالي الدورات</value>
+  </data>
+  <data name="More info" xml:space="preserve">
+    <value>مزيد من المعلومات</value>
+  </data>
+  <data name="Total Users" xml:space="preserve">
+    <value>إجمالي المستخدمين</value>
+  </data>
+  <data name="Total Questions" xml:space="preserve">
+    <value>إجمالي الأسئلة</value>
+  </data>
+  <data name="Total Lessons" xml:space="preserve">
+    <value>إجمالي الدروس</value>
+  </data>
+  <data name="Total Departments" xml:space="preserve">
+    <value>إجمالي الأقسام</value>
+  </data>
+  <data name="Total Badges" xml:space="preserve">
+    <value>إجمالي الشارات</value>
+  </data>
+  <data name="Total Certificates" xml:space="preserve">
+    <value>إجمالي الشهادات</value>
+  </data>
+  <data name="Latest Users" xml:space="preserve">
+    <value>أحدث المستخدمين</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>اسم</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>دور</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>حالة</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>مغلق</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="Latest Courses" xml:space="preserve">
+    <value>أحدث الدورات</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Instructor" xml:space="preserve">
+    <value>مدرب</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>أنشئ</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>الرقم التعريفي</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="Required Points" xml:space="preserve">
+    <value>النقاط المطلوبة</value>
+  </data>
+  <data name="No badges found." xml:space="preserve">
+    <value>لم يتم العثور على شارات.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>سابق</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>تصفية</value>
+  </data>
+  <data name="Created At" xml:space="preserve">
+    <value>وقت الإنشاء</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>إجراءات</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>تفاصيل</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="No courses found." xml:space="preserve">
+    <value>لم يتم العثور على دورات.</value>
+  </data>
+  <data name="No departments found." xml:space="preserve">
+    <value>لم يتم العثور على أقسام.</value>
+  </data>
+  <data name="Enrollments" xml:space="preserve">
+    <value>التسجيلات</value>
+  </data>
+  <data name="Enroll Trainee" xml:space="preserve">
+    <value>تسجيل متدرب</value>
+  </data>
+  <data name="All Trainees" xml:space="preserve">
+    <value>جميع المتدربين</value>
+  </data>
+  <data name="All Courses" xml:space="preserve">
+    <value>جميع الدورات</value>
+  </data>
+  <data name="All Status" xml:space="preserve">
+    <value>جميع الحالات</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>يبحث</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>إعادة ضبط</value>
+  </data>
+  <data name="Trainee" xml:space="preserve">
+    <value>المتدرب</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاريخ</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>مكتمل</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>أُلغِيَ</value>
+  </data>
+  <data name="No Enrollments Found." xml:space="preserve">
+    <value>لم يتم العثور على أي تسجيلات.</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>مدة</value>
+  </data>
+  <data name="Pass Mark" xml:space="preserve">
+    <value>درجة النجاح</value>
+  </data>
+  <data name="Total Marks" xml:space="preserve">
+    <value>إجمالي الدرجات</value>
+  </data>
+  <data name="Max Attempts" xml:space="preserve">
+    <value>الحد الأقصى للمحاولات</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>طلب</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>فيديو</value>
+  </data>
+  <data name="PDF" xml:space="preserve">
+    <value>ملف PDF</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>أسئلة</value>
+  </data>
+  <data name="All Exams" xml:space="preserve">
+    <value>جميع الاختبارات</value>
+  </data>
+  <data name="All Types" xml:space="preserve">
+    <value>جميع الأنواع</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>نوع</value>
+  </data>
+  <data name="Choices" xml:space="preserve">
+    <value>خيارات</value>
+  </data>
+  <data name="No Questions Found." xml:space="preserve">
+    <value>لم يتم العثور على أسئلة.</value>
+  </data>
+  <data name="User Management" xml:space="preserve">
+    <value>إدارة المستخدمين</value>
+  </data>
+  <data name="All Departments" xml:space="preserve">
+    <value>جميع الأقسام</value>
+  </data>
+  <data name="All Roles" xml:space="preserve">
+    <value>جميع الأدوار</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>بريد إلكتروني</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>نقاط</value>
+  </data>
+  <data name="Change Role" xml:space="preserve">
+    <value>تغيير الدور</value>
+  </data>
+  <data name="Unlock" xml:space="preserve">
+    <value>فتح</value>
+  </data>
+  <data name="Lock" xml:space="preserve">
+    <value>قفل</value>
+  </data>
+  <data name="Back to My Courses" xml:space="preserve">
+    <value>العودة إلى دوراتي</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>تم انشائه</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>الطلاب</value>
+  </data>
+  <data name="Lessons" xml:space="preserve">
+    <value>الدروس</value>
+  </data>
+  <data name="Exams" xml:space="preserve">
+    <value>الأختبارات</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>ملخص</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>دقائق</value>
+  </data>
+  <data name="Welcome back! Here's a quick overview of your teaching activity." xml:space="preserve">
+    <value>أهلاً بعودتك! إليك لمحة سريعة عن نشاطك التعليمي.</value>
+  </data>
+  <data name="You are not assigned to any courses yet." xml:space="preserve">
+    <value>لم يتم تعيينك في أي دورات تدريبية بعد.</value>
+  </data>
+  <data name="Quick Actions" xml:space="preserve">
+    <value>إجراءات سريعة</value>
+  </data>
+  <data name="Students Overview" xml:space="preserve">
+    <value>نظرة عامة على الطلاب</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>التقدم</value>
+  </data>
+  <data name="No students found." xml:space="preserve">
+    <value>لم يتم العثور على طلاب.</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>في تَقَدم</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>مرحباً</value>
+  </data>
+  <data name="Keep learning and earn more certificates and badges." xml:space="preserve">
+    <value>واصل التعلم واحصل على المزيد من الشهادات والشارات.</value>
+  </data>
+  <data name="Active Courses" xml:space="preserve">
+    <value>الدورات التدريبية النشطة</value>
+  </data>
+  <data name="Completed Courses" xml:space="preserve">
+    <value>الدورات المكتملة</value>
+  </data>
+  <data name="Total Earned Points" xml:space="preserve">
+    <value>إجمالي النقاط المكتسبة</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>طالب</value>
+  </data>
+  <data name="Issue Date" xml:space="preserve">
+    <value>تاريخ الإصدار</value>
+  </data>
+  <data name="Certificate Number" xml:space="preserve">
+    <value>رقم الشهادة</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="No certificates found." xml:space="preserve">
+    <value>لم يتم العثور على شهادات.</value>
+  </data>
+  <data name="Certificate" xml:space="preserve">
+    <value>الشهادة</value>
   </data>
 </root>

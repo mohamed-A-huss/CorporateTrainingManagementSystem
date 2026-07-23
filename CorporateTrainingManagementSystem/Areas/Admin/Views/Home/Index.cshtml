@@ -1,4 +1,11 @@
 ﻿@model DashboardVM
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
@@ -9,7 +16,7 @@
                     <div class="inner">
                         <h3>@Model.TotalCourses</h3>
 
-                        <p>Total Courses</p>
+                        <p>@Localizer["Total Courses"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-book"></i>
@@ -19,7 +26,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -31,7 +38,7 @@
                     <div class="inner">
                         <h3>@Model.TotalUsers</h3>
 
-                        <p>Total Users</p>
+                        <p>@Localizer["Total Users"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-users"></i>
@@ -41,7 +48,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -53,7 +60,7 @@
                     <div class="inner">
                         <h3>@Model.TotalExams</h3>
 
-                        <p>Total Exams</p>
+                        <p>@Localizer["Total Exams"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-file-alt"></i>
@@ -63,7 +70,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -75,7 +82,7 @@
                     <div class="inner">
                         <h3>@Model.TotalQuestions</h3>
 
-                        <p>Total Questions</p>
+                        <p>@Localizer["Total Questions"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-question-circle"></i>
@@ -86,7 +93,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -100,7 +107,7 @@
                     <div class="inner">
                         <h3>@Model.TotalLessons</h3>
 
-                        <p>Total Lessons</p>
+                        <p>@Localizer["Total Lessons"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-chalkboard"></i>
@@ -110,7 +117,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -122,7 +129,7 @@
                     <div class="inner">
                         <h3>@Model.TotalDepartments</h3>
 
-                        <p>Total Departments</p>
+                        <p>@Localizer["Total Departments"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-building"></i>
@@ -132,7 +139,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -144,7 +151,7 @@
                     <div class="inner">
                         <h3>@Model.TotalBadges</h3>
 
-                        <p>Total Badges</p>
+                        <p>@Localizer["Total Badges"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-award"></i>
@@ -154,7 +161,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -166,7 +173,7 @@
                     <div class="inner">
                         <h3>@Model.TotalCertificates</h3>
 
-                        <p>Total Certificates</p>
+                        <p>@Localizer["Total Certificates"]</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-certificate"></i>
@@ -177,7 +184,7 @@
                        asp-action="Index"
                        class="small-box-footer">
 
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        @Localizer["More info"] <i class="fas fa-arrow-circle-right"></i>
 
                     </a>
                 </div>
@@ -194,7 +201,7 @@
 
                         <h3 class="card-title">
 
-                            Latest Users
+                            @Localizer["Latest Users"]
 
                         </h3>
 
@@ -208,11 +215,11 @@
 
                                 <tr>
 
-                                    <th>Name</th>
+                                    <th>@Localizer["Name"]</th>
 
-                                    <th>Role</th>
+                                    <th>@Localizer["Role"]</th>
 
-                                    <th>Status</th>
+                                    <th>@Localizer["Status"]</th>
 
                                     <th></th>
 
@@ -244,7 +251,7 @@
                                             {
                                                 <span class="badge badge-danger">
 
-                                                    Locked
+                                                    @Localizer["Locked"]
 
                                                 </span>
                                             }
@@ -252,7 +259,7 @@
                                             {
                                                 <span class="badge badge-success">
 
-                                                    Active
+                                                    @Localizer["Active"]
 
                                                 </span>
                                             }
@@ -293,7 +300,7 @@
 
                         <h3 class="card-title">
 
-                            Latest Courses
+                            @Localizer["Latest Courses"]
 
                         </h3>
 
@@ -307,9 +314,9 @@
 
                                 <tr>
 
-                                    <th>Title</th>
+                                    <th>@Localizer["Title"]</th>
 
-                                    <th>Instructor</th>
+                                    <th>@Localizer["Instructor"]</th>
 
                                     <th></th>
 

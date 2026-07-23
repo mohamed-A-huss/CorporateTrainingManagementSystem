@@ -1,7 +1,12 @@
 ﻿@model InstructorCourseDetailsVM
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
 
 @{
     ViewData["Title"] = Model.Title;
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
 }
 
 <section class="content-header">
@@ -17,7 +22,7 @@
 
                     <i class="fas fa-arrow-left mr-1"></i>
 
-                    Back to My Courses
+                    @Localizer["Back to My Courses"]
 
                 </a>
 
@@ -35,7 +40,7 @@
                            asp-controller="Home"
                            asp-action="Index">
 
-                            Dashboard
+                            @Localizer["Dashboard"]
 
                         </a>
 
@@ -45,7 +50,7 @@
 
                         <a asp-action="Index">
 
-                            My Courses
+                            @Localizer["My Courses"]
 
                         </a>
 
@@ -91,7 +96,7 @@
 
                 <small class="text-muted">
 
-                    Created
+                    @Localizer["Created"]
 
                     @Model.CreatedAt.ToString("dd MMM yyyy")
 
@@ -111,7 +116,7 @@
 
                         <h3>@Model.StudentsCount</h3>
 
-                        <p>Students</p>
+                        <p>@Localizer["Students"]</p>
 
                     </div>
 
@@ -133,7 +138,7 @@
 
                         <h3>@Model.LessonsCount</h3>
 
-                        <p>Lessons</p>
+                        <p>@Localizer["Lessons"]</p>
 
                     </div>
 
@@ -155,7 +160,7 @@
 
                         <h3>@Model.ExamsCount</h3>
 
-                        <p>Exams</p>
+                        <p>@Localizer["Exams"]</p>
 
                     </div>
 
@@ -183,7 +188,7 @@
                            href="#overview"
                            data-toggle="tab">
 
-                            Overview
+                            @Localizer["Overview"]
 
                         </a>
 
@@ -195,7 +200,7 @@
                            href="#lessons"
                            data-toggle="tab">
 
-                            Lessons
+                            @Localizer["Lessons"]
 
                         </a>
 
@@ -207,7 +212,7 @@
                            href="#exams"
                            data-toggle="tab">
 
-                            Exams
+                            @Localizer["Exams"]
 
                         </a>
 
@@ -219,7 +224,7 @@
                            href="#students"
                            data-toggle="tab">
 
-                            Students
+                            @Localizer["Students"]
 
                         </a>
 

@@ -192,4 +192,322 @@
   <data name="OR" xml:space="preserve">
     <value>OR</value>
   </data>
+  <data name="Sign in to continue" xml:space="preserve">
+    <value>Sign in to continue</value>
+  </data>
+  <data name="Sign in using Google" xml:space="preserve">
+    <value>Sign in using Google</value>
+  </data>
+  <data name="Demo Accounts" xml:space="preserve">
+    <value>Demo Accounts</value>
+  </data>
+  <data name="Register here" xml:space="preserve">
+    <value>Register here</value>
+  </data>
+  <data name="Don't have an account?" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="Create a new account" xml:space="preserve">
+    <value>Create a new account</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Already have an account?" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="Page Not Found" xml:space="preserve">
+    <value>Page Not Found</value>
+  </data>
+  <data name="Back to Home" xml:space="preserve">
+    <value>Back to Home</value>
+  </data>
+  <data name="The page you are looking for does not exist." xml:space="preserve">
+    <value>The page you are looking for does not exist.</value>
+  </data>
+  <data name="Access Denied" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
+  <data name="You do not have permission to access this page." xml:space="preserve">
+    <value>You do not have permission to access this page.</value>
+  </data>
+  <data name="Reset your password below." xml:space="preserve">
+    <value>Reset your password below.</value>
+  </data>
+  <data name="Reset Password" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="Back to Login" xml:space="preserve">
+    <value>Back to Login</value>
+  </data>
+  <data name="Total Courses" xml:space="preserve">
+    <value>Total Courses</value>
+  </data>
+  <data name="More info" xml:space="preserve">
+    <value>More info</value>
+  </data>
+  <data name="Total Users" xml:space="preserve">
+    <value>Total Users</value>
+  </data>
+  <data name="Total Questions" xml:space="preserve">
+    <value>Total Questions</value>
+  </data>
+  <data name="Total Lessons" xml:space="preserve">
+    <value>Total Lessons</value>
+  </data>
+  <data name="Total Departments" xml:space="preserve">
+    <value>Total Departments</value>
+  </data>
+  <data name="Total Badges" xml:space="preserve">
+    <value>Total Badges</value>
+  </data>
+  <data name="Total Certificates" xml:space="preserve">
+    <value>Total Certificates</value>
+  </data>
+  <data name="Latest Users" xml:space="preserve">
+    <value>Latest Users</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Latest Courses" xml:space="preserve">
+    <value>Latest Courses</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Instructor" xml:space="preserve">
+    <value>Instructor</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Required Points" xml:space="preserve">
+    <value>Required Points</value>
+  </data>
+  <data name="No badges found." xml:space="preserve">
+    <value>No badges found.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Created At" xml:space="preserve">
+    <value>Created At</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="No courses found." xml:space="preserve">
+    <value>No courses found.</value>
+  </data>
+  <data name="No departments found." xml:space="preserve">
+    <value>No departments found.</value>
+  </data>
+  <data name="Enrollments" xml:space="preserve">
+    <value>Enrollments</value>
+  </data>
+  <data name="Enroll Trainee" xml:space="preserve">
+    <value>Enroll Trainee</value>
+  </data>
+  <data name="All Trainees" xml:space="preserve">
+    <value>All Trainees</value>
+  </data>
+  <data name="All Courses" xml:space="preserve">
+    <value>All Courses</value>
+  </data>
+  <data name="All Status" xml:space="preserve">
+    <value>All Status</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Trainee" xml:space="preserve">
+    <value>Trainee</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="No Enrollments Found." xml:space="preserve">
+    <value>No Enrollments Found.</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Pass Mark" xml:space="preserve">
+    <value>Pass Mark</value>
+  </data>
+  <data name="Total Marks" xml:space="preserve">
+    <value>Total Marks</value>
+  </data>
+  <data name="Max Attempts" xml:space="preserve">
+    <value>Max Attempts</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="PDF" xml:space="preserve">
+    <value>PDF</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="All Exams" xml:space="preserve">
+    <value>All Exams</value>
+  </data>
+  <data name="All Types" xml:space="preserve">
+    <value>All Types</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Choices" xml:space="preserve">
+    <value>Choices</value>
+  </data>
+  <data name="No Questions Found." xml:space="preserve">
+    <value>No Questions Found.</value>
+  </data>
+  <data name="User Management" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="All Departments" xml:space="preserve">
+    <value>All Departments</value>
+  </data>
+  <data name="All Roles" xml:space="preserve">
+    <value>All Roles</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="Change Role" xml:space="preserve">
+    <value>Change Role</value>
+  </data>
+  <data name="Unlock" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="Lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="Back to My Courses" xml:space="preserve">
+    <value>Back to My Courses</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>Students</value>
+  </data>
+  <data name="Lessons" xml:space="preserve">
+    <value>Lessons</value>
+  </data>
+  <data name="Exams" xml:space="preserve">
+    <value>Exams</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="Welcome back! Here's a quick overview of your teaching activity." xml:space="preserve">
+    <value>Welcome back! Here's a quick overview of your teaching activity.</value>
+  </data>
+  <data name="You are not assigned to any courses yet." xml:space="preserve">
+    <value>You are not assigned to any courses yet.</value>
+  </data>
+  <data name="Quick Actions" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+  <data name="Students Overview" xml:space="preserve">
+    <value>Students Overview</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="No students found." xml:space="preserve">
+    <value>No students found.</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Keep learning and earn more certificates and badges." xml:space="preserve">
+    <value>Keep learning and earn more certificates and badges.</value>
+  </data>
+  <data name="Active Courses" xml:space="preserve">
+    <value>Active Courses</value>
+  </data>
+  <data name="Completed Courses" xml:space="preserve">
+    <value>Completed Courses</value>
+  </data>
+  <data name="Total Earned Points" xml:space="preserve">
+    <value>Total Earned Points</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Student</value>
+  </data>
+  <data name="Issue Date" xml:space="preserve">
+    <value>Issue Date</value>
+  </data>
+  <data name="Certificate Number" xml:space="preserve">
+    <value>Certificate Number</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="No certificates found." xml:space="preserve">
+    <value>No certificates found.</value>
+  </data>
+  <data name="Certificate" xml:space="preserve">
+    <value>Certificate</value>
+  </data>
 </root>

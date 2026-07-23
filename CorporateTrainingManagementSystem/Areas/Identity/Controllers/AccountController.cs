@@ -313,8 +313,12 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
                 isPersistent: false,
                 bypassTwoFactor: true);
 
-            if (signInResult.Succeeded)
-                return LocalRedirect(returnUrl);
+
+            if (signInResult.Succeeded) {
+                var user1 = await _userManager.FindByLoginAsync(info.LoginProvider,info.ProviderKey);
+
+                return await RedirectToDashboard(user1!);
+            }
 
             // Read Email
 
@@ -334,16 +338,33 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             {
                 // Link Google Account
 
-                var addLoginResult =
-                    await _userManager.AddLoginAsync(user, info);
+                //var addLoginResult = await _userManager.AddLoginAsync(user, info);
 
-                if (!addLoginResult.Succeeded)
+                //if (!addLoginResult.Succeeded)
+                //{
+                //    TempData["Error"] = string.Join(
+                //        Environment.NewLine,
+                //        addLoginResult.Errors.Select(e => e.Description));
+
+                //    return RedirectToAction(nameof(Login));
+                //}
+                var logins = await _userManager.GetLoginsAsync(user);
+
+                if (!logins.Any(x =>
+                    x.LoginProvider == info.LoginProvider &&
+                    x.ProviderKey == info.ProviderKey))
                 {
-                    TempData["Error"] = string.Join(
-                        Environment.NewLine,
-                        addLoginResult.Errors.Select(e => e.Description));
+                    var addLoginResult =
+                        await _userManager.AddLoginAsync(user, info);
 
-                    return RedirectToAction(nameof(Login));
+                    if (!addLoginResult.Succeeded)
+                    {
+                        TempData["Error"] = string.Join(    
+                            Environment.NewLine,
+                            addLoginResult.Errors.Select(e => e.Description));
+
+                        return RedirectToAction(nameof(Login));
+                    }
                 }
             }
             else
@@ -402,7 +423,7 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
                 user,
                 isPersistent: false);
 
-            return LocalRedirect(returnUrl);
+            return await RedirectToDashboard(user);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -450,7 +471,7 @@ namespace CorporateTrainingManagementSystem.Areas.Identity.Controllers
             await _signInManager.SignOutAsync();
 
             TempData["Error"] = "No role has been assigned to your account.";
-
+                
             return RedirectToAction(nameof(Login));
         }
         [AllowAnonymous]

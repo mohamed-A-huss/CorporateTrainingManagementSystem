@@ -1,7 +1,12 @@
 ﻿@model TraineeDashboardVM
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
 
 @{
     ViewData["Title"] = "Dashboard";
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
 }
 
 <section class="content-header">
@@ -12,7 +17,7 @@
 
             <div class="col-sm-6">
 
-                <h1>Dashboard</h1>
+                <h1>@Localizer["Dashboard"]</h1>
 
             </div>
 
@@ -31,11 +36,11 @@
             <div class="card-body">
 
                 <h3 class="mb-1">
-                    Welcome, @Model.FullName 👋
+                    @Localizer["Welcome"], @Model.FullName 👋
                 </h3>
 
                 <p class="text-muted mb-0">
-                    Keep learning and earn more certificates and badges.
+                    @Localizer["Keep learning and earn more certificates and badges."]
                 </p>
 
             </div>
@@ -52,7 +57,7 @@
 
                         <h3>@Model.ActiveCourses</h3>
 
-                        <p>Active Courses</p>
+                        <p>@Localizer["Active Courses"]</p>
 
                     </div>
 
@@ -72,7 +77,7 @@
 
                         <h3>@Model.CompletedCourses</h3>
 
-                        <p>Completed Courses</p>
+                        <p>@Localizer["Completed Courses"]</p>
 
                     </div>
 
@@ -92,7 +97,7 @@
 
                         <h3>@Model.BadgesCount</h3>
 
-                        <p>Badges</p>
+                        <p>@Localizer["Badges"]</p>
 
                     </div>
 
@@ -112,7 +117,7 @@
 
                         <h3>@Model.CertificatesCount</h3>
 
-                        <p>Certificates</p>
+                        <p>@Localizer["Certificates"]</p>
 
                     </div>
 
@@ -135,7 +140,7 @@
                     <div class="card-header">
 
                         <h3 class="card-title">
-                            Quick Actions
+                            @Localizer["Quick Actions"]
                         </h3>
 
                     </div>
@@ -147,7 +152,7 @@
                            asp-action="Browse"
                            class="btn btn-primary mr-2 mb-2">
 
-                            Browse Courses
+                            @Localizer["Browse Courses"]
 
                         </a>
 
@@ -156,7 +161,7 @@
                            asp-action="MyCourses"
                            class="btn btn-success mr-2 mb-2">
 
-                            My Courses
+                            @Localizer["My Courses"]
 
                         </a>
 
@@ -165,7 +170,7 @@
                            asp-action="Index"
                            class="btn btn-warning mr-2 mb-2">
 
-                            Certificates
+                            @Localizer["Certificates"]
 
                         </a>
 
@@ -174,7 +179,7 @@
                            asp-action="Index"
                            class="btn btn-info mb-2">
 
-                            Badges
+                            @Localizer["Badges"]
 
                         </a>
 
@@ -192,7 +197,7 @@
 
                         <h3 class="card-title">
 
-                            Points
+                            @Localizer["Points"]
 
                         </h3>
 
@@ -208,7 +213,7 @@
 
                         <p class="text-muted">
 
-                            Total Earned Points
+                            @Localizer["Total Earned Points"]
 
                         </p>
 

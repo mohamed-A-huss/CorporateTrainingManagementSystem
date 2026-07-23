@@ -76,6 +76,7 @@ namespace CorporateTrainingManagementSystem
             builder.Services.AddScoped<ITraineeDashboardService, TraineeDashboardService>();
             builder.Services.AddScoped<ITraineeCourseService, TraineeCourseService>();
             builder.Services.AddScoped<ITraineeCertificateService, TraineeCertificateService>();
+            builder.Services.AddScoped<ICertificateService, CertificateService>();
 
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTP"));
 

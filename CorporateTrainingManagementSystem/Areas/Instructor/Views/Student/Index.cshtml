@@ -1,7 +1,12 @@
 ﻿@model IEnumerable<InstructorStudentProgressVM>
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
 
 @{
     ViewData["Title"] = "My Students";
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
 }
 
 <section class="content-header">
@@ -12,7 +17,7 @@
 
             <div class="col-sm-6">
 
-                <h1>My Students</h1>
+                <h1>@Localizer["My Students"]</h1>
 
             </div>
 
@@ -24,12 +29,12 @@
                         <a asp-area="@SD.INSTRUCTOR_AREA"
                            asp-controller="Home"
                            asp-action="Index">
-                            Dashboard
+                            @Localizer["Dashboard"]
                         </a>
                     </li>
 
                     <li class="breadcrumb-item active">
-                        My Students
+                        @Localizer["My Students"]
                     </li>
 
                 </ol>
@@ -52,7 +57,7 @@
 
                 <h3 class="card-title">
 
-                    Students Overview
+                    @Localizer["Students Overview"]
 
                 </h3>
 
@@ -66,17 +71,17 @@
 
                         <tr>
 
-                            <th>Student</th>
+                            <th>@Localizer["Student"]</th>
 
-                            <th>Course</th>
+                            <th>@Localizer["Course"]</th>
 
                             <th style="width:250px">
 
-                                Progress
+                                @Localizer["Progress"]
 
                             </th>
 
-                            <th>Status</th>
+                            <th>@Localizer["Status"]</th>
 
                         </tr>
 
@@ -91,7 +96,7 @@
                                 <td colspan="4"
                                     class="text-center text-muted py-4">
 
-                                    No students found.
+                                    @Localizer["No students found."]
 
                                 </td>
 
@@ -146,7 +151,7 @@
                                         {
                                             <span class="badge badge-success">
 
-                                                Completed
+                                                @Localizer["Completed"]
 
                                             </span>
                                         }
@@ -154,7 +159,7 @@
                                         {
                                             <span class="badge badge-warning">
 
-                                                In Progress
+                                                @Localizer["In Progress"]
 
                                             </span>
                                         }

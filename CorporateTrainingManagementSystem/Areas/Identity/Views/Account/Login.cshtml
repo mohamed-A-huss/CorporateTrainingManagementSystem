@@ -1,8 +1,12 @@
 ﻿@model LoginVM
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
 @{
     ViewData["Title"] = "Login";
     ViewData["BodyClass"] = "login-page";
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
 }
 
 <div class="login-box">
@@ -25,7 +29,7 @@
 
             <p class="login-box-msg">
 
-                Sign in to continue
+                @Localizer["Sign in to continue"]
 
             </p>
 
@@ -110,7 +114,7 @@
                         <button type="submit"
                                 class="btn btn-primary btn-block">
 
-                            Login
+                            @Localizer["Login"]
 
                         </button>
 
@@ -124,7 +128,7 @@
 
                 <a asp-action="ForgotPassword">
 
-                    Forgot Password?
+                    @Localizer["Forgot Password"]?
 
                 </a>
 
@@ -136,7 +140,7 @@
 
             <div class="social-auth-links text-center mb-3">
 
-                <p>- OR -</p>
+                <p>- @Localizer["OR"] -</p>
 
                 <form asp-action="ExternalLogin"
                       method="post">
@@ -150,7 +154,7 @@
 
                         <i class="fab fa-google mr-2"></i>
 
-                        Continue with Google
+                        @Localizer["Sign in using Google"]
 
                     </button>
 
@@ -235,7 +239,7 @@
 
                         <span class="badge badge-primary">
 
-                            Student
+                            Trainee
 
                         </span>
 
@@ -281,7 +285,7 @@
 
                 <a asp-action="Register">
 
-                    Register
+                    @Localizer["Register here"]]
 
                 </a>
 
