@@ -1,5 +1,11 @@
 ﻿@model PaginatedBadge
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
 <div class="container">
     <div class="row mb-3 align-items-center my-3">
         <div class="col-md-6">
@@ -11,7 +17,7 @@
                asp-controller="Badge"
                asp-action="Create" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i>
-                Create
+                @Localizer["Create"]
             </a>
         </div>
 
@@ -53,12 +59,12 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Required Points</th>
+                        <th scope="col">@Localizer["ID"]</th>
+                        <th scope="col">@Localizer["Name"]</th>
+                        <th scope="col">@Localizer["Description"]</th>
+                        <th scope="col">@Localizer["Required Points"]</th>
 
-                        <th scope="col">Actions</th>
+                        <th scope="col">@Localizer["Actions"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,7 +115,7 @@
                     <ul class="pagination justify-content-center">
                         @if (Model.CurrentPage > 1)
                         {
-                            <li class="page-item"><a class="page-link" href="/Admin/Department/Index?page=@(Model.CurrentPage - 1)">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="/Admin/Department/Index?page=@(Model.CurrentPage - 1)">@Localizer["Previous"]</a></li>
                         }
                         @for (var i = 1; i <= Model.TotalPages; i++)
                         {
@@ -124,13 +130,13 @@
                         }
                         @if (Model.CurrentPage != Model.TotalPages)
                         {
-                            <li class="page-item"><a class="page-link" href="/Admin/Department/Index?page=@(Model.CurrentPage + 1)">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="/Admin/Department/Index?page=@(Model.CurrentPage + 1)">@Localizer["Next"]</a></li>
                         }
                     </ul>
                 }
                 else
                 {
-                    <h2 class="text-center">No badges found.</h2>
+                    <h2 class="text-center">@Localizer["No badges found."]</h2>
                 }
             </nav>
         </div>

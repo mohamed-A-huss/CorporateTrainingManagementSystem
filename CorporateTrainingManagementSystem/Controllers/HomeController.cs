@@ -16,7 +16,19 @@ namespace CorporateTrainingManagementSystem.Controllers
         }
         public IActionResult Index()
         {
-            return RedirectToAction("Login","Account", new { area = SD.IDENTITY_AREA });
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                if (User.IsInRole(SD.SUPER_ADMIN_ROLE) || User.IsInRole(SD.ADMIN_ROLE))
+                    return RedirectToAction("Index", "Home", new { area = SD.ADMIN_AREA });
+
+                if (User.IsInRole(SD.INSTRUCTOR_ROLE))
+                    return RedirectToAction("Index", "Home", new { area = SD.INSTRUCTOR_AREA });
+
+                if (User.IsInRole(SD.TRAINEE_ROLE))
+                    return RedirectToAction("Index", "Home", new { area = SD.TRAINEE_AREA });
+            }
+
+            return RedirectToAction("Login", "Account", new { area = SD.IDENTITY_AREA });
         }
         [HttpPost]
         [AllowAnonymous]

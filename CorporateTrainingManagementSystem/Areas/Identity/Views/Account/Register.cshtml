@@ -1,8 +1,12 @@
 ﻿@model CorporateTrainingManagementSystem.ViewModels.Identity.RegisterVM
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
 @{
     ViewData["Title"] = "Register";
     ViewData["BodyClass"] = "register-page";
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
 }
 
 <div class="register-box">
@@ -25,7 +29,7 @@
 
             <p class="login-box-msg">
 
-                Create a new account
+                @Localizer["Create a new account"]
 
             </p>
 
@@ -186,7 +190,7 @@
                 <button type="submit"
                         class="btn btn-success btn-block">
 
-                    Register
+                    @Localizer["Register"]
 
                 </button>
 
@@ -198,7 +202,7 @@
 
             <div class="social-auth-links text-center mb-3">
 
-                <p>- OR -</p>
+                <p>- @Localizer["OR"] -</p>
 
                 <form asp-action="ExternalLogin"
                       method="post">
@@ -212,20 +216,11 @@
 
                         <i class="fab fa-google mr-2"></i>
 
-                        Continue with Google
+                        @Localizer["Sign in using Google"]
 
                     </button>
 
-                    <button type="submit"
-                            name="provider"
-                            value="Microsoft"
-                            class="btn btn-block btn-primary">
-
-                        <i class="fab fa-microsoft mr-2"></i>
-
-                        Continue with Microsoft
-
-                    </button>
+                    
 
                 </form>
 
@@ -233,11 +228,11 @@
 
             <p class="mb-0 text-center">
 
-                Already have an account?
+                @Localizer["Already have an account?"]
 
                 <a asp-action="Login">
 
-                    Login
+                    @Localizer["Login"]
 
                 </a>
 

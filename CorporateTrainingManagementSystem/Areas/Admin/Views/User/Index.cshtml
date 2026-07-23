@@ -1,5 +1,11 @@
 ﻿@model PaginatedUsers
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
 <div class="container">
 
     <div class="row my-3 align-items-center">
@@ -7,7 +13,7 @@
         <div class="col-md-6">
 
             <h2 class="display-6">
-                User Management
+                @Localizer["User Management"]
             </h2>
 
         </div>
@@ -18,7 +24,7 @@
 
                 <i class="bi bi-plus-circle"></i>
 
-                Create
+                @Localizer["Create"]
 
             </a>
 
@@ -48,14 +54,14 @@
 
                     <label asp-for="Filter.DepartmentId"
                            class="form-label">
-                        Department
+                        @Localizer["Department"]
                     </label>
 
                     <select asp-for="Filter.DepartmentId"
                             asp-items="Model.Filter.Departments"
                             class="form-select">
 
-                        <option value="">All Departments</option>
+                        <option value="">@Localizer["All Departments"]</option>
 
                     </select>
 
@@ -67,14 +73,14 @@
 
                     <label asp-for="Filter.Role"
                            class="form-label">
-                        Role
+                        @Localizer["Role"]
                     </label>
 
                     <select asp-for="Filter.Role"
                             asp-items="Model.Filter.Roles"
                             class="form-select">
 
-                        <option value="">All Roles</option>
+                        <option value="">@Localizer["All Roles"]</option>
 
                     </select>
 
@@ -88,7 +94,7 @@
 
                     <i class="bi bi-search"></i>
 
-                    Search
+                    @Localizer["Search"]
 
                 </button>
 
@@ -108,17 +114,17 @@
 
                     <tr>
 
-                        <th>Name</th>
+                        <th>@Localizer["Name"]</th>
 
-                        <th>Email</th>
+                        <th>@Localizer["Email"]</th>
 
-                        <th>Department</th>
+                        <th>@Localizer["Department"]</th>
 
-                        <th>Role</th>
+                        <th>@Localizer["Role"]</th>
 
-                        <th>Points</th>
+                        <th>@Localizer["Points"]</th>
 
-                        <th>Status</th>
+                        <th>@Localizer["Status"]</th>
 
                         <th width="80"></th>
 
@@ -148,7 +154,7 @@
                                 {
                                     <span class="badge bg-danger">
 
-                                        Locked
+                                        @Localizer["Locked"]
 
                                     </span>
                                 }
@@ -156,7 +162,7 @@
                                 {
                                     <span class="badge bg-success">
 
-                                        Active
+                                        @Localizer["Active"]
 
                                     </span>
                                 }
@@ -173,7 +179,7 @@
                                             aria-haspopup="true"
                                             aria-expanded="false">
 
-                                        Actions
+                                        @Localizer["Actions"]
 
                                     </button>
 
@@ -187,7 +193,7 @@
 
                                                 <i class="bi bi-eye"></i>
 
-                                                Details
+                                                @Localizer["Details"]
 
                                             </a>
 
@@ -202,7 +208,7 @@
 
                                                     <i class="bi bi-arrow-repeat"></i>
 
-                                                    Change Role
+                                                    @Localizer["Change Role"]
 
                                                 </a>
                                             }
@@ -230,7 +236,7 @@
 
                                                             <i class="bi bi-unlock"></i>
 
-                                                            Unlock
+                                                            @Localizer["Unlock"]
 
                                                         </text>
                                                     }
@@ -240,7 +246,7 @@
 
                                                             <i class="bi bi-lock"></i>
 
-                                                            Lock
+                                                            @Localizer["Lock"]
 
                                                         </text>
                                                     }

@@ -1,5 +1,11 @@
 ﻿@model PaginatedDepartment
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
 <div class="container">
     <div class="row mb-3 align-items-center my-3">
         <div class="col-md-6">
@@ -11,7 +17,7 @@
                 asp-controller="Department"
                 asp-action="Create" class="btn btn-success"> 
                 <i class="bi bi-plus-circle"></i> 
-                Create</a>
+                @Localizer["Create"]</a>
             </div>
         
     </div>
@@ -44,9 +50,9 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">@Localizer["ID"]</th>
+                        <th scope="col">@Localizer["Name"]</th>
+                        <th scope="col">@Localizer["Actions"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +68,7 @@
                                asp-action="Edit"
                                asp-route-id="@item.DepartmentId"
                                class="btn btn-warning">
-                                <i class="bi bi-pencil-square"></i> Edit
+                                <i class="bi bi-pencil-square"></i> @Localizer["Edit"]
                             </a>
 
                             <form asp-area="Admin"
@@ -75,7 +81,7 @@
                                 @Html.AntiForgeryToken()
 
                                 <button type="button" class="btn btn-danger btn-delete">
-                                    <i class="bi bi-trash"></i> Delete
+                                    <i class="bi bi-trash"></i> @Localizer["Delete"]
                                 </button>
 
                             </form>
@@ -95,7 +101,7 @@
                 <ul class="pagination justify-content-center">
                     @if (Model.TotalCount > 1)
                     {
-                        <li class="page-item"><a class="page-link"  href="/Admin/Department/Index?page=@(Model.CurrentPage - 1)">Previous</a></li>
+                        <li class="page-item"><a class="page-link"  href="/Admin/Department/Index?page=@(Model.CurrentPage - 1)">@Localizer["Previous"]</a></li>
                     }
                     @for (var i = 1; i <= Model.TotalPages; i++)
                     {
@@ -110,13 +116,13 @@
                     }
                     @if (Model.CurrentPage != Model.TotalPages)
                     {
-                        <li class="page-item"><a class="page-link" href="/Admin/Department/Index?page=@(Model.CurrentPage + 1)">Next</a></li>
+                        <li class="page-item"><a class="page-link" href="/Admin/Department/Index?page=@(Model.CurrentPage + 1)">@Localizer["Next"]</a></li>
                     }
                 </ul>
                 }
                 else
                 {
-                    <h2 class="text-center">No departments found.</h2>
+                    <h2 class="text-center">@Localizer["No departments found."]</h2>
                 }
             </nav>
         </div>

@@ -1,0 +1,205 @@
+﻿@model CertificateListVM
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
+
+@{
+    ViewData["Title"] = "Certificates";
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h3 class="card-title">
+
+            @Localizer["Certificates"]
+
+        </h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="get">
+
+            <div class="row mb-3">
+
+                <div class="col-md-4">
+
+                    <input asp-for="Filter.Search"
+                           class="form-control"
+                           placeholder="Search by Student / Course / Certificate Number" />
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fas fa-search"></i>
+
+                        @Localizer["Search"]
+
+                    </button>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary">
+
+                        <i class="fas fa-sync"></i>
+
+                        @Localizer["Reset"]
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <table class="table table-bordered table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>@Localizer["ID"]</th>
+
+                    <th>@Localizer["Student"]</th>
+
+                    <th>@Localizer["Email"]</th>
+
+                    <th>@Localizer["Course"]</th>
+
+                    <th>@Localizer["Issue Date"]</th>
+
+                    <th>@Localizer["Certificate Number"]</th>
+
+                    <th width="140"></th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @if (Model.Certificates.Any())
+                {
+                    foreach (var item in Model.Certificates)
+                    {
+                        <tr>
+
+                            <td>@item.CertificateId</td>
+
+                            <td>@item.StudentName</td>
+
+                            <td>@item.StudentEmail</td>
+
+                            <td>@item.CourseTitle</td>
+
+                            <td>@item.IssueDate.ToString("dd MMM yyyy")</td>
+
+                            <td>@item.CertificateNumber</td>
+
+                            <td>
+
+                                <a asp-action="Download"
+                                   asp-route-id="@item.CertificateId"
+                                   class="btn btn-success btn-sm">
+
+                                    <i class="fas fa-download"></i>
+
+                                    @Localizer["Download"]
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+
+                        <td colspan="7"
+                            class="text-center">
+
+                            @Localizer["No certificates found."]
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <div class="card-footer clearfix">
+
+            <ul class="pagination pagination-sm m-0 float-right">
+
+                @if (Model.Filter.Page > 1)
+                {
+                    <li class="page-item">
+
+                        <a class="page-link"
+                           asp-route-Page="@(Model.Filter.Page - 1)"
+                           asp-route-Search="@Model.Filter.Search">
+
+                            &laquo;
+
+                        </a>
+
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.Filter.Page ? "active" : "")">
+
+                        <a class="page-link"
+                           asp-route-Page="@i"
+                           asp-route-Search="@Model.Filter.Search">
+
+                            @i
+
+                        </a>
+
+                    </li>
+                }
+
+                @if (Model.Filter.Page < Model.TotalPages)
+                {
+                    <li class="page-item">
+
+                        <a class="page-link"
+                           asp-route-Page="@(Model.Filter.Page + 1)"
+                           asp-route-Search="@Model.Filter.Search">
+
+                            &raquo;
+
+                        </a>
+
+                    </li>
+                }
+
+            </ul>
+
+        </div>
+    }
+
+</div>

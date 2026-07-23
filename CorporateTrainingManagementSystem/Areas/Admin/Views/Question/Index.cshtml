@@ -1,12 +1,18 @@
 ﻿@model PaginatedQuestion
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
 <div class="container">
 
     <div class="row my-4">
 
         <div class="col-md-6">
             <h2 class="display-6">
-                Questions
+                @Localizer["Questions"]
             </h2>
         </div>
 
@@ -14,7 +20,7 @@
 
             <a asp-action="Create"
                class="btn btn-primary">
-                Create Question
+                @Localizer["Create Question"]
             </a>
 
         </div>
@@ -35,7 +41,7 @@
                     id="CourseId">
 
                 <option value="">
-                    All Courses
+                    @Localizer["All Courses"]
                 </option>
 
             </select>
@@ -52,7 +58,7 @@
                     id="ExamId">
 
                 <option value="">
-                    All Exams
+                    @Localizer["All Exams"]
                 </option>
 
             </select>
@@ -68,7 +74,7 @@
                     class="form-select">
 
                 <option value="">
-                    All Types
+                    @Localizer["All Types"]
                 </option>
 
             </select>
@@ -90,7 +96,7 @@
             <button class="btn btn-success"
                     type="submit">
 
-                Search
+                @Localizer["Search"]
 
             </button>
 
@@ -104,17 +110,17 @@
 
             <tr>
 
-                <th>Question</th>
+                <th>@Localizer["Question"]</th>
 
-                <th>Course</th>
+                <th>@Localizer["Course"]</th>
 
-                <th>Exam</th>
+                <th>@Localizer["Exam"]</th>
 
-                <th>Type</th>
+                <th>@Localizer["Type"]</th>
 
-                <th>Choices</th>
+                <th>@Localizer["Choices"]</th>
 
-                <th width="220">Actions</th>
+                <th width="220">@Localizer["Actions"]</th>
 
             </tr>
 
@@ -154,7 +160,7 @@
                                asp-route-id="@item.QuestionId"
                                class="btn btn-info btn-sm">
 
-                                Details
+                                @Localizer["Details"]
 
                             </a>
 
@@ -162,7 +168,7 @@
                                asp-route-id="@item.QuestionId"
                                class="btn btn-warning btn-sm">
 
-                                Edit
+                                @Localizer["Edit"]
 
                             </a>
 
@@ -178,7 +184,7 @@
 
                                     <i class="bi bi-trash"></i>
 
-                                    Delete
+                                    @Localizer["Delete"]
 
                                 </button>
 

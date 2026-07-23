@@ -1,5 +1,11 @@
 ﻿@model PaginatedEnrollment
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizerFactory Factory
+@{
+    var Localizer = Factory.Create(
+        "SharedResource",
+        "CorporateTrainingManagementSystem");
+}
 <div class="container">
 
     <div class="row my-4">
@@ -8,7 +14,7 @@
 
             <h2 class="display-6">
 
-                Enrollments
+                @Localizer["Enrollments"]
 
             </h2>
 
@@ -19,7 +25,7 @@
             <a asp-action="Create"
                class="btn btn-primary">
 
-                Enroll Trainee
+                @Localizer["Enroll Trainee"]
 
             </a>
 
@@ -39,7 +45,7 @@
 
                 <option value="">
 
-                    All Trainees
+                    @Localizer["All Trainees"]
 
                 </option>
 
@@ -55,7 +61,7 @@
 
                 <option value="">
 
-                    All Courses
+                    @Localizer["All Courses"]
 
                 </option>
 
@@ -71,7 +77,7 @@
 
                 <option value="">
 
-                    All Status
+                    @Localizer["All Status"]
 
                 </option>
 
@@ -84,7 +90,7 @@
             <button class="btn btn-success"
                     type="submit">
 
-                Search
+                @Localizer["Search"]
 
             </button>
 
@@ -95,7 +101,7 @@
             <a asp-action="Index"
                class="btn btn-secondary">
 
-                Reset
+                @Localizer["Reset"]
 
             </a>
 
@@ -109,17 +115,17 @@
 
             <tr>
 
-                <th>Trainee</th>
+                <th>@Localizer["Trainee"]</th>
 
-                <th>Course</th>
+                <th>@Localizer["Course"]</th>
 
-                <th>Date</th>
+                <th>@Localizer["Date"]</th>
 
-                <th>Status</th>
+                <th>@Localizer["Status"]</th>
 
                 <th width="180">
 
-                    Actions
+                    @Localizer["Actions"]
 
                 </th>
 
@@ -159,19 +165,19 @@
                             {
                                 case EnrollmentStatus.Active:
                                     <span class="badge bg-success">
-                                        Active
+                                        @Localizer["Active"]
                                     </span>
                                     break;
 
                                 case EnrollmentStatus.Completed:
                                     <span class="badge bg-primary">
-                                        Completed
+                                        @Localizer["Completed"]
                                     </span>
                                     break;
 
                                 case EnrollmentStatus.Cancelled:
                                     <span class="badge bg-danger">
-                                        Cancelled
+                                        @Localizer["Cancelled"]
                                     </span>
                                     break;
                             }
@@ -184,7 +190,7 @@
                                asp-route-id="@item.EnrollmentId"
                                class="btn btn-info btn-sm">
 
-                                Details
+                                @Localizer["Details"]
 
                             </a>
 
@@ -200,7 +206,7 @@
 
                                     <i class="bi bi-trash"></i>
 
-                                    Delete
+                                    @Localizer["Delete"]
 
                                 </button>
 
@@ -218,7 +224,7 @@
                     <td colspan="5"
                         class="text-center">
 
-                        No Enrollments Found.
+                        @Localizer["No Enrollments Found."]
 
                     </td>
 

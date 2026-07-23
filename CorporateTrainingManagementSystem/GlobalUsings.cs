@@ -26,3 +26,4 @@ global using CorporateTrainingManagementSystem.ViewModels.Trainee.Exam;
 global using CorporateTrainingManagementSystem.ViewModels.Trainee.Certificate;
 global using CorporateTrainingManagementSystem.ViewModels.Trainee.Badge;
 global using CorporateTrainingManagementSystem.ViewModels.Instructor.Student;
+global using CorporateTrainingManagementSystem.ViewModels.Certificate;
